@@ -51,18 +51,17 @@
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
+  0%, 100% {
+    opacity: 0.6;
   }
-  100% {
-    background-position: 200% 0;
+  50% {
+    opacity: 1;
   }
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #1a1817 0%, #292523 50%, #1a1817 100%);
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
+  background-color: #24201e;
+  animation: shimmer 1.5s ease-in-out infinite;
 }
 
 /* Custom subtle scrollbar */
@@ -78,5 +77,5 @@
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff5722;
+  background: #e11d48;
 }

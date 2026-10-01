@@ -116,7 +116,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-2xl mx-auto mb-14"
         >
-          <div className="text-xs uppercase tracking-widest text-[#ff5722] font-semibold mb-2">
+          <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2">
             Tarification Dynamique & Transparente
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#f5f3f0] font-display">
@@ -138,7 +138,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
           >
             {/* Step 1: Fish Selection */}
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#ffc107] mb-3 flex items-center gap-1.5">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#fda4af] mb-3 flex items-center gap-1.5">
                 <span>1. Choisissez le Poisson Frais</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -150,13 +150,13 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                       onClick={() => setSelectedFish(fish)}
                       className={`p-4 rounded-xl text-left border transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0] shadow-md'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0] shadow-md'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#c4bfb9] hover:border-[#47413d]'
                       }`}
                     >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-semibold text-sm text-[#f5f3f0] font-display">{fish.name}</span>
-                        <span className="text-xs font-mono font-bold text-[#ff5722]">{formatPrice(fish.basePrice)}</span>
+                        <span className="text-xs font-mono font-bold text-[#e11d48]">{formatPrice(fish.basePrice)}</span>
                       </div>
                       <p className="text-xs text-[#8f8883] leading-relaxed">{fish.desc}</p>
                     </button>
@@ -167,7 +167,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
 
             {/* Step 2: Size & Calibre */}
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#ffc107] mb-3">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#fda4af] mb-3">
                 2. Calibre & Poids du Poisson
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -179,7 +179,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                       onClick={() => setSelectedSize(size)}
                       className={`p-3.5 rounded-xl text-center border text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#a8a19b] hover:border-[#47413d]'
                       }`}
                     >
@@ -192,7 +192,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
 
             {/* Step 3: Sides */}
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#ffc107] mb-3">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#fda4af] mb-3">
                 3. Garnitures de l'Allocodrome (Sélectionnez 1 ou plusieurs)
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
@@ -204,15 +204,15 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                       onClick={() => toggleSide(side.id)}
                       className={`p-3 rounded-xl text-left border text-xs font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? 'bg-[#29221f] border-[#ffc107] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883] hover:border-[#47413d]'
                       }`}
                     >
                       <span>{side.name}</span>
                       {isSelected ? (
-                        <Check className="w-3.5 h-3.5 text-[#ffc107] shrink-0" />
+                        <Check className="w-3.5 h-3.5 text-[#e11d48] shrink-0" />
                       ) : side.price > 0 ? (
-                        <span className="text-[10px] text-[#ff5722]">+{side.price} F</span>
+                        <span className="text-[10px] text-[#fda4af]">+{side.price} F</span>
                       ) : null}
                     </button>
                   );
@@ -222,7 +222,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
 
             {/* Step 4: Spiciness */}
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#ffc107] mb-3">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#fda4af] mb-3">
                 4. Intensité du Piment
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -234,7 +234,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                       onClick={() => setSelectedSpice(spice)}
                       className={`p-3 rounded-xl text-left border transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883] hover:border-[#47413d]'
                       }`}
                     >
@@ -248,7 +248,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
 
             {/* Step 5: Drink */}
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#ffc107] mb-3">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#fda4af] mb-3">
                 5. Boisson du Terroir
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -260,12 +260,12 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                       onClick={() => setSelectedDrink(drink)}
                       className={`p-2.5 rounded-xl text-center border text-xs transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883] hover:border-[#47413d]'
                       }`}
                     >
                       <div className="font-medium text-[#f5f3f0]">{drink.name}</div>
-                      <div className="text-[10px] text-[#ffc107] mt-0.5">
+                      <div className="text-[10px] text-[#fda4af] mt-0.5">
                         {drink.price > 0 ? `+${formatPrice(drink.price)}` : 'Inclus'}
                       </div>
                     </button>
@@ -284,14 +284,14 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
             className="lg:col-span-4 lg:sticky lg:top-28"
           >
             <div className="bg-[#181615] rounded-2xl border border-[#2e2a28] p-6 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff5722]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#e11d48]/10 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-center justify-between pb-4 border-b border-[#292625] mb-5">
                 <div>
                   <div className="text-xs uppercase tracking-wider text-[#8f8883]">Récapitulatif</div>
                   <h3 className="text-lg font-bold text-[#f5f3f0] font-display">Votre Plateau Eza Zozo</h3>
                 </div>
-                <Sparkles className="w-5 h-5 text-[#ffc107]" />
+                <Sparkles className="w-5 h-5 text-[#e11d48]" />
               </div>
 
               {/* Itemized breakdown */}
@@ -325,7 +325,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
               {/* Total Display */}
               <div className="p-4 rounded-xl bg-[#211e1c] border border-[#332e2b] mb-6">
                 <div className="text-xs text-[#8f8883]">Tarif Total Estimé</div>
-                <div className="text-3xl font-extrabold text-[#ff5722] font-display tabular-nums mt-0.5">
+                <div className="text-3xl font-extrabold text-[#e11d48] font-display tabular-nums mt-0.5">
                   {formatPrice(totalPrice)}
                 </div>
                 <div className="text-[11px] text-[#a8a19b] mt-1">
@@ -340,7 +340,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                   className={`w-full py-3 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     addedSuccess
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-[#ff5722] hover:bg-[#e64a19] text-white shadow-md shadow-[#ff5722]/20'
+                      : 'bg-[#e11d48] hover:bg-[#be123c] text-white shadow-md shadow-[#e11d48]/20'
                   }`}
                 >
                   {addedSuccess ? (

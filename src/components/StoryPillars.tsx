@@ -6,7 +6,7 @@ export const StoryPillars: React.FC = () => {
   return (
     <section id="concept" className="py-20 bg-[#121111] relative overflow-hidden border-t border-[#242120]">
       {/* Background glow */}
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#ff5722]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#e11d48]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -17,7 +17,7 @@ export const StoryPillars: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="text-xs uppercase tracking-widest text-[#ff5722] font-semibold mb-2">
+          <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2">
             L'Âme d'Eza Zozo
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#f5f3f0] font-display tracking-tight text-balance">
@@ -44,12 +44,12 @@ export const StoryPillars: React.FC = () => {
                 className="w-full h-[400px] object-cover object-top hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e0e] via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#121111]/80 backdrop-blur-md border border-[#2e2a28]">
+              <div className="absolute inset-0 bg-[#0f0e0e]/40" />
+              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#121111]/90 backdrop-blur-md border border-[#2e2a28]">
                 <div className="text-sm font-semibold text-[#f5f3f0] font-display">
                   Mr Adanlete & La Brigade Eza Zozo
                 </div>
-                <p className="text-xs text-[#ffc107] mt-0.5">
+                <p className="text-xs text-[#fda4af] mt-0.5">
                   « Le secret n’est pas seulement dans la braise, il est dans le respect du poisson et l’amour de régaler Lomé. »
                 </p>
               </div>
@@ -75,11 +75,11 @@ export const StoryPillars: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#292625]">
               <div className="flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-[#ff5722] shrink-0" />
+                <ShieldCheck className="w-5 h-5 text-[#e11d48] shrink-0" />
                 <span className="text-xs sm:text-sm font-medium text-[#f5f3f0]">Hygiène irréprochable & chaîne du froid</span>
               </div>
               <div className="flex items-center gap-3">
-                <HeartHandshake className="w-5 h-5 text-[#ffc107] shrink-0" />
+                <HeartHandshake className="w-5 h-5 text-[#fda4af] shrink-0" />
                 <span className="text-xs sm:text-sm font-medium text-[#f5f3f0]">Soutien direct aux pêcheurs togolais</span>
               </div>
             </div>
@@ -94,9 +94,9 @@ export const StoryPillars: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#ff5722]/50 transition-colors group"
+            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ff5722]/10 flex items-center justify-center text-[#ff5722] mb-5 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 flex items-center justify-center text-[#e11d48] mb-5 group-hover:scale-110 transition-transform">
               <Waves className="w-6 h-6" />
             </div>
             <h4 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -113,9 +113,9 @@ export const StoryPillars: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#ffc107]/50 transition-colors group"
+            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ffc107]/10 flex items-center justify-center text-[#ffc107] mb-5 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 flex items-center justify-center text-[#e11d48] mb-5 group-hover:scale-110 transition-transform">
               <Flame className="w-6 h-6" />
             </div>
             <h4 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -132,9 +132,9 @@ export const StoryPillars: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#ff5722]/50 transition-colors group"
+            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ff5722]/10 flex items-center justify-center text-[#ff5722] mb-5 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 flex items-center justify-center text-[#e11d48] mb-5 group-hover:scale-110 transition-transform">
               <UtensilsCrossed className="w-6 h-6" />
             </div>
             <h4 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">

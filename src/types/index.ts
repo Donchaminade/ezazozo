@@ -1,5 +1,16 @@
 export type CategoryType = 'all' | 'poissons' | 'plateaux' | 'accompagnements' | 'boissons';
 
+export interface DishReview {
+  id: string;
+  author: string;
+  avatar: string;
+  rating: number; // 1-5
+  comment: string;
+  date: string;
+  location: string;
+  verifiedOrder?: boolean;
+}
+
 export interface MenuItem {
   id: string;
   name: string;
@@ -7,6 +18,14 @@ export interface MenuItem {
   price: number; // in FCFA (XOF)
   description: string;
   image: string;
+  galleryImages?: string[]; // Multiple angles of the dish
+  rating?: number; // e.g. 4.9
+  reviewCount?: number; // e.g. 48 avis
+  reviews?: DishReview[]; // Comments specifically on this dish
+  marinadeNotes?: string;
+  cookingTime?: string;
+  ingredients?: string[];
+  recommendedSides?: string[];
   isSpecialty?: boolean;
   spicyLevel?: 0 | 1 | 2 | 3;
   weightGrams?: string;

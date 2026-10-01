@@ -86,7 +86,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           {/* Header */}
           <div className="p-5 border-b border-[#292625] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-[#ff5722]" />
+              <ShoppingBag className="w-5 h-5 text-[#e11d48]" />
               <h2 className="text-base font-bold text-[#f5f3f0] font-display">
                 Votre Commande Eza Zozo
               </h2>
@@ -116,7 +116,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <span>{items.reduce((a, b) => a + b.quantity, 0)} articles sélectionnés</span>
                   <button
                     onClick={onClearCart}
-                    className="text-[#ff5722] hover:underline"
+                    className="text-[#e11d48] hover:underline"
                   >
                     Vider le panier
                   </button>
@@ -132,7 +132,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <div className="text-xs font-bold text-[#f5f3f0] truncate font-display">
                           {cartItem.item.name}
                         </div>
-                        <div className="text-[11px] font-mono text-[#ffc107] mt-0.5">
+                        <div className="text-[11px] font-mono text-[#fda4af] mt-0.5">
                           {formatPrice(cartItem.item.price)}
                         </div>
                         {cartItem.item.description && (
@@ -176,7 +176,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Delivery Options */}
                 <div className="pt-4 border-t border-[#262220] space-y-3">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-[#ffc107]">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#fda4af]">
                     Mode de Dégustation
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs">
@@ -184,11 +184,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       onClick={() => setDeliveryType('livraison')}
                       className={`p-2 rounded-xl border text-center transition-all flex flex-col items-center gap-1 ${
                         deliveryType === 'livraison'
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883]'
                       }`}
                     >
-                      <Bike className="w-4 h-4 text-[#ff5722]" />
+                      <Bike className="w-4 h-4 text-[#e11d48]" />
                       <span>Livraison</span>
                     </button>
 
@@ -196,11 +196,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       onClick={() => setDeliveryType('sur-place')}
                       className={`p-2 rounded-xl border text-center transition-all flex flex-col items-center gap-1 ${
                         deliveryType === 'sur-place'
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883]'
                       }`}
                     >
-                      <Utensils className="w-4 h-4 text-[#ffc107]" />
+                      <Utensils className="w-4 h-4 text-[#fda4af]" />
                       <span>Sur Place</span>
                     </button>
 
@@ -208,7 +208,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       onClick={() => setDeliveryType('emporter')}
                       className={`p-2 rounded-xl border text-center transition-all flex flex-col items-center gap-1 ${
                         deliveryType === 'emporter'
-                          ? 'bg-[#29221f] border-[#ff5722] text-[#f5f3f0]'
+                          ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883]'
                       }`}
                     >
@@ -274,7 +274,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 )}
                 <div className="flex justify-between text-sm font-bold pt-2 border-t border-[#292625] text-[#f5f3f0]">
                   <span>Total estimé</span>
-                  <span className="font-mono text-base text-[#ff5722]">{formatPrice(grandTotal)}</span>
+                  <span className="font-mono text-base text-[#e11d48]">{formatPrice(grandTotal)}</span>
                 </div>
               </div>
 

@@ -23,13 +23,11 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
           className="w-full h-full object-cover object-center filter brightness-60 contrast-110"
           referrerPolicy="no-referrer"
         />
-        {/* Layered gradients for deep dark luxury atmosphere and legible text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e0e] via-[#0f0e0e]/80 to-[#0f0e0e]/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f0e0e]/90 via-[#0f0e0e]/60 to-transparent" />
+        {/* Clean solid scrim for high legibility without distracting gradients */}
+        <div className="absolute inset-0 bg-[#0f0e0e]/80" />
         
-        {/* Subtle glowing warm amber/ember accent */}
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#ff5722]/15 rounded-full blur-3xl pointer-events-none animate-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#ffc107]/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Subtle comfortable rose ambient glow */}
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#e11d48]/10 rounded-full blur-3xl pointer-events-none" />
       </motion.div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8">
@@ -39,10 +37,10 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex items-center gap-3 text-xs tracking-wider uppercase text-[#ffc107] font-semibold mb-4"
+            className="flex items-center gap-3 text-xs tracking-wider uppercase text-[#fda4af] font-semibold mb-4"
           >
             <span className="flex items-center gap-1.5">
-              <Flame className="w-4 h-4 text-[#ff5722]" />
+              <Flame className="w-4 h-4 text-[#e11d48]" />
               Poissonnerie & Grillades d'Exception
             </span>
             <span aria-hidden="true" className="text-[#59524e]">·</span>
@@ -51,14 +49,14 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
             <span className="text-[#f5f3f0]">Mr Adanlete</span>
           </motion.div>
 
-          {/* Headline percutant avec animation de texte */}
+          {/* Headline percutant - couleur rose-rouge solide et confortable */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#f5f3f0] tracking-tight leading-[1.1] mb-6 font-display text-balance"
           >
-            L'Art du Poisson Grillé à Lomé — <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff5722] via-[#ff9800] to-[#ffc107]">Savoureux, Généreux, Inimitable.</span>
+            L'Art du Poisson Grillé à Lomé — <span className="text-[#e11d48]">Savoureux, Généreux, Inimitable.</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -80,7 +78,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
           >
             <button
               onClick={onExploreMenu}
-              className="px-7 py-3.5 bg-gradient-to-r from-[#ff5722] to-[#f4511e] hover:from-[#f4511e] hover:to-[#e64a19] text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-[#ff5722]/25 flex items-center justify-center gap-2 group cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#ff5722]"
+              className="px-7 py-3.5 bg-[#e11d48] hover:bg-[#be123c] text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-[#e11d48]/25 flex items-center justify-center gap-2 group cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#e11d48]"
             >
               <span>Voir la Carte & Commander</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -90,7 +88,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
               onClick={onOpenLocation}
               className="px-6 py-3.5 bg-[#1f1d1b]/80 hover:bg-[#2c2927] border border-[#3b3633] text-[#f5f3f0] font-medium rounded-xl transition-all duration-200 flex items-center justify-center gap-2 backdrop-blur-sm cursor-pointer"
             >
-              <MapPin className="w-4 h-4 text-[#ffc107]" />
+              <MapPin className="w-4 h-4 text-[#e11d48]" />
               <span>Emplacements & Horaires</span>
             </button>
           </motion.div>
@@ -118,7 +116,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
 
             <div className="col-span-2 sm:col-span-1">
               <div className="text-xl sm:text-2xl font-bold text-[#f5f3f0] font-display tabular-nums flex items-center gap-1.5">
-                <Clock className="w-5 h-5 text-[#ffc107]" />
+                <Clock className="w-5 h-5 text-[#fda4af]" />
                 <span>11h - 23h30</span>
               </div>
               <p className="text-xs text-[#8f8883] mt-0.5">7 jours sur 7 · Sur place & Livraison</p>

@@ -5,16 +5,20 @@ import { StoryPillars } from './components/StoryPillars';
 import { MenuSection } from './components/MenuSection';
 import { CustomPlatterBuilder } from './components/CustomPlatterBuilder';
 import { TikTokFeed } from './components/TikTokFeed';
+import { CommunityGallery } from './components/CommunityGallery';
 import { OrderProcess } from './components/OrderProcess';
 import { ContactAndMap } from './components/ContactAndMap';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
+import { AmbientSoundPlayer } from './components/AmbientSoundPlayer';
+import { ShareModal } from './components/ShareModal';
 import { CartItem, MenuItem } from './types';
 import { ShoppingBag, Phone } from 'lucide-react';
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   // Cart operations
   const handleAddToCart = (item: MenuItem) => {
@@ -61,11 +65,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0e0e] text-[#f5f3f0] selection:bg-[#ff5722] selection:text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#0f0e0e] text-[#f5f3f0] selection:bg-[#e11d48] selection:text-white flex flex-col font-sans">
       {/* Accessibility Skip Link */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-[#ff5722] text-white px-4 py-2 rounded-lg font-bold"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-[#e11d48] text-white px-4 py-2 rounded-lg font-bold"
       >
         Aller au contenu principal
       </a>
@@ -74,6 +78,7 @@ export default function App() {
       <Navbar
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
+        onOpenShare={() => setIsShareOpen(true)}
       />
 
       {/* Main Content */}
@@ -96,15 +101,27 @@ export default function App() {
         {/* Section 4: TikTok Reels & Social Proof */}
         <TikTokFeed />
 
-        {/* Section 5: Processus de Commande & Livraison */}
+        {/* Section 5: Mur des Gourmands & Stories Communauté */}
+        <CommunityGallery />
+
+        {/* Section 6: Processus de Commande & Livraison */}
         <OrderProcess />
 
-        {/* Section 6: Contact, Horaires & Plan d'accès */}
+        {/* Section 7: Contact, Horaires & Plan d'accès */}
         <ContactAndMap />
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenShare={() => setIsShareOpen(true)} />
+
+      {/* Share Modal with Rich Poster Preview */}
+      <ShareModal
+        isOpen={isShareOpen}
+        onClose={() => setIsShareOpen(false)}
+      />
+
+      {/* Ambient Sound Player: Braise au feu de bois & Océan de Lomé */}
+      <AmbientSoundPlayer />
 
       {/* Slide-over Cart Drawer */}
       <CartDrawer
@@ -131,11 +148,11 @@ export default function App() {
         {totalCartCount > 0 && (
           <button
             onClick={() => setIsCartOpen(true)}
-            className="p-3 bg-[#ff5722] text-white rounded-full shadow-xl hover:scale-105 transition-transform relative flex items-center justify-center"
+            className="p-3 bg-[#e11d48] text-white rounded-full shadow-xl hover:scale-105 transition-transform relative flex items-center justify-center"
             aria-label={`Voir le panier (${totalCartCount})`}
           >
             <ShoppingBag className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 bg-white text-[#ff5722] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
+            <span className="absolute -top-1 -right-1 bg-white text-[#e11d48] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
               {totalCartCount}
             </span>
           </button>

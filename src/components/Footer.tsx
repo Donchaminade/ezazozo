@@ -1,8 +1,12 @@
 import React from 'react';
-import { Flame, Phone, MapPin, Clock, Heart } from 'lucide-react';
+import { Flame, Phone, MapPin, Clock, Heart, Share2 } from 'lucide-react';
 import { RESTAURANT_INFO } from '../data/restaurantData';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenShare?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
   return (
     <footer className="bg-[#0b0a0a] text-[#a8a19b] border-t border-[#211e1c] pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,13 +14,13 @@ export const Footer: React.FC = () => {
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-xl font-bold text-[#f5f3f0] font-display">
-              <Flame className="w-5 h-5 text-[#ff5722]" />
+              <Flame className="w-5 h-5 text-[#e11d48]" />
               <span>Eza Zozo</span>
             </div>
             <p className="text-xs leading-relaxed text-[#8f8883]">
               L'adresse référence du poisson frais braisé au feu de bois à Lomé. Une expérience culinaire authentique portée par Mr Adanlete et son équipe d'artisans.
             </p>
-            <div className="text-xs text-[#ffc107]">
+            <div className="text-xs text-[#fda4af]">
               Pêche du jour · Marinade secrète · Allocodrome
             </div>
           </div>
@@ -28,30 +32,46 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#concept" className="hover:text-[#ff5722] transition-colors">
+                <a href="#concept" className="hover:text-[#e11d48] transition-colors">
                   Le Concept & Les 3 Piliers
                 </a>
               </li>
               <li>
-                <a href="#menu" className="hover:text-[#ff5722] transition-colors">
+                <a href="#menu" className="hover:text-[#e11d48] transition-colors">
                   La Carte & Les Poissons Braisés
                 </a>
               </li>
               <li>
-                <a href="#simulateur" className="hover:text-[#ff5722] transition-colors">
+                <a href="#simulateur" className="hover:text-[#e11d48] transition-colors">
                   Simulateur de Plateau
                 </a>
               </li>
               <li>
-                <a href="#tiktok" className="hover:text-[#ff5722] transition-colors">
+                <a href="#tiktok" className="hover:text-[#e11d48] transition-colors">
                   L'Esprit TikTok & Avis
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#ff5722] transition-colors">
+                <a href="#communaute" className="hover:text-[#e11d48] transition-colors">
+                  Le Mur des Gourmands
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-[#e11d48] transition-colors">
                   Réservation & Localisation
                 </a>
               </li>
+              {onOpenShare && (
+                <li>
+                  <button
+                    onClick={onOpenShare}
+                    className="hover:text-[#fda4af] text-[#e11d48] transition-colors flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Share2 className="w-3 h-3" />
+                    <span>Partager le site (Affiche)</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -62,7 +82,7 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="text-xs space-y-2 text-[#8f8883]">
               <p className="flex items-center gap-2 text-[#c4bfb9]">
-                <Clock className="w-4 h-4 text-[#ffc107]" />
+                <Clock className="w-4 h-4 text-[#fda4af]" />
                 <span>Tous les jours : 11h00 - 23h30</span>
               </p>
               <p>Service continu midi et soir</p>
@@ -90,7 +110,7 @@ export const Footer: React.FC = () => {
               <p>
                 <a
                   href={`tel:${RESTAURANT_INFO.phoneSecondary}`}
-                  className="hover:text-[#ff5722] transition-colors font-mono"
+                  className="hover:text-[#e11d48] transition-colors font-mono"
                 >
                   Appel direct : {RESTAURANT_INFO.phoneSecondary}
                 </a>
@@ -102,7 +122,7 @@ export const Footer: React.FC = () => {
                 href={RESTAURANT_INFO.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#181615] border border-[#2b2725] text-xs text-[#f5f3f0] hover:text-[#ff5722] hover:border-[#ff5722] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#181615] border border-[#2b2725] text-xs text-[#f5f3f0] hover:text-[#e11d48] hover:border-[#e11d48] transition-colors"
               >
                 TikTok ({RESTAURANT_INFO.tiktokHandle})
               </a>
@@ -123,7 +143,7 @@ export const Footer: React.FC = () => {
           <p>© {new Date().getFullYear()} Eza Zozo Poissonnerie & Grillade. Tous droits réservés.</p>
           <p className="flex items-center gap-1.5 text-[#a8a19b]">
             <span>Fait avec passion à Lomé, Togo</span>
-            <Heart className="w-3.5 h-3.5 text-[#ff5722] fill-current" />
+            <Heart className="w-3.5 h-3.5 text-[#e11d48] fill-current" />
             <span>par Mr Adanlete & son équipe</span>
           </p>
         </div>

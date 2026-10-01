@@ -45,7 +45,7 @@ export const ContactAndMap: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <div className="text-xs uppercase tracking-widest text-[#ff5722] font-semibold mb-2">
+          <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2">
             Nous Trouver & Réserver
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#f5f3f0] font-display">
@@ -68,7 +68,7 @@ export const ContactAndMap: React.FC = () => {
             {/* Practical info cards */}
             <div className="p-6 rounded-2xl bg-[#161413] border border-[#2b2725] space-y-5">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-[#ff5722]/15 text-[#ff5722] shrink-0">
+                <div className="p-3 rounded-xl bg-[#e11d48]/15 text-[#e11d48] shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
@@ -83,7 +83,7 @@ export const ContactAndMap: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-4 pt-4 border-t border-[#262220]">
-                <div className="p-3 rounded-xl bg-[#ffc107]/15 text-[#ffc107] shrink-0">
+                <div className="p-3 rounded-xl bg-[#e11d48]/10 text-[#fda4af] shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
@@ -106,13 +106,13 @@ export const ContactAndMap: React.FC = () => {
                   <div className="flex flex-col gap-1 mt-1 text-xs sm:text-sm">
                     <a
                       href={`tel:${RESTAURANT_INFO.whatsappNumber}`}
-                      className="text-[#f5f3f0] hover:text-[#ff5722] font-mono transition-colors"
+                      className="text-[#f5f3f0] hover:text-[#e11d48] font-mono transition-colors"
                     >
                       {RESTAURANT_INFO.whatsappDisplay} (Commandes & WhatsApp)
                     </a>
                     <a
                       href={`tel:${RESTAURANT_INFO.phoneSecondary}`}
-                      className="text-[#a8a19b] hover:text-[#ff5722] font-mono transition-colors"
+                      className="text-[#a8a19b] hover:text-[#e11d48] font-mono transition-colors"
                     >
                       {RESTAURANT_INFO.phoneSecondary} (Service & Banquets)
                     </a>
@@ -124,14 +124,14 @@ export const ContactAndMap: React.FC = () => {
             {/* Embedded Stylized Map Card */}
             <div className="rounded-2xl overflow-hidden bg-[#161413] border border-[#2b2725] p-5">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#ffc107]">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#fda4af]">
                   Plan d'Accès Lomé
                 </span>
                 <a
                   href="https://maps.google.com/?q=Lome+Togo+Boulevard+Circulaire"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-[#ff5722] hover:underline flex items-center gap-1 font-medium"
+                  className="text-xs text-[#e11d48] hover:underline flex items-center gap-1 font-medium"
                 >
                   <Navigation className="w-3.5 h-3.5" />
                   <span>Itinéraire Google Maps</span>
@@ -140,9 +140,8 @@ export const ContactAndMap: React.FC = () => {
 
               {/* Simulated Map Visual */}
               <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-[#1e1b19] border border-[#2e2a28] flex items-center justify-center text-center p-4">
-                <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#ff5722_1px,transparent_1px)] [background-size:16px_16px]" />
                 <div className="relative z-10">
-                  <div className="w-10 h-10 rounded-full bg-[#ff5722] text-white flex items-center justify-center mx-auto mb-2 shadow-lg animate-bounce">
+                  <div className="w-10 h-10 rounded-full bg-[#e11d48] text-white flex items-center justify-center mx-auto mb-2 shadow-lg animate-bounce">
                     <MapPin className="w-5 h-5 fill-current" />
                   </div>
                   <div className="text-xs font-bold text-[#f5f3f0]">EZA ZOZO GRILLADE</div>
@@ -209,7 +208,7 @@ export const ContactAndMap: React.FC = () => {
                       placeholder="Ex: Koffi Mensah"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#ff5722] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -223,7 +222,7 @@ export const ContactAndMap: React.FC = () => {
                       placeholder="+228 90 00 00 00"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#ff5722] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -236,7 +235,7 @@ export const ContactAndMap: React.FC = () => {
                     <select
                       value={formData.type}
                       onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#ff5722] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     >
                       <option>Réservation de Table</option>
                       <option>Commande à Emporter</option>
@@ -252,7 +251,7 @@ export const ContactAndMap: React.FC = () => {
                     <select
                       value={formData.guests}
                       onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#ff5722] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     >
                       <option>1 Personne</option>
                       <option>2 Personnes</option>
@@ -270,7 +269,7 @@ export const ContactAndMap: React.FC = () => {
                       type="time"
                       value={formData.time}
                       onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#ff5722] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -284,14 +283,14 @@ export const ContactAndMap: React.FC = () => {
                     placeholder="Ex: Nous souhaitons 2 dorades bien pimentées avec double alloco et une table en terrasse..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#ff5722] focus:outline-none transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors resize-none"
                   />
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                   <button
                     type="submit"
-                    className="w-full sm:flex-1 py-3 px-5 bg-[#ff5722] hover:bg-[#e64a19] text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                    className="w-full sm:flex-1 py-3 px-5 bg-[#e11d48] hover:bg-[#be123c] text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
                   >
                     <Send className="w-4 h-4" />
                     <span>Envoyer la Demande</span>

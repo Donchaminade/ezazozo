@@ -30,18 +30,18 @@ export const TikTokFeed: React.FC = () => {
           className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6"
         >
           <div>
-            <div className="text-xs uppercase tracking-widest text-[#ff5722] font-semibold mb-2 flex items-center gap-2">
+            <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2 flex items-center gap-2">
               <span className="flex items-center gap-1.5">
-                <Flame className="w-3.5 h-3.5 text-[#ff5722]" />
+                <Flame className="w-3.5 h-3.5 text-[#e11d48]" />
                 Phénomène Viral à Lomé
               </span>
               <button
                 onClick={handleRefresh}
-                className="text-[#8f8883] hover:text-[#ff5722] transition-colors p-1 rounded inline-flex items-center gap-1 text-[11px] font-normal"
+                className="text-[#8f8883] hover:text-[#e11d48] transition-colors p-1 rounded inline-flex items-center gap-1 text-[11px] font-normal"
                 title="Actualiser les vidéos récentes"
                 aria-label="Actualiser les vidéos TikTok"
               >
-                <RefreshCw className={`w-3 h-3 ${isLoading ? 'animate-spin text-[#ff5722]' : ''}`} />
+                <RefreshCw className={`w-3 h-3 ${isLoading ? 'animate-spin text-[#e11d48]' : ''}`} />
                 <span>Actualiser</span>
               </button>
             </div>
@@ -60,7 +60,7 @@ export const TikTokFeed: React.FC = () => {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1d1b1a] hover:bg-[#282523] border border-[#383330] text-xs font-semibold text-[#f5f3f0] transition-colors self-start md:self-end"
           >
             <span>Suivre {RESTAURANT_INFO.tiktokHandle}</span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#ff5722]" />
+            <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
           </a>
         </motion.div>
 
@@ -79,7 +79,7 @@ export const TikTokFeed: React.FC = () => {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => setSelectedVideo(vid)}
-                className="group cursor-pointer rounded-2xl overflow-hidden bg-[#181615] border border-[#2e2a28] hover:border-[#ff5722]/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl relative flex flex-col"
+                className="group cursor-pointer rounded-2xl overflow-hidden bg-[#181615] border border-[#2e2a28] hover:border-[#e11d48]/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl relative flex flex-col"
               >
                 {/* Video Thumbnail (Vertical 9:16 vibe or 4:5) */}
                 <div className="relative aspect-[3/4] bg-[#221f1d] overflow-hidden">
@@ -90,10 +90,10 @@ export const TikTokFeed: React.FC = () => {
                     referrerPolicy="no-referrer"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#121111] via-transparent to-transparent opacity-90" />
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-[#121111]/75" />
 
                   {/* Top Badge */}
-                  <div className="absolute top-3 left-3 bg-[#121111]/80 backdrop-blur-md px-2 py-0.5 rounded text-[11px] font-semibold text-[#ffc107] border border-[#ffc107]/20">
+                  <div className="absolute top-3 left-3 bg-[#121111]/90 backdrop-blur-md px-2 py-0.5 rounded text-[11px] font-semibold text-[#fda4af] border border-[#e11d48]/30">
                     {vid.tag}
                   </div>
 
@@ -104,7 +104,7 @@ export const TikTokFeed: React.FC = () => {
 
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-[#ff5722]/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 rounded-full bg-[#e11d48]/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                       <Play className="w-5 h-5 fill-current ml-0.5" />
                     </div>
                   </div>
@@ -112,11 +112,11 @@ export const TikTokFeed: React.FC = () => {
                   {/* Bottom stats inside frame */}
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-[#f5f3f0]">
                     <div className="flex items-center gap-1">
-                      <Eye className="w-3.5 h-3.5 text-[#ffc107]" />
+                      <Eye className="w-3.5 h-3.5 text-[#fda4af]" />
                       <span className="font-mono">{vid.views}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Heart className="w-3.5 h-3.5 text-[#ff5722]" />
+                      <Heart className="w-3.5 h-3.5 text-[#e11d48]" />
                       <span className="font-mono">{vid.likes}</span>
                     </div>
                   </div>
@@ -145,7 +145,7 @@ export const TikTokFeed: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-xl mx-auto mb-12"
           >
-            <div className="text-xs uppercase tracking-widest text-[#ffc107] font-semibold mb-2">
+            <div className="text-xs uppercase tracking-widest text-[#fda4af] font-semibold mb-2">
               Avis & Témoignages
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-[#f5f3f0] font-display">
@@ -164,7 +164,7 @@ export const TikTokFeed: React.FC = () => {
                 className="p-6 rounded-2xl bg-[#161413] border border-[#2b2725] flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-[#ffc107] mb-4">
+                  <div className="flex items-center gap-1 text-[#fda4af] mb-4">
                     {[...Array(rev.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
@@ -176,7 +176,7 @@ export const TikTokFeed: React.FC = () => {
 
                 <div className="pt-4 border-t border-[#262220] flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#ff5722]/20 border border-[#ff5722]/40 text-[#ff5722] font-bold text-xs flex items-center justify-center font-display">
+                    <div className="w-9 h-9 rounded-full bg-[#e11d48]/20 border border-[#e11d48]/40 text-[#fda4af] font-bold text-xs flex items-center justify-center font-display">
                       {rev.avatar}
                     </div>
                     <div>
@@ -208,7 +208,7 @@ export const TikTokFeed: React.FC = () => {
             {/* Reel Header */}
             <div className="p-4 border-b border-[#292625] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-[#ff5722] text-white flex items-center justify-center font-bold text-xs">
+                <div className="w-7 h-7 rounded-full bg-[#e11d48] text-white flex items-center justify-center font-bold text-xs">
                   EZ
                 </div>
                 <div>
@@ -232,7 +232,7 @@ export const TikTokFeed: React.FC = () => {
                 alt={selectedVideo.title}
                 className="w-full h-full object-cover filter brightness-95"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+              <div className="absolute inset-x-0 bottom-0 h-28 bg-black/70" />
 
               {/* Center Play Indicator */}
               <button
@@ -257,10 +257,10 @@ export const TikTokFeed: React.FC = () => {
                 <div className="font-bold text-sm mb-1">{selectedVideo.title}</div>
                 <div className="text-xs text-zinc-300 leading-relaxed">{selectedVideo.caption}</div>
                 <div className="mt-3 flex items-center gap-4 text-xs font-mono">
-                  <span className="flex items-center gap-1 text-[#ffc107]">
+                  <span className="flex items-center gap-1 text-[#fda4af]">
                     <Eye className="w-3.5 h-3.5" /> {selectedVideo.views}
                   </span>
-                  <span className="flex items-center gap-1 text-[#ff5722]">
+                  <span className="flex items-center gap-1 text-[#e11d48]">
                     <Heart className="w-3.5 h-3.5" /> {selectedVideo.likes}
                   </span>
                 </div>
@@ -273,7 +273,7 @@ export const TikTokFeed: React.FC = () => {
                 href={RESTAURANT_INFO.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 py-2.5 bg-[#ff5722] hover:bg-[#e64a19] text-white text-xs font-bold rounded-xl text-center transition-colors"
+                className="flex-1 py-2.5 bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-bold rounded-xl text-center transition-colors"
               >
                 Voir sur TikTok
               </a>

@@ -33,6 +33,50 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 6500,
     description: 'Pêche du jour marinée aux herbes fraîches et badigeonnée de la marinade secrète Eza Zozo. Chair tendre et peau croustillante aux braises.',
     image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    galleryImages: [
+      '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg',
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
+      '/src/assets/images/community_seafood_friends_1790843517438.jpg'
+    ],
+    rating: 4.9,
+    reviewCount: 52,
+    marinadeNotes: 'Marinade de 12 heures infusée aux herbes sauvages du Togo, ail rôti, gingembre frais et huile d’olive infusée aux graines de poivre de Penja.',
+    cookingTime: '25 à 30 min sur braise ardente d’acacia',
+    ingredients: ['Dorade royale fraîche de l’Atlantique', 'Gingembre de Kpalimé', 'Ail rôti au feu', 'Persil & céleri sauvage', 'Piment vert doux', 'Citron vert de Tsévié'],
+    recommendedSides: ['Alloco doré au piment écrasé', 'Attiéké graine fine', 'Sauce piment noir Shito maison'],
+    reviews: [
+      {
+        id: 'rev-dr-1',
+        author: 'Emmanuel Ayivi',
+        avatar: 'EA',
+        location: 'Tokoin Habitat, Lomé',
+        rating: 5,
+        date: 'Il y a 2 jours',
+        comment: 'La dorade était succulente, la peau croustillante et l’intérieur ultra juteux. La meilleure marinade de Lomé !',
+        verifiedOrder: true
+      },
+      {
+        id: 'rev-dr-2',
+        author: 'Séfako Mensah',
+        avatar: 'SM',
+        location: 'Nyékonakpoè',
+        rating: 5,
+        date: 'Il y a 5 jours',
+        comment: 'Portion très généreuse, servie brûlante avec un alloco sucré bien caramélisé. Mention spéciale au piment noir.',
+        verifiedOrder: true
+      },
+      {
+        id: 'rev-dr-3',
+        author: 'Patrick K.',
+        avatar: 'PK',
+        location: 'Bè-Kpota',
+        rating: 4.8,
+        date: 'La semaine dernière',
+        comment: 'Goût fumé incomparable du feu de bois. On sent que le poisson a été pêché le matin même.',
+        verifiedOrder: true
+      }
+    ],
     isSpecialty: true,
     spicyLevel: 2,
     weightGrams: '~800g',
@@ -46,6 +90,40 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 8000,
     description: 'Le poisson noble par excellence. Chair ferme et blanche, grillée à coeur avec son coulis d’oignons caramélisés et piment maison.',
     image: '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+    galleryImages: [
+      '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg',
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
+      '/src/assets/images/chef_adanlete_grill_1790838467936.jpg'
+    ],
+    rating: 5.0,
+    reviewCount: 68,
+    marinadeNotes: 'Baigné dans une émulsion de beurre d’aromates, ciboulette locale, pointe de moutarde douce et poivre noir concassé au mortier traditionnel.',
+    cookingTime: '30 à 35 min de grillade progressive',
+    ingredients: ['Capitaine sauvage entier frais', 'Oignons rouges confits', 'Ail pilé', 'Feuilles de laurier togolaises', 'Huile parfumée', 'Fleur de sel'],
+    recommendedSides: ['Attiéké vapeur moelleux', 'Alloco crousti-fondant', 'Rondelles d’oignons et tomates fraîches'],
+    reviews: [
+      {
+        id: 'rev-cap-1',
+        author: 'Dr. Foli Adjamagbo',
+        avatar: 'FA',
+        location: 'Boulevard Circulaire, Lomé',
+        rating: 5,
+        date: 'Hier soir',
+        comment: 'Le capitaine est tout simplement royal ! Aucun goût d’eau, une chair blanche nacrée qui se détache toute seule.',
+        verifiedOrder: true
+      },
+      {
+        id: 'rev-cap-2',
+        author: 'Bénédicte Lawson',
+        avatar: 'BL',
+        location: 'Agoè Téléphone',
+        rating: 5,
+        date: 'Il y a 3 jours',
+        comment: 'Livré à Agoè encore fumant dans son emballage thermique. Toute la famille s’est régalée.',
+        verifiedOrder: true
+      }
+    ],
     isSpecialty: true,
     spicyLevel: 2,
     weightGrams: '~950g',
@@ -59,6 +137,29 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 7000,
     description: 'Marinée au gingembre sauvage, ail rôti et graines de poivre de Penja. Une saveur fumée intense relevée au citron vert.',
     image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    galleryImages: [
+      '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+      '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg'
+    ],
+    rating: 4.8,
+    reviewCount: 39,
+    marinadeNotes: 'Recette secrète épicée aux zestes de combava, échalotes torréfiées et piments doux écrasés sur pierre.',
+    cookingTime: '25 min au feu vif',
+    ingredients: ['Carpe rouge de haute mer', 'Gingembre sauvage', 'Ail en chemise', 'Poivre de Penja', 'Citrons verts'],
+    recommendedSides: ['Frites maison croustillantes', 'Sauce verte aux fines herbes'],
+    reviews: [
+      {
+        id: 'rev-cr-1',
+        author: 'Roland Akouete',
+        avatar: 'RA',
+        location: 'Déckon, Lomé',
+        rating: 5,
+        date: 'Il y a 4 jours',
+        comment: 'La peau était croustillante à souhait et le gingembre apporte un peps incroyable.',
+        verifiedOrder: true
+      }
+    ],
     spicyLevel: 1,
     weightGrams: '~850g',
     portion: 'Pour 1 à 2 personnes'
@@ -70,6 +171,40 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 9500,
     description: 'Sélection prestige des marins-pêcheurs de Lomé. Grillade lente aux braises de bois d’acacia, arrosé au beurre d’herbes épicé.',
     image: '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+    galleryImages: [
+      '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg',
+      '/src/assets/images/community_platter_dining_1790843503107.jpg',
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+    ],
+    rating: 5.0,
+    reviewCount: 74,
+    marinadeNotes: 'Marinade noble au thym frais de montagne, oignons blancs caramélisés, réduction d’agrumes et piment doux fumé.',
+    cookingTime: '35 min de cuisson lente et maîtrisée',
+    ingredients: ['Bar / Mérou sauvage XL (+1.2kg)', 'Beurre clarifié aux herbes', 'Thym frais', 'Poivre noir moulu', 'Citron jaune & vert'],
+    recommendedSides: ['Double portion alloco', 'Attiéké grand format', 'Poêlée de légumes croquants'],
+    reviews: [
+      {
+        id: 'rev-bar-1',
+        author: 'Koffi Mensah',
+        avatar: 'KM',
+        location: 'Bè-Plage, Lomé',
+        rating: 5,
+        date: 'Il y a 1 jour',
+        comment: 'Un monstre de saveur ! La taille est impressionnante et la chair reste fondante jusqu’à l’arête.',
+        verifiedOrder: true
+      },
+      {
+        id: 'rev-bar-2',
+        author: 'Afiwa G.',
+        avatar: 'AG',
+        location: 'Hedzranawoé',
+        rating: 5,
+        date: 'Il y a 6 jours',
+        comment: 'C’est notre commande rituelle du dimanche soir. Mr Adanlete ne déçoit jamais !',
+        verifiedOrder: true
+      }
+    ],
     isSpecialty: true,
     spicyLevel: 2,
     weightGrams: '~1.2kg',
@@ -83,6 +218,40 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 18500,
     description: 'Le festin ultime : 1 Grand Bar braisé, 6 Gambas géantes au piment doux, Alloco fondant, Attiéké moelleux, Frites maison et duo de sauces.',
     image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    galleryImages: [
+      '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+      '/src/assets/images/community_platter_dining_1790843503107.jpg',
+      '/src/assets/images/eza_zozo_social_poster_1790844278427.jpg',
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+    ],
+    rating: 5.0,
+    reviewCount: 91,
+    marinadeNotes: 'La quintessence du savoir-faire Eza Zozo : marinades personnalisées pour le bar et les gambas royales, braisées côte à côte.',
+    cookingTime: '35 à 40 min de préparation artisanale',
+    ingredients: ['1 Bar entier braisé XL', '6 Gambas royales grillées', 'Alloco bananes mûres', 'Attiéké frais', 'Frites croustillantes', 'Duo sauces piquante et douce'],
+    recommendedSides: ['Tout est déjà inclus avec générosité !'],
+    reviews: [
+      {
+        id: 'rev-pr-1',
+        author: 'Marc & Émilie Dosseh',
+        avatar: 'MD',
+        location: 'Tokoin Casablanca',
+        rating: 5,
+        date: 'Il y a 2 jours',
+        comment: 'Commandé pour l’anniversaire de mon épouse. Tout le monde a été ébloui par la présentation et la qualité des gambas.',
+        verifiedOrder: true
+      },
+      {
+        id: 'rev-pr-2',
+        author: 'Club des Amis de Lomé',
+        avatar: 'CA',
+        location: 'Nyékonakpoè',
+        rating: 5,
+        date: 'Il y a 5 jours',
+        comment: 'Rapport qualité-prix imbattable à Lomé pour 4 personnes. Les poissons sont d’une fraîcheur exceptionnelle.',
+        verifiedOrder: true
+      }
+    ],
     isSpecialty: true,
     spicyLevel: 2,
     portion: 'Pour 3 à 4 convives',
@@ -95,6 +264,29 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 14000,
     description: '1 Dorade Royale + 1 Capitaine braisé + Brochettes d’escargots de mer ou crevettes sautées, avec double portion d’alloco et légumes sautés.',
     image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    galleryImages: [
+      '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+      '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg'
+    ],
+    rating: 4.9,
+    reviewCount: 44,
+    marinadeNotes: 'Duo de marinades complémentaires pour faire ressortir le fondant de la dorade et la fermeté du capitaine.',
+    cookingTime: '30 à 35 min',
+    ingredients: ['1 Dorade entière', '1 Capitaine entier', 'Crevettes marinées', 'Double portion alloco', 'Légumes sautés au wok'],
+    recommendedSides: ['Inclus : Alloco et Légumes'],
+    reviews: [
+      {
+        id: 'rev-pl-1',
+        author: 'Clarisse Tetteh',
+        avatar: 'CT',
+        location: 'Zone Portuaire, Lomé',
+        rating: 5,
+        date: 'Il y a 3 jours',
+        comment: 'Parfait pour un dîner en amoureux ou entre collègues. Copieux et savoureux.',
+        verifiedOrder: true
+      }
+    ],
     spicyLevel: 2,
     portion: 'Pour 2 à 3 personnes'
   },
@@ -105,6 +297,28 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 4500,
     description: 'Demi-poisson braisé au choix + Portion généreuse d’Alloco ou Attiéké + Jus de Bissap ou Gingembre artisanal.',
     image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    galleryImages: [
+      '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+    ],
+    rating: 4.8,
+    reviewCount: 63,
+    marinadeNotes: 'Marinade express minute sur braise intense.',
+    cookingTime: '20 min',
+    ingredients: ['Demi-poisson braisé frais', 'Alloco ou Attiéké au choix', 'Boisson artisanale 50cl'],
+    recommendedSides: ['Piment noir maison'],
+    reviews: [
+      {
+        id: 'rev-solo-1',
+        author: 'Arsène K.',
+        avatar: 'AK',
+        location: 'Assivito, Lomé',
+        rating: 5,
+        date: 'Il y a 2 jours',
+        comment: 'Le repas de midi parfait au bureau. Rapide, chaud et super rassasiant.',
+        verifiedOrder: true
+      }
+    ],
     spicyLevel: 1,
     portion: 'Idéal pour le midi',
     popular: true
@@ -115,7 +329,29 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1000,
     description: 'Plantains mûrs découpés en dés dorés à point, croustillants à l’extérieur et fondants à l’intérieur. Servi avec piment écrasé.',
-    image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    image: '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
+    galleryImages: [
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
+      '/src/assets/images/community_platter_dining_1790843503107.jpg'
+    ],
+    rating: 5.0,
+    reviewCount: 110,
+    marinadeNotes: 'Sélection des plantains parfaitement mûrs (peau jaune tachetée de noir). Friture dorée à l’huile propre et légère.',
+    cookingTime: '10 à 15 min',
+    ingredients: ['Bananes plantains locales mûres', 'Pincée de sel pur', 'Huile de friture végétale neuve'],
+    recommendedSides: ['Se marie idéalement avec tous les poissons braisés'],
+    reviews: [
+      {
+        id: 'rev-alo-1',
+        author: 'Amina B.',
+        avatar: 'AB',
+        location: 'Tokoin Douane',
+        rating: 5,
+        date: 'Hier',
+        comment: 'L’alloco est fondant et naturellement sucré comme il faut. Ni trop gras ni sec, un 10/10.',
+        verifiedOrder: true
+      }
+    ],
     spicyLevel: 1,
     portion: 'Portion généreuse'
   },
@@ -125,7 +361,28 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1000,
     description: 'Semoule de manioc cuite à la vapeur, légère, acidulée juste comme il faut, arrosée d’un filet de jus de cuisson.',
-    image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    image: '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+    galleryImages: [
+      '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+    ],
+    rating: 4.9,
+    reviewCount: 57,
+    cookingTime: 'Prêt immédiatement (vapeur continue)',
+    ingredients: ['Manioc fermenté de tradition', 'Dés d’oignons rouges', 'Persil haché', 'Jus de braisage'],
+    recommendedSides: ['Indispensable avec la Carpe Rouge et le Bar Sauvage'],
+    reviews: [
+      {
+        id: 'rev-atk-1',
+        author: 'Didier T.',
+        avatar: 'DT',
+        location: 'Kodjoviakopé, Lomé',
+        rating: 5,
+        date: 'Il y a 3 jours',
+        comment: 'Graine très fine, moelleuse, pas sèche du tout. Parfaitement aérée.',
+        verifiedOrder: true
+      }
+    ],
     portion: 'Portion généreuse'
   },
   {
@@ -135,6 +392,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1000,
     description: 'Pommes de terre fraîches coupées main, double friture dorée et assaisonnées de sel aux épices Eza Zozo.',
     image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    rating: 4.7,
+    reviewCount: 32,
     portion: 'Portion généreuse'
   },
   {
@@ -144,6 +403,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1500,
     description: 'Poivrons tricolores, oignons rouges de Lomé, carottes et tomates braisées au wok avec un trait d’huile parfumée.',
     image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    rating: 4.8,
+    reviewCount: 26,
     portion: 'Portion d’accompagnement'
   },
   {
@@ -152,7 +413,9 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1500,
     description: 'Condiment traditionnel mijoté 6 heures à base de crevettes séchées, gingembre, piment rouge et aromates du terroir.',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+    rating: 5.0,
+    reviewCount: 88,
     spicyLevel: 3,
     portion: 'Pot 150ml à emporter'
   },
@@ -163,6 +426,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1000,
     description: 'Fleurs d’hibiscus du Togo infusées avec vanille, feuilles de menthe fraîche et une touche subtile d’ananas. Servi très glacé.',
     image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    rating: 4.9,
+    reviewCount: 65,
     portion: 'Bouteille 50cl'
   },
   {
@@ -172,6 +437,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1000,
     description: 'Pression à froid de racines de gingembre bio de Kpalimé, jus de citron vert et sucre de canne. Tonique et rafraîchissant.',
     image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    rating: 5.0,
+    reviewCount: 71,
     portion: 'Bouteille 50cl'
   },
   {
@@ -181,6 +448,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 2000,
     description: 'Mélange signature : Fruit de la passion, mangue fraîche écrasée, zeste de citron et pointe de gingembre pétillant.',
     image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    rating: 4.9,
+    reviewCount: 43,
     isSpecialty: true,
     portion: 'Grand verre 40cl'
   }

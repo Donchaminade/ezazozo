@@ -18,12 +18,12 @@ export const SmokeEffect: React.FC<SmokeEffectProps> = ({
     { id: 4, left: '40%', delay: 3.2, duration: 5.0, xRange: [14, -10, 6] }
   ];
 
-  // Configuration for glowing embers / sparks from wood fire
+  // Configuration for glowing embers / sparks from wood fire - soft comfortable rose/crimson
   const embers = [
-    { id: 1, left: '38%', delay: 0.5, duration: 2.8, size: 'w-1 h-1', color: 'bg-[#ffc107]' },
-    { id: 2, left: '52%', delay: 1.8, duration: 3.2, size: 'w-1.5 h-1.5', color: 'bg-[#ff5722]' },
-    { id: 3, left: '44%', delay: 2.4, duration: 2.5, size: 'w-1 h-1', color: 'bg-[#ff9800]' },
-    { id: 4, left: '60%', delay: 3.5, duration: 3.0, size: 'w-1 h-1', color: 'bg-[#ffd54f]' }
+    { id: 1, left: '38%', delay: 0.5, duration: 2.8, size: 'w-1 h-1', color: 'bg-[#fda4af]' },
+    { id: 2, left: '52%', delay: 1.8, duration: 3.2, size: 'w-1.5 h-1.5', color: 'bg-[#e11d48]' },
+    { id: 3, left: '44%', delay: 2.4, duration: 2.5, size: 'w-1 h-1', color: 'bg-[#f43f5e]' },
+    { id: 4, left: '60%', delay: 3.5, duration: 3.0, size: 'w-1 h-1', color: 'bg-[#fb7185]' }
   ];
 
   return (
@@ -31,14 +31,14 @@ export const SmokeEffect: React.FC<SmokeEffectProps> = ({
       className="absolute inset-0 pointer-events-none overflow-hidden z-20"
       aria-hidden="true"
     >
-      {/* Warm ambient heat haze gradient at the bottom where the fish rests on the grill */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#ff5722]/15 via-[#ff9800]/5 to-transparent mix-blend-screen opacity-70" />
+      {/* Warm subtle ambient heat haze without harsh gradients */}
+      <div className="absolute inset-x-0 bottom-0 h-16 bg-[#e11d48]/10 opacity-60" />
 
-      {/* Floating, wafting smoke plumes */}
+      {/* Floating, wafting smoke plumes - pure soft natural steam/smoke */}
       {puffs.map((puff) => (
         <motion.div
           key={`smoke-puff-${puff.id}`}
-          className="absolute bottom-4 rounded-full bg-gradient-to-t from-[#ff7a45]/20 via-[#f5f3f0]/25 to-transparent blur-xl"
+          className="absolute bottom-4 rounded-full bg-[#f5f3f0]/20 blur-xl"
           style={{
             left: puff.left,
             width: intensity === 'high' ? '70px' : '55px',
@@ -70,7 +70,7 @@ export const SmokeEffect: React.FC<SmokeEffectProps> = ({
         embers.map((ember) => (
           <motion.div
             key={`ember-${ember.id}`}
-            className={`absolute bottom-6 rounded-full ${ember.size} ${ember.color} shadow-sm shadow-[#ff5722]`}
+            className={`absolute bottom-6 rounded-full ${ember.size} ${ember.color} shadow-sm shadow-[#e11d48]`}
             style={{ left: ember.left }}
             initial={{
               opacity: 0,

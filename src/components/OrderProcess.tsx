@@ -14,7 +14,7 @@ export const OrderProcess: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <div className="text-xs uppercase tracking-widest text-[#ffc107] font-semibold mb-2">
+          <div className="text-xs uppercase tracking-widest text-[#fda4af] font-semibold mb-2">
             Simplicité & Rapidité
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#f5f3f0] font-display">
@@ -35,7 +35,7 @@ export const OrderProcess: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ff5722]/10 border border-[#ff5722]/30 text-[#ff5722] font-bold text-lg font-mono flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#e11d48] font-bold text-lg font-mono flex items-center justify-center mb-6">
               01
             </div>
             <h3 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -54,7 +54,7 @@ export const OrderProcess: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ffc107]/10 border border-[#ffc107]/30 text-[#ffc107] font-bold text-lg font-mono flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#fda4af] font-bold text-lg font-mono flex items-center justify-center mb-6">
               02
             </div>
             <h3 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -73,7 +73,7 @@ export const OrderProcess: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ff5722]/10 border border-[#ff5722]/30 text-[#ff5722] font-bold text-lg font-mono flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#e11d48] font-bold text-lg font-mono flex items-center justify-center mb-6">
               03
             </div>
             <h3 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -94,7 +94,7 @@ export const OrderProcess: React.FC = () => {
           className="mt-14 p-6 sm:p-8 rounded-2xl bg-[#1a1716] border border-[#332e2b] flex flex-col lg:flex-row lg:items-center justify-between gap-6"
         >
           <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl bg-[#ff5722]/15 text-[#ff5722] shrink-0">
+            <div className="p-3 rounded-xl bg-[#e11d48]/15 text-[#e11d48] shrink-0">
               <Bike className="w-6 h-6" />
             </div>
             <div>
@@ -113,7 +113,7 @@ export const OrderProcess: React.FC = () => {
               href="https://wa.me/22890123456?text=Bonjour%2C%20quel%20est%20le%20d%C3%A9lai%20de%20livraison%20actuel%20pour%20mon%20quartier%20%3F"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-[#ff5722] hover:bg-[#e64a19] text-white text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
+              className="px-4 py-2 bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
             >
               Vérifier mon Quartier
             </a>
