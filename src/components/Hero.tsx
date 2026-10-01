@@ -18,7 +18,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation }) => 
         className="absolute inset-0 z-0"
       >
         <img
-          src="/src/assets/images/hero_grilled_fish_1790838427559.jpg"
+          src="/images/hero.jpg"
           alt="Poissons frais braisés au feu de bois avec herbes aromatiques et marinade chez Eza Zozo à Lomé"
           className="w-full h-full object-cover object-center filter brightness-60 contrast-110"
           referrerPolicy="no-referrer"
