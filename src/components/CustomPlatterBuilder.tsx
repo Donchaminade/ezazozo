@@ -80,7 +80,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
       category: 'plateaux',
       price: totalPrice,
       description: `Garnitures: ${sidesNames}. Assaisonnement: ${selectedSpice.name}. Boisson: ${selectedDrink.name}.`,
-      image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+      image: '/images/menu/plateau-royal.jpg',
       portion: selectedSize.id === 'xxl' ? '3-4 personnes' : '1-2 personnes'
     };
 

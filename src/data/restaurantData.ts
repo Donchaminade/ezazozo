@@ -32,12 +32,12 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'poissons',
     price: 6500,
     description: 'Pêche du jour marinée aux herbes fraîches et badigeonnée de la marinade secrète Eza Zozo. Chair tendre et peau croustillante aux braises.',
-    image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    image: '/images/menu/dorade.jpg',
     galleryImages: [
-      '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
-      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg',
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
-      '/src/assets/images/community_seafood_friends_1790843517438.jpg'
+      '/images/menu/dorade.jpg',
+      '/images/angle-grill-close.jpg',
+      '/images/angle-fish-alloco.jpg',
+      '/images/community-friends.jpg'
     ],
     rating: 4.9,
     reviewCount: 52,
@@ -89,12 +89,12 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'poissons',
     price: 8000,
     description: 'Le poisson noble par excellence. Chair ferme et blanche, grillée à coeur avec son coulis d’oignons caramélisés et piment maison.',
-    image: '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+    image: '/images/menu/capitaine.jpg',
     galleryImages: [
-      '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
-      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg',
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
-      '/src/assets/images/chef_adanlete_grill_1790838467936.jpg'
+      '/images/menu/capitaine.jpg',
+      '/images/angle-grill-close.jpg',
+      '/images/angle-fish-alloco.jpg',
+      '/images/chef.jpg'
     ],
     rating: 5.0,
     reviewCount: 68,
@@ -136,11 +136,11 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'poissons',
     price: 7000,
     description: 'Marinée au gingembre sauvage, ail rôti et graines de poivre de Penja. Une saveur fumée intense relevée au citron vert.',
-    image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    image: '/images/menu/carpe.jpg',
     galleryImages: [
-      '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
-      '/src/assets/images/community_seafood_friends_1790843517438.jpg',
-      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg'
+      '/images/menu/carpe.jpg',
+      '/images/menu/shito.jpg',
+      '/images/angle-grill-close.jpg'
     ],
     rating: 4.8,
     reviewCount: 39,
@@ -170,12 +170,12 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'poissons',
     price: 9500,
     description: 'Sélection prestige des marins-pêcheurs de Lomé. Grillade lente aux braises de bois d’acacia, arrosé au beurre d’herbes épicé.',
-    image: '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+    image: '/images/menu/bar-xl.jpg',
     galleryImages: [
-      '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
-      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg',
-      '/src/assets/images/community_platter_dining_1790843503107.jpg',
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+      '/images/menu/bar-xl.jpg',
+      '/images/angle-grill-close.jpg',
+      '/images/community-table.jpg',
+      '/images/angle-fish-alloco.jpg'
     ],
     rating: 5.0,
     reviewCount: 74,
@@ -217,12 +217,12 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'plateaux',
     price: 18500,
     description: 'Le festin ultime : 1 Grand Bar braisé, 6 Gambas géantes au piment doux, Alloco fondant, Attiéké moelleux, Frites maison et duo de sauces.',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/images/menu/plateau-royal.jpg',
     galleryImages: [
-      '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
-      '/src/assets/images/community_platter_dining_1790843503107.jpg',
-      '/src/assets/images/eza_zozo_social_poster_1790844278427.jpg',
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+      '/images/menu/plateau-royal.jpg',
+      '/images/community-table.jpg',
+      '/og-image.jpg',
+      '/images/angle-fish-alloco.jpg'
     ],
     rating: 5.0,
     reviewCount: 91,
@@ -263,11 +263,11 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'plateaux',
     price: 14000,
     description: '1 Dorade Royale + 1 Capitaine braisé + Brochettes d’escargots de mer ou crevettes sautées, avec double portion d’alloco et légumes sautés.',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/images/menu/plateau-plage.jpg',
     galleryImages: [
-      '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
-      '/src/assets/images/community_seafood_friends_1790843517438.jpg',
-      '/src/assets/images/dish_angle_close_grill_1790844442031.jpg'
+      '/images/menu/plateau-plage.jpg',
+      '/images/community-friends.jpg',
+      '/images/angle-grill-close.jpg'
     ],
     rating: 4.9,
     reviewCount: 44,
@@ -296,10 +296,10 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'plateaux',
     price: 4500,
     description: 'Demi-poisson braisé au choix + Portion généreuse d’Alloco ou Attiéké + Jus de Bissap ou Gingembre artisanal.',
-    image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    image: '/images/menu/combo-solo.jpg',
     galleryImages: [
-      '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+      '/images/menu/combo-solo.jpg',
+      '/images/menu/alloco.jpg'
     ],
     rating: 4.8,
     reviewCount: 63,
@@ -329,10 +329,10 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1000,
     description: 'Plantains mûrs découpés en dés dorés à point, croustillants à l’extérieur et fondants à l’intérieur. Servi avec piment écrasé.',
-    image: '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
+    image: '/images/menu/alloco.jpg',
     galleryImages: [
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg',
-      '/src/assets/images/community_platter_dining_1790843503107.jpg'
+      '/images/menu/alloco.jpg',
+      '/images/angle-fish-alloco.jpg'
     ],
     rating: 5.0,
     reviewCount: 110,
@@ -361,10 +361,10 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1000,
     description: 'Semoule de manioc cuite à la vapeur, légère, acidulée juste comme il faut, arrosée d’un filet de jus de cuisson.',
-    image: '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+    image: '/images/menu/attieke.jpg',
     galleryImages: [
-      '/src/assets/images/community_seafood_friends_1790843517438.jpg',
-      '/src/assets/images/dish_angle_side_alloco_1790844453679.jpg'
+      '/images/menu/attieke.jpg',
+      '/images/angle-fish-alloco.jpg'
     ],
     rating: 4.9,
     reviewCount: 57,
@@ -391,7 +391,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1000,
     description: 'Pommes de terre fraîches coupées main, double friture dorée et assaisonnées de sel aux épices Eza Zozo.',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/images/menu/frites.jpg',
     rating: 4.7,
     reviewCount: 32,
     portion: 'Portion généreuse'
@@ -402,7 +402,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1500,
     description: 'Poivrons tricolores, oignons rouges de Lomé, carottes et tomates braisées au wok avec un trait d’huile parfumée.',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/images/menu/legumes.jpg',
     rating: 4.8,
     reviewCount: 26,
     portion: 'Portion d’accompagnement'
@@ -413,7 +413,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'accompagnements',
     price: 1500,
     description: 'Condiment traditionnel mijoté 6 heures à base de crevettes séchées, gingembre, piment rouge et aromates du terroir.',
-    image: '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+    image: '/images/menu/shito.jpg',
     rating: 5.0,
     reviewCount: 88,
     spicyLevel: 3,
@@ -425,7 +425,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'boissons',
     price: 1000,
     description: 'Fleurs d’hibiscus du Togo infusées avec vanille, feuilles de menthe fraîche et une touche subtile d’ananas. Servi très glacé.',
-    image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    image: '/images/menu/bissap.jpg',
     rating: 4.9,
     reviewCount: 65,
     portion: 'Bouteille 50cl'
@@ -436,7 +436,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'boissons',
     price: 1000,
     description: 'Pression à froid de racines de gingembre bio de Kpalimé, jus de citron vert et sucre de canne. Tonique et rafraîchissant.',
-    image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    image: '/images/menu/gingembre.jpg',
     rating: 5.0,
     reviewCount: 71,
     portion: 'Bouteille 50cl'
@@ -447,7 +447,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'boissons',
     price: 2000,
     description: 'Mélange signature : Fruit de la passion, mangue fraîche écrasée, zeste de citron et pointe de gingembre pétillant.',
-    image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    image: '/images/menu/mocktail.jpg',
     rating: 4.9,
     reviewCount: 43,
     isSpecialty: true,
@@ -462,7 +462,7 @@ export const TIKTOK_VIDEOS: TikTokVideo[] = [
     views: '384.2K',
     likes: '48.9K',
     duration: '0:42',
-    coverImage: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    coverImage: '/images/chef.jpg',
     caption: 'Mr Adanlete vous dévoile comment faire chanter les épices sur la braise ! #EzaZozo #Lome #PoissonGrille #TogoFood',
     tag: 'Tendance #1'
   },
@@ -472,7 +472,7 @@ export const TIKTOK_VIDEOS: TikTokVideo[] = [
     views: '215.8K',
     likes: '29.3K',
     duration: '0:35',
-    coverImage: '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+    coverImage: '/images/port-morning.jpg',
     caption: 'Direct de la pirogue à la grille. Pas de congélateur, zéro triche : 100% frais chaque jour. #FraicheurGarantie',
     tag: 'Fraîcheur'
   },
@@ -482,7 +482,7 @@ export const TIKTOK_VIDEOS: TikTokVideo[] = [
     views: '512.0K',
     likes: '74.1K',
     duration: '0:58',
-    coverImage: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    coverImage: '/images/menu/plateau-royal.jpg',
     caption: 'Quand la table tremble sous la générosité ! Alloco fondant, dorade dorée et grosses gambas. #Gourmandise #LomeFood',
     tag: 'Viral 🔥'
   },
@@ -492,7 +492,7 @@ export const TIKTOK_VIDEOS: TikTokVideo[] = [
     views: '198.4K',
     likes: '23.7K',
     duration: '0:30',
-    coverImage: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    coverImage: '/images/menu/alloco.jpg',
     caption: 'La technique ancestrale pour des plantains jamais gras et bien caramélisés. #AllocoLome #EzaZozo',
     tag: 'Recette'
   }

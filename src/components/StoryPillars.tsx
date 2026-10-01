@@ -39,7 +39,7 @@ export const StoryPillars: React.FC = () => {
           >
             <div className="relative rounded-2xl overflow-hidden border border-[#2b2725] shadow-2xl bg-[#181615]">
               <img
-                src="/src/assets/images/chef_adanlete_grill_1790838467936.jpg"
+                src="/images/chef.jpg"
                 alt="Mr Adanlete au barbecue grillant du poisson avec passion à Lomé"
                 className="w-full h-[400px] object-cover object-top hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"

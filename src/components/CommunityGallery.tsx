@@ -29,7 +29,7 @@ const STORIES: StoryItem[] = [
   {
     id: 's1',
     title: 'Arrivage Frais',
-    image: '/src/assets/images/hero_grilled_fish_1790838427559.jpg',
+    image: '/images/port-morning.jpg',
     author: 'Brigade Eza Zozo',
     badge: 'Port de Lomé 06h30',
     duration: 'Ce matin'
@@ -37,7 +37,7 @@ const STORIES: StoryItem[] = [
   {
     id: 's2',
     title: 'Braise Ardente',
-    image: '/src/assets/images/chef_adanlete_grill_1790838467936.jpg',
+    image: '/images/chef.jpg',
     author: 'Mr Adanlete',
     badge: 'Au grill en direct',
     duration: 'Il y a 1h'
@@ -45,7 +45,7 @@ const STORIES: StoryItem[] = [
   {
     id: 's3',
     title: 'Plateau Bar XL',
-    image: '/src/assets/images/community_platter_dining_1790843503107.jpg',
+    image: '/images/menu/bar-xl.jpg',
     author: '@koffi_lome',
     badge: 'Bè-Plage',
     duration: 'Il y a 3h'
@@ -53,7 +53,7 @@ const STORIES: StoryItem[] = [
   {
     id: 's4',
     title: 'Snapper Pimenté',
-    image: '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+    image: '/images/menu/carpe.jpg',
     author: '@amina_foodie',
     badge: 'Tokoin',
     duration: 'Hier soir'
@@ -61,7 +61,7 @@ const STORIES: StoryItem[] = [
   {
     id: 's5',
     title: 'Festin Royal',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/images/menu/plateau-royal.jpg',
     author: '@togobigtable',
     badge: 'Nyékonakpoè',
     duration: 'Hier'
@@ -71,7 +71,7 @@ const STORIES: StoryItem[] = [
 const INITIAL_POSTS: CommunityPost[] = [
   {
     id: 'post-1',
-    image: '/src/assets/images/community_platter_dining_1790843503107.jpg',
+    image: '/images/community-table.jpg',
     author: 'Koffi & Famille',
     avatar: 'KM',
     handle: '@koffi_mensah_lome',
@@ -83,7 +83,7 @@ const INITIAL_POSTS: CommunityPost[] = [
   },
   {
     id: 'post-2',
-    image: '/src/assets/images/community_seafood_friends_1790843517438.jpg',
+    image: '/images/community-friends.jpg',
     author: 'Amina B.',
     avatar: 'AB',
     handle: '@amina_lifestyle',
@@ -95,7 +95,7 @@ const INITIAL_POSTS: CommunityPost[] = [
   },
   {
     id: 'post-3',
-    image: '/src/assets/images/menu_dorade_braisee_1790838440746.jpg',
+    image: '/images/menu/dorade.jpg',
     author: 'Équipe Société Nyéko',
     avatar: 'SN',
     handle: '@nyeko_digital',
@@ -107,7 +107,7 @@ const INITIAL_POSTS: CommunityPost[] = [
   },
   {
     id: 'post-4',
-    image: '/src/assets/images/menu_plateau_royal_1790838452721.jpg',
+    image: '/images/menu/plateau-plage.jpg',
     author: 'Delali & David',
     avatar: 'DD',
     handle: '@delali_togo',
