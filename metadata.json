@@ -1,0 +1,6 @@
+{
+  "name": "Eza Zozo - Poissonnerie & Grillade",
+  "description": "Le meilleur du poisson frais braisé au feu de bois à Lomé avec Mr Adanlete. Saveurs authentiques, marinades secrètes et généreuses garnitures.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
