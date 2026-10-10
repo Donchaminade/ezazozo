@@ -156,6 +156,66 @@ html.lenis {
   animation: braiseScrollCue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Menu carousel: full-bleed rail whose first card lines up with the page container */
+.menu-rail {
+  --rail-pad: 1rem;
+  --rail-inset: max(var(--rail-pad), calc((100% - 80rem) / 2 + var(--rail-pad)));
+  position: relative;
+  padding-inline: var(--rail-inset);
+  scroll-padding-inline: var(--rail-inset);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.menu-rail::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .menu-rail {
+    --rail-pad: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu-rail {
+    --rail-pad: 2rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-rail {
+    cursor: grab;
+  }
+}
+
+/* Programmatic drags and glides would fight mandatory snapping frame by frame */
+.menu-rail.is-dragging,
+.menu-rail.is-gliding {
+  scroll-snap-type: none;
+}
+
+.menu-rail.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.menu-rail.is-dragging * {
+  pointer-events: none;
+}
+
+.menu-rail-arrow[data-disabled] {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
