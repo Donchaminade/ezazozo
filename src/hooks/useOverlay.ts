@@ -35,10 +35,13 @@ export const useOverlay = (open: boolean, onClose: () => void, panelRef?: RefObj
       release();
       escapeHandlers.splice(escapeHandlers.indexOf(onEscape), 1);
       if (escapeHandlers.length === 0) document.removeEventListener('keydown', onKeyDown);
-      const active = document.activeElement;
-      if (opener?.isConnected && (!active || active === document.body || panel?.contains(active))) {
-        opener.focus({ preventScroll: true });
-      }
+      // After the commit: React ends it by re-focusing what had focus before (the panel, still mounted for its exit animation).
+      queueMicrotask(() => {
+        const active = document.activeElement;
+        if (opener?.isConnected && (!active || active === document.body || panel?.contains(active))) {
+          opener.focus({ preventScroll: true });
+        }
+      });
     };
   }, [open]);
 };
