@@ -378,6 +378,7 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
         .fromTo('[data-b="final-plate"]', { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 18 }, 330)
         .to('[data-b="dish-assembly"]', { autoAlpha: 0, scaleY: 0.9, duration: 14 }, 336)
         .to('[data-b="rail"]', { autoAlpha: 0, duration: 12 }, 330)
+        .fromTo('[data-b="outro-fade"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 14 }, 344)
         .fromTo(
           '[data-b="ticket"]',
           { autoAlpha: 0, x: () => (isDesktop ? vw(6) : 0), y: () => (isDesktop ? 0 : vh(8)), rotation: isDesktop ? 6 : 0 },
@@ -586,6 +587,13 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
           aria-hidden="true"
           data-b="embers"
           className="pointer-events-none absolute inset-0 h-full w-full"
+        />
+
+        {/* Melts the coal bed into the next section once the stage stops being pinned */}
+        <div
+          aria-hidden="true"
+          data-b="outro-fade"
+          className="invisible pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-[linear-gradient(to_bottom,transparent,#0b0807)]"
         />
 
         {/* Chapter rail, side label and progress */}
