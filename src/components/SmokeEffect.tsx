@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'motion/react';
 
 interface SmokeEffectProps {
   intensity?: 'subtle' | 'medium' | 'high';
@@ -26,8 +26,13 @@ export const SmokeEffect: React.FC<SmokeEffectProps> = ({
     { id: 4, left: '60%', delay: 3.5, duration: 3.0, size: 'w-1 h-1', color: 'bg-[#fb7185]' }
   ];
 
+  const ref = useRef<HTMLDivElement>(null);
+  // Cards off screen (below the fold or outside the menu carousel) stop animating.
+  const inView = useInView(ref, { margin: '100px' });
+
   return (
     <div
+      ref={ref}
       className="absolute inset-0 pointer-events-none overflow-hidden z-20"
       aria-hidden="true"
     >
@@ -35,7 +40,7 @@ export const SmokeEffect: React.FC<SmokeEffectProps> = ({
       <div className="absolute inset-x-0 bottom-0 h-16 bg-[#e11d48]/10 opacity-60" />
 
       {/* Floating, wafting smoke plumes - pure soft natural steam/smoke */}
-      {puffs.map((puff) => (
+      {inView && puffs.map((puff) => (
         <motion.div
           key={`smoke-puff-${puff.id}`}
           className="absolute bottom-4 rounded-full bg-[#f5f3f0]/20 blur-xl"
@@ -66,7 +71,7 @@ export const SmokeEffect: React.FC<SmokeEffectProps> = ({
       ))}
 
       {/* Floating fiery embers / sparks */}
-      {showEmbers &&
+      {inView && showEmbers &&
         embers.map((ember) => (
           <motion.div
             key={`ember-${ember.id}`}

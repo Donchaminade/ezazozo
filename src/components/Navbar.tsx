@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart, onOpenSha
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-[#0f0e0e]/95 backdrop-blur-lg pt-24 px-6 pb-8 flex flex-col justify-between">
+        <div data-lenis-prevent className="fixed inset-0 z-40 md:hidden bg-[#0f0e0e]/95 backdrop-blur-lg pt-24 px-6 pb-8 flex flex-col justify-between">
           <nav className="flex flex-col gap-5 text-lg font-medium text-[#f5f3f0]" aria-label="Menu mobile">
             <a
               href="#concept"

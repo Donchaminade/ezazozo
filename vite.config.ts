@@ -11,6 +11,19 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rolldownOptions: {
+        output: {
+          // Libraries change far less often than the app, so they get their own long-lived cached chunks.
+          codeSplitting: {
+            groups: [
+              { name: 'react', test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/, priority: 2 },
+              { name: 'animation', test: /node_modules[\\/](gsap|@gsap|lenis|motion|motion-dom|motion-utils|framer-motion)[\\/]/, priority: 1 },
+            ],
+          },
+        },
+      },
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modify—file watching is disabled to prevent flickering during agent edits.

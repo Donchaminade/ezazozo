@@ -195,7 +195,7 @@ export const CommunityGallery: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
-          <div className="flex items-center gap-5 overflow-x-auto pb-4 no-scrollbar">
+          <div data-lenis-prevent-horizontal className="flex items-center gap-5 overflow-x-auto pb-4 no-scrollbar">
             {STORIES.map((story, index) => (
               <div
                 key={story.id}
@@ -319,6 +319,7 @@ export const CommunityGallery: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            data-lenis-prevent
             className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
             onClick={() => setActiveStoryIndex(null)}
           >
@@ -408,6 +409,7 @@ export const CommunityGallery: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            data-lenis-prevent
             className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setSelectedPost(null)}
           >

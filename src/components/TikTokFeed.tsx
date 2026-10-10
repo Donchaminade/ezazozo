@@ -198,6 +198,7 @@ export const TikTokFeed: React.FC = () => {
       {/* Video Modal Player */}
       {selectedVideo && (
         <div
+          data-lenis-prevent
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => setSelectedVideo(null)}
         >
