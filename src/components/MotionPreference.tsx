@@ -20,7 +20,7 @@ export const EnableMotionButton: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-0.5 text-center">
+    <div className="flex flex-col items-center gap-0.5 text-center [text-shadow:0_1px_2px_#0b0807,0_0_10px_#0b0807,0_0_18px_#0b0807]">
       <button
         type="button"
         onClick={enable}
@@ -29,7 +29,7 @@ export const EnableMotionButton: React.FC = () => {
         <Sparkles className="h-3.5 w-3.5 text-[#fda4af]" aria-hidden="true" />
         Activer les animations
       </button>
-      <p className="text-[11px] leading-snug text-[#a8a19b]">
+      <p className="text-[11px] leading-snug text-[#d6cfc8]">
         {systemReduced ? 'Votre appareil demande de réduire les animations.' : 'Vous avez réduit les animations.'}
       </p>
     </div>

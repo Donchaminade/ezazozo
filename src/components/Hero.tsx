@@ -46,7 +46,7 @@ export const Hero: React.FC<HeroProps> = ({ onOrderSignature }) => {
           width={918}
           height={607}
           decoding="async"
-          className="block h-auto w-[clamp(52vw,calc((100svh-31rem)*918/607),88vw)] md:w-[min(640px,max(46vw,min(72vw,48svh)),calc(35svh*918/607))] select-none"
+          className="block h-auto w-[clamp(52vw,calc((100svh-33rem)*918/607),88vw)] md:w-[min(640px,max(46vw,min(72vw,48svh)),calc(35svh*918/607))] select-none"
         />
       </picture>
 
