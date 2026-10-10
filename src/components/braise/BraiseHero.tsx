@@ -15,10 +15,10 @@ interface BraiseHeroProps {
 const DESKTOP_QUERY = '(min-width: 768px)';
 const FINE_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
 const FINAL_PLATE_RATIO = 607 / 918;
-/** The fixed navbar (h-20) plus a little air. */
-const HEADER_CLEARANCE = 88;
-/** On phones the floating sound widget (bottom-24, 52px tall) sits right where the order button would land. */
-const PHONE_WIDGET_CLEARANCE = 164;
+/** The fixed navbar (64px, 80px from lg) plus a little air. */
+const headerClearance = () => (document.querySelector('header')?.offsetHeight ?? 80) + 8;
+/** On phones the order button stays above the floating WhatsApp / cart row (bottom-4, 48px tall). */
+const PHONE_WIDGET_CLEARANCE = 84;
 
 /** Loads the images needed after the first screen once the page is idle (or on first scroll). */
 const useDeferredAssets = () => {
@@ -236,7 +236,7 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ signature, onOrderSignat
         const plate = dish() * FINAL_PLATE_RATIO;
         const gap = vh(2.5);
         const floor = height - (ctaRef.current?.offsetHeight ?? 0) - (isDesktop ? vh(9) : PHONE_WIDGET_CLEARANCE);
-        const scale = Math.min(L.dishFinal.s, (floor - gap - HEADER_CLEARANCE) / plate);
+        const scale = Math.min(L.dishFinal.s, (floor - gap - headerClearance()) / plate);
         const center = Math.min(height / 2 + vh(L.plateY + L.dishFinal.y), floor - gap - (plate * scale) / 2);
         return { y: center - height / 2 - vh(L.plateY), scale, cta: center + (plate * scale) / 2 + gap };
       };

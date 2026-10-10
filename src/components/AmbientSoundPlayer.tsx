@@ -154,17 +154,17 @@ export const AmbientSoundPlayer: React.FC = () => {
 
   return (
     <>
-      {/* Discreet floating sound controller */}
-      <div className="fixed bottom-24 right-5 z-40 flex items-center gap-2">
+      {/* Discreet floating sound controller: a round button above the WhatsApp one on phones, the full pill from md */}
+      <div className="fixed bottom-[4.75rem] right-4 z-40 flex items-center gap-2 md:bottom-6 md:right-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="flex items-center gap-2 p-1.5 pr-3 rounded-full bg-[#181615]/90 backdrop-blur-md border border-[#332e2b] shadow-2xl hover:border-[#e11d48]/60 transition-colors"
+          className="flex items-center gap-2 rounded-full bg-[#181615]/90 backdrop-blur-md border border-[#332e2b] shadow-2xl hover:border-[#e11d48]/60 transition-colors md:p-1.5 md:pr-3"
         >
           <button
             onClick={toggleAudio}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all cursor-pointer relative ${
+            className={`w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-all cursor-pointer relative ${
               isPlaying
                 ? 'bg-[#e11d48] text-white shadow-lg shadow-[#e11d48]/30'
                 : 'bg-[#242120] text-[#c4bfb9] hover:text-[#f5f3f0]'
@@ -183,7 +183,7 @@ export const AmbientSoundPlayer: React.FC = () => {
           </button>
 
           {/* Equalizer animation & Label */}
-          <div className="flex flex-col cursor-pointer select-none" onClick={toggleAudio}>
+          <div className="max-md:hidden flex flex-col cursor-pointer select-none" onClick={toggleAudio}>
             <div className="flex items-center gap-1.5">
               <span className="text-[11px] font-semibold text-[#f5f3f0] leading-none">
                 {isPlaying ? 'Braise & Océan' : 'Ambiance Braise'}
@@ -210,7 +210,7 @@ export const AmbientSoundPlayer: React.FC = () => {
               step="0.05"
               value={volume}
               onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-              className="w-16 h-1 bg-[#2e2a28] rounded-lg appearance-none cursor-pointer accent-[#e11d48] ml-1"
+              className="max-md:hidden w-20 h-11 cursor-pointer accent-[#e11d48] ml-1"
               title="Ajuster le volume"
               aria-label="Volume de l'ambiance sonore"
             />
@@ -226,7 +226,7 @@ export const AmbientSoundPlayer: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-36 right-5 z-50 p-4 rounded-2xl bg-[#1a1817] border border-[#e11d48]/50 shadow-2xl backdrop-blur-md max-w-xs text-left"
+            className="fixed bottom-32 inset-x-4 z-50 p-4 rounded-2xl bg-[#1a1817] border border-[#e11d48]/50 shadow-2xl backdrop-blur-md text-left sm:left-auto sm:max-w-xs md:bottom-24 md:right-6"
           >
             <div className="flex items-start gap-3">
               <div className="p-2 rounded-xl bg-[#e11d48]/20 text-[#e11d48] shrink-0 mt-0.5">
