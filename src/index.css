@@ -2,10 +2,16 @@
 
 @custom-variant short-phone (@media (width < 48rem) and (height < 40rem));
 
+/* Driven by <html data-motion> (OS setting or the visitor's explicit choice, see src/lib/motion.ts)
+   instead of the raw prefers-reduced-motion media query. */
+@custom-variant motion-safe (&:where([data-motion="full"], [data-motion="full"] *));
+@custom-variant motion-reduce (&:where([data-motion="reduce"], [data-motion="reduce"] *));
+
 @layer base {
   :root {
     --font-display: 'Syne', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
+    color-scheme: dark;
   }
 
   body {
@@ -66,6 +72,56 @@
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Menu card smoke and embers (SmokeEffect). Transform and opacity only, so the loops stay on the
+   compositor; timing and drift come from the element's --smoke-* properties. */
+@keyframes smokePuff {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--smoke-x0), -10px, 0) scale(0.6);
+  }
+  33% {
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate3d(var(--smoke-x1), -90px, 0) scale(1.25);
+  }
+  66% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--smoke-x2), -140px, 0) scale(2.1);
+  }
+}
+
+@keyframes emberRise {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--smoke-x0), 0, 0) scale(0.8);
+  }
+  33% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(var(--smoke-x1), -60px, 0) scale(1.2);
+  }
+  66% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--smoke-x2), -110px, 0) scale(0.4);
+  }
+}
+
+.smoke-puff {
+  animation: smokePuff var(--smoke-duration) ease-in-out var(--smoke-delay) infinite both;
+}
+
+.smoke-ember {
+  animation: emberRise var(--smoke-duration) ease-out var(--smoke-delay) infinite both;
+}
+
 /* Lenis smooth scrolling (only active when motion is allowed) */
 html.lenis,
 html.lenis body {
@@ -94,9 +150,33 @@ html.lenis {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+/* An overlay is open (lockScroll in src/lib/scroll.ts). The stable gutter keeps desktop scrollbars
+   from shifting the page sideways when it locks. */
+html {
+  scrollbar-gutter: stable;
+}
+
+html.scroll-locked {
+  overflow: hidden;
+}
+
+/* Reduced motion: decorative CSS loops and transitions settle on their end state at once. */
+[data-motion="reduce"] *,
+[data-motion="reduce"] *::before,
+[data-motion="reduce"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Story viewer timer bar */
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 

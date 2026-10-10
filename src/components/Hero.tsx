@@ -4,6 +4,7 @@ import { MENU_ITEMS } from '../data/restaurantData';
 import { BraiseHero } from './braise/BraiseHero';
 import { braiseImage } from './braise/braiseConfig';
 import { HeroOrderButton, HeroTitle } from './braise/HeroCopy';
+import { EnableMotionButton } from './MotionPreference';
 
 interface HeroProps {
   onOrderSignature: () => void;
@@ -19,12 +20,12 @@ export const Hero: React.FC<HeroProps> = ({ onOrderSignature }) => {
     return <BraiseHero signature={SIGNATURE_DISH} onOrderSignature={onOrderSignature} />;
   }
 
-  // Reduced motion: the last frame of the film as a still poster. On phones the bottom padding keeps the
-  // button clear of the floating sound widget, and the plate shrinks on short screens to keep it all above the fold.
+  // Reduced motion: the last frame of the film as a still poster, plus a way to opt in to the film. On phones the
+  // bottom padding keeps it all clear of the floating buttons, and the plate shrinks on short screens to stay above the fold.
   return (
     <section
       id="accueil"
-      className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0b0807] px-4 pt-24 pb-40 md:pb-14"
+      className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0b0807] px-4 pt-20 pb-32 md:pb-20 lg:pt-24"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_100%,rgba(225,29,72,0.20),transparent_60%),radial-gradient(60%_50%_at_50%_85%,rgba(255,110,30,0.22),transparent_70%)]" />
@@ -45,12 +46,15 @@ export const Hero: React.FC<HeroProps> = ({ onOrderSignature }) => {
           width={918}
           height={607}
           decoding="async"
-          className="block h-auto w-[clamp(52vw,calc((100svh-32rem)*918/607),88vw)] md:w-[min(640px,max(46vw,min(72vw,48svh)),calc(38svh*918/607))] select-none"
+          className="block h-auto w-[clamp(52vw,calc((100svh-33rem)*918/607),88vw)] md:w-[min(640px,max(46vw,min(72vw,48svh)),calc(35svh*918/607))] select-none"
         />
       </picture>
 
       <div className="relative mt-6 md:mt-8">
         <HeroOrderButton dishName={SIGNATURE_DISH.name} onClick={onOrderSignature} />
+      </div>
+      <div className="relative mt-3 md:absolute md:inset-x-0 md:bottom-4 md:mt-0">
+        <EnableMotionButton />
       </div>
     </section>
   );

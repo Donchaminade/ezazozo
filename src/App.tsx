@@ -75,7 +75,7 @@ export default function App() {
       <a
         href="#main-content"
         data-skip-link
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-[#e11d48] text-white px-4 py-2 rounded-lg font-bold"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[60] bg-[#e11d48] text-white px-4 py-2 rounded-lg font-bold"
       >
         Aller au contenu principal
       </a>
@@ -139,22 +139,12 @@ export default function App() {
         onClearCart={handleClearCart}
       />
 
-      {/* Mobile Floating Quick Action (respects 15% sticky cap) */}
-      <div className="md:hidden fixed bottom-4 right-4 z-40 flex items-center gap-2">
-        <a
-          href="https://wa.me/22890123456?text=Bonjour%20Eza%20Zozo%2C%20je%20souhaite%20commander%20un%20poisson%20brais%C3%A9%20%21"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-3 bg-[#25d366] text-white rounded-full shadow-xl hover:scale-105 transition-transform flex items-center justify-center"
-          aria-label="Contacter sur WhatsApp"
-        >
-          <Phone className="w-5 h-5 fill-current" />
-        </a>
-
+      {/* Mobile Floating Quick Action (respects 15% sticky cap): WhatsApp in the corner, under the sound button */}
+      <div className="md:hidden fixed bottom-4 right-4 z-40 flex items-center gap-3">
         {totalCartCount > 0 && (
           <button
             onClick={() => setIsCartOpen(true)}
-            className="p-3 bg-[#e11d48] text-white rounded-full shadow-xl hover:scale-105 transition-transform relative flex items-center justify-center"
+            className="h-12 w-12 bg-[#e11d48] text-white rounded-full shadow-xl hover:scale-105 transition-transform relative flex items-center justify-center cursor-pointer"
             aria-label={`Voir le panier (${totalCartCount})`}
           >
             <ShoppingBag className="w-5 h-5" />
@@ -163,6 +153,16 @@ export default function App() {
             </span>
           </button>
         )}
+
+        <a
+          href="https://wa.me/22890123456?text=Bonjour%20Eza%20Zozo%2C%20je%20souhaite%20commander%20un%20poisson%20brais%C3%A9%20%21"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="h-12 w-12 bg-[#25d366] text-white rounded-full shadow-xl hover:scale-105 transition-transform flex items-center justify-center"
+          aria-label="Contacter sur WhatsApp"
+        >
+          <Phone className="w-5 h-5 fill-current" />
+        </a>
       </div>
     </div>
   );

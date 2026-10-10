@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Heart, MessageCircle, MapPin, Sparkles, Camera, Check, ExternalLink, X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
+import { useOverlay } from '../hooks/useOverlay';
 
 interface CommunityPost {
   id: string;
@@ -123,6 +125,13 @@ export const CommunityGallery: React.FC = () => {
   const [posts, setPosts] = useState<CommunityPost[]>(INITIAL_POSTS);
   const [activeStoryIndex, setActiveStoryIndex] = useState<number | null>(null);
   const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
+  const multiColumn = useMediaQuery('(min-width: 40rem)');
+  const storyPanelRef = useRef<HTMLDivElement>(null);
+  const postPanelRef = useRef<HTMLDivElement>(null);
+  const closeStory = () => setActiveStoryIndex(null);
+  const closePost = () => setSelectedPost(null);
+  useOverlay(activeStoryIndex !== null, closeStory, storyPanelRef);
+  useOverlay(!!selectedPost, closePost, postPanelRef);
 
   const handleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -158,7 +167,7 @@ export const CommunityGallery: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-6"
         >
           <div>
             <div className="text-xs uppercase tracking-widest text-[#fda4af] font-semibold mb-2 flex items-center gap-1.5">
@@ -175,7 +184,7 @@ export const CommunityGallery: React.FC = () => {
 
           <button
             onClick={sharePhotoViaWhatsApp}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold shadow-lg shadow-[#e11d48]/20 transition-all cursor-pointer self-start md:self-end"
+            className="inline-flex min-h-11 items-center gap-2 px-5 py-3 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold shadow-lg shadow-[#e11d48]/20 transition-all cursor-pointer self-start md:self-end"
           >
             <Camera className="w-4 h-4" />
             <span>Envoyer Ma Photo de Plateau</span>
@@ -188,55 +197,57 @@ export const CommunityGallery: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6 }}
-          className="mb-14"
+          className="mb-10 md:mb-14"
         >
           <div className="text-xs font-semibold uppercase tracking-wider text-[#8f8883] mb-4 flex items-center gap-2">
             <span>Stories du Jour en Direct</span>
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
-          <div data-lenis-prevent-horizontal className="flex items-center gap-5 overflow-x-auto pb-4 no-scrollbar">
+          <div data-lenis-prevent-horizontal className="-mx-4 px-4 sm:mx-0 sm:px-0 flex items-start gap-4 sm:gap-5 overflow-x-auto pt-1 pb-4 no-scrollbar">
             {STORIES.map((story, index) => (
-              <div
+              <button
                 key={story.id}
+                type="button"
                 onClick={() => setActiveStoryIndex(index)}
-                className="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+                aria-label={`Voir la story : ${story.title} (${story.duration})`}
+                className="flex flex-col items-center gap-2 shrink-0 rounded-xl cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e11d48]"
               >
-                <div className="p-0.5 rounded-full border-2 border-[#e11d48] group-hover:scale-105 transition-transform duration-300">
-                  <div className="p-0.5 rounded-full bg-[#121111]">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden relative">
+                <span className="block p-0.5 rounded-full border-2 border-[#e11d48] group-hover:scale-105 transition-transform duration-300">
+                  <span className="block p-0.5 rounded-full bg-[#121111]">
+                    <span className="block w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden relative">
                       <img
                         src={story.image}
-                        alt={story.title}
+                        alt=""
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-semibold text-[#f5f3f0] group-hover:text-[#e11d48] transition-colors line-clamp-1 max-w-[85px]">
+                    </span>
+                  </span>
+                </span>
+                <span className="block text-center">
+                  <span className="text-xs font-semibold text-[#f5f3f0] group-hover:text-[#e11d48] transition-colors line-clamp-1 max-w-[85px]">
                     {story.title}
-                  </div>
-                  <div className="text-[10px] text-[#8f8883] line-clamp-1">
+                  </span>
+                  <span className="text-[10px] text-[#8f8883] line-clamp-1">
                     {story.duration}
-                  </div>
-                </div>
-              </div>
+                  </span>
+                </span>
+              </button>
             ))}
           </div>
         </motion.div>
 
         {/* Community Wall Grid with Staggered Slide In */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {posts.map((post, idx) => {
-            const isLeft = idx % 2 === 0;
+            const fromX = multiColumn ? (idx % 2 === 0 ? -45 : 45) : 0;
 
             return (
               <motion.div
                 key={post.id}
-                initial={{ opacity: 0, x: isLeft ? -45 : 45, y: 20 }}
+                initial={{ opacity: 0, x: fromX, y: 20 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -264,14 +275,19 @@ export const CommunityGallery: React.FC = () => {
                     {/* Like button on top right */}
                     <button
                       onClick={(e) => handleLike(post.id, e)}
-                      className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${
-                        post.userLiked
-                          ? 'bg-[#e11d48] text-white'
-                          : 'bg-[#121111]/80 text-[#f5f3f0] hover:text-[#e11d48]'
-                      }`}
+                      className="group/like absolute top-1.5 right-1.5 inline-flex h-11 w-11 items-center justify-center rounded-full cursor-pointer"
                       aria-label="Aimer cette publication"
+                      aria-pressed={!!post.userLiked}
                     >
-                      <Heart className={`w-3.5 h-3.5 ${post.userLiked ? 'fill-current' : ''}`} />
+                      <span
+                        className={`inline-flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-md transition-all ${
+                          post.userLiked
+                            ? 'bg-[#e11d48] text-white'
+                            : 'bg-[#121111]/80 text-[#f5f3f0] group-hover/like:text-[#e11d48]'
+                        }`}
+                      >
+                        <Heart className={`w-3.5 h-3.5 ${post.userLiked ? 'fill-current' : ''}`} />
+                      </span>
                     </button>
                   </div>
 
@@ -316,15 +332,21 @@ export const CommunityGallery: React.FC = () => {
       <AnimatePresence>
         {activeStoryIndex !== null && (
           <motion.div
+            key="story-viewer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             data-lenis-prevent
             className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
-            onClick={() => setActiveStoryIndex(null)}
+            onClick={closeStory}
           >
             <div
-              className="relative w-full max-w-sm aspect-[9/16] bg-[#161413] rounded-3xl overflow-hidden border border-[#332e2b] shadow-2xl flex flex-col justify-between"
+              ref={storyPanelRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Story : ${STORIES[activeStoryIndex].title}`}
+              tabIndex={-1}
+              className="relative w-full max-w-[min(24rem,calc((100svh-2rem)*9/16))] aspect-[9/16] bg-[#161413] rounded-3xl overflow-hidden border border-[#332e2b] shadow-2xl flex flex-col justify-between outline-none"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Story image */}
@@ -339,18 +361,18 @@ export const CommunityGallery: React.FC = () => {
               {/* Top Progress bar and Header */}
               <div className="relative z-10 p-4">
                 <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden mb-3">
-                  <div className="h-full bg-[#e11d48] w-full animate-[progress_5s_linear]" />
+                  <div key={activeStoryIndex} className="h-full bg-[#e11d48] w-full origin-left animate-[progress_5s_linear]" />
                 </div>
-                <div className="flex items-center justify-between text-white">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between gap-2 text-white">
+                  <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
                     <span className="text-xs font-bold font-display">{STORIES[activeStoryIndex].title}</span>
                     <span className="text-[10px] text-[#fda4af] bg-[#121111]/80 px-2 py-0.5 rounded border border-[#e11d48]/40">
                       {STORIES[activeStoryIndex].badge}
                     </span>
                   </div>
                   <button
-                    onClick={() => setActiveStoryIndex(null)}
-                    className="p-1 rounded-full bg-black/50 text-white hover:text-[#e11d48]"
+                    onClick={closeStory}
+                    className="-my-2 -mr-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black/50 text-white hover:text-[#e11d48] cursor-pointer"
                     aria-label="Fermer la story"
                   >
                     <X className="w-5 h-5" />
@@ -365,7 +387,7 @@ export const CommunityGallery: React.FC = () => {
                     e.stopPropagation();
                     setActiveStoryIndex((prev) => (prev! > 0 ? prev! - 1 : STORIES.length - 1));
                   }}
-                  className="p-2 rounded-full bg-black/40 text-white/80 hover:text-white"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white/80 hover:text-white cursor-pointer"
                   aria-label="Story précédente"
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -375,7 +397,7 @@ export const CommunityGallery: React.FC = () => {
                     e.stopPropagation();
                     setActiveStoryIndex((prev) => (prev! < STORIES.length - 1 ? prev! + 1 : 0));
                   }}
-                  className="p-2 rounded-full bg-black/40 text-white/80 hover:text-white"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white/80 hover:text-white cursor-pointer"
                   aria-label="Story suivante"
                 >
                   <ChevronRight className="w-6 h-6" />
@@ -391,7 +413,7 @@ export const CommunityGallery: React.FC = () => {
                   href="https://wa.me/22890123456?text=Bonjour%20Eza%20Zozo%2C%20j'ai%20vu%20la%20story%20du%20jour%20et%20je%20souhaite%20commander%20!"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg transition-colors"
+                  className="w-full min-h-11 py-3 px-4 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg transition-colors"
                 >
                   <Sparkles className="w-4 h-4 text-[#fda4af]" />
                   <span>Commander ce Poisson Braisé</span>
@@ -406,70 +428,78 @@ export const CommunityGallery: React.FC = () => {
       <AnimatePresence>
         {selectedPost && (
           <motion.div
+            key="post-detail"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             data-lenis-prevent
             className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
-            onClick={() => setSelectedPost(null)}
+            onClick={closePost}
           >
             <div
-              className="relative w-full max-w-2xl bg-[#161413] rounded-3xl overflow-hidden border border-[#2e2a28] shadow-2xl flex flex-col md:flex-row"
+              ref={postPanelRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Publication de ${selectedPost.author}`}
+              tabIndex={-1}
+              className="relative w-full max-w-2xl max-h-[calc(100svh-2rem)] bg-[#161413] rounded-3xl overflow-hidden border border-[#2e2a28] shadow-2xl flex flex-col outline-none"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                onClick={() => setSelectedPost(null)}
-                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/60 text-white hover:text-[#e11d48]"
+                onClick={closePost}
+                className="absolute top-3 right-3 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white hover:text-[#e11d48] cursor-pointer"
                 aria-label="Fermer le détail"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="md:w-1/2 relative aspect-[4/3] md:aspect-auto bg-[#221f1d]">
-                <img
-                  src={selectedPost.image}
-                  alt={selectedPost.dishName}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-
-              <div className="md:w-1/2 p-6 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-[#e11d48]/20 border border-[#e11d48]/40 text-[#fda4af] font-bold text-xs flex items-center justify-center font-display">
-                      {selectedPost.avatar}
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-[#f5f3f0]">{selectedPost.author}</div>
-                      <div className="text-xs text-[#8f8883]">{selectedPost.handle} · {selectedPost.neighborhood}</div>
-                    </div>
-                  </div>
-
-                  <div className="text-sm font-bold text-[#fda4af] font-display mb-2">
-                    {selectedPost.dishName}
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-[#c4bfb9] leading-relaxed mb-6">
-                    "{selectedPost.caption}"
-                  </p>
+              <div className="min-h-0 overflow-y-auto overscroll-contain flex flex-col md:flex-row">
+                <div className="md:w-1/2 relative aspect-[4/3] md:aspect-auto bg-[#221f1d] shrink-0">
+                  <img
+                    src={selectedPost.image}
+                    alt={selectedPost.dishName}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
 
-                <div className="pt-4 border-t border-[#262220] flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-[#f5f3f0]">
-                    <Heart className="w-4 h-4 text-[#e11d48] fill-current" />
-                    <span className="font-mono font-bold">{selectedPost.likes}</span>
-                    <span className="text-[#8f8883]">coups de cœur</span>
+                <div className="md:w-1/2 p-5 sm:p-6 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-[#e11d48]/20 border border-[#e11d48]/40 text-[#fda4af] font-bold text-xs flex items-center justify-center font-display">
+                        {selectedPost.avatar}
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#f5f3f0]">{selectedPost.author}</div>
+                        <div className="text-xs text-[#8f8883]">{selectedPost.handle} · {selectedPost.neighborhood}</div>
+                      </div>
+                    </div>
+
+                    <div className="text-sm font-bold text-[#fda4af] font-display mb-2">
+                      {selectedPost.dishName}
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-[#c4bfb9] leading-relaxed mb-6">
+                      "{selectedPost.caption}"
+                    </p>
                   </div>
 
-                  <a
-                    href={`https://wa.me/22890123456?text=Bonjour%20Eza%20Zozo%2C%20je%20veux%20commander%20exactement%20comme%20la%20publication%20de%20${encodeURIComponent(selectedPost.author)}%20%3A%20${encodeURIComponent(selectedPost.dishName)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-2 px-3.5 rounded-xl bg-[#25d366]/15 hover:bg-[#25d366]/25 text-[#25d366] text-xs font-semibold border border-[#25d366]/30 flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>Commander le Même</span>
-                  </a>
+                  <div className="pt-4 border-t border-[#262220] flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 text-xs text-[#f5f3f0]">
+                      <Heart className="w-4 h-4 text-[#e11d48] fill-current" />
+                      <span className="font-mono font-bold">{selectedPost.likes}</span>
+                      <span className="text-[#8f8883]">coups de cœur</span>
+                    </div>
+
+                    <a
+                      href={`https://wa.me/22890123456?text=Bonjour%20Eza%20Zozo%2C%20je%20veux%20commander%20exactement%20comme%20la%20publication%20de%20${encodeURIComponent(selectedPost.author)}%20%3A%20${encodeURIComponent(selectedPost.dishName)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-h-11 py-2 px-3.5 rounded-xl bg-[#25d366]/15 hover:bg-[#25d366]/25 text-[#25d366] text-xs font-semibold border border-[#25d366]/30 flex items-center gap-1.5 transition-colors"
+                    >
+                      <span>Commander le Même</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

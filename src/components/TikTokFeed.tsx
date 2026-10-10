@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TIKTOK_VIDEOS, REVIEWS, RESTAURANT_INFO } from '../data/restaurantData';
-import { Play, Heart, Eye, Star, ExternalLink, Volume2, VolumeX, CheckCircle, Flame, RefreshCw } from 'lucide-react';
+import { Play, Heart, Eye, Star, ExternalLink, Volume2, VolumeX, CheckCircle, Flame, RefreshCw, X } from 'lucide-react';
 import { TikTokVideo } from '../types';
 import { TikTokCardSkeleton } from './Skeletons';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useOverlay } from '../hooks/useOverlay';
 
 export const TikTokFeed: React.FC = () => {
   const [selectedVideo, setSelectedVideo] = useState<TikTokVideo | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const videoPanelRef = useRef<HTMLDivElement>(null);
+  const closeVideo = () => setSelectedVideo(null);
+  useOverlay(!!selectedVideo, closeVideo, videoPanelRef);
 
   const handleRefresh = () => {
     setIsLoading(true);
@@ -27,7 +31,7 @@ export const TikTokFeed: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6"
         >
           <div>
             <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2 flex items-center gap-2">
@@ -37,7 +41,7 @@ export const TikTokFeed: React.FC = () => {
               </span>
               <button
                 onClick={handleRefresh}
-                className="text-[#8f8883] hover:text-[#e11d48] transition-colors p-1 rounded inline-flex items-center gap-1 text-[11px] font-normal"
+                className="relative -my-3.5 inline-flex min-h-11 items-center gap-1 rounded px-1 text-[#8f8883] hover:text-[#e11d48] transition-colors text-[11px] font-normal cursor-pointer"
                 title="Actualiser les vidéos récentes"
                 aria-label="Actualiser les vidéos TikTok"
               >
@@ -57,7 +61,7 @@ export const TikTokFeed: React.FC = () => {
             href={RESTAURANT_INFO.tiktokUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1d1b1a] hover:bg-[#282523] border border-[#383330] text-xs font-semibold text-[#f5f3f0] transition-colors self-start md:self-end"
+            className="inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1d1b1a] hover:bg-[#282523] border border-[#383330] text-xs font-semibold text-[#f5f3f0] transition-colors self-start md:self-end"
           >
             <span>Suivre {RESTAURANT_INFO.tiktokHandle}</span>
             <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
@@ -65,7 +69,7 @@ export const TikTokFeed: React.FC = () => {
         </motion.div>
 
         {/* TikTok Video Cards Grid with Skeletons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-14 md:mb-20">
           {isLoading ? (
             Array.from({ length: 4 }).map((_, index) => (
               <TikTokCardSkeleton key={`tiktok-skeleton-${index}`} />
@@ -78,8 +82,16 @@ export const TikTokFeed: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                role="button"
+                tabIndex={0}
+                aria-label={`Voir la vidéo : ${vid.title}`}
                 onClick={() => setSelectedVideo(vid)}
-                className="group cursor-pointer rounded-2xl overflow-hidden bg-[#181615] border border-[#2e2a28] hover:border-[#e11d48]/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl relative flex flex-col"
+                onKeyDown={(event) => {
+                  if (event.key !== 'Enter' && event.key !== ' ') return;
+                  event.preventDefault();
+                  setSelectedVideo(vid);
+                }}
+                className="group cursor-pointer rounded-2xl overflow-hidden bg-[#181615] border border-[#2e2a28] hover:border-[#e11d48]/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl relative flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e11d48]"
               >
                 {/* Video Thumbnail (Vertical 9:16 vibe or 4:5) */}
                 <div className="relative aspect-[3/4] bg-[#221f1d] overflow-hidden">
@@ -93,24 +105,24 @@ export const TikTokFeed: React.FC = () => {
                   <div className="absolute inset-x-0 bottom-0 h-16 bg-[#121111]/75" />
 
                   {/* Top Badge */}
-                  <div className="absolute top-3 left-3 bg-[#121111]/90 backdrop-blur-md px-2 py-0.5 rounded text-[11px] font-semibold text-[#fda4af] border border-[#e11d48]/30">
+                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-[#121111]/90 backdrop-blur-md px-2 py-0.5 rounded text-[11px] font-semibold text-[#fda4af] border border-[#e11d48]/30">
                     {vid.tag}
                   </div>
 
                   {/* Duration */}
-                  <div className="absolute top-3 right-3 bg-[#121111]/80 backdrop-blur-md px-1.5 py-0.5 rounded text-[10px] font-mono text-[#c4bfb9]">
+                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#121111]/80 backdrop-blur-md px-1.5 py-0.5 rounded text-[10px] font-mono text-[#c4bfb9]">
                     {vid.duration}
                   </div>
 
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-[#e11d48]/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#e11d48]/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                       <Play className="w-5 h-5 fill-current ml-0.5" />
                     </div>
                   </div>
 
                   {/* Bottom stats inside frame */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-[#f5f3f0]">
+                  <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between text-[11px] sm:text-xs text-[#f5f3f0]">
                     <div className="flex items-center gap-1">
                       <Eye className="w-3.5 h-3.5 text-[#fda4af]" />
                       <span className="font-mono">{vid.views}</span>
@@ -123,7 +135,7 @@ export const TikTokFeed: React.FC = () => {
                 </div>
 
                 {/* Caption */}
-                <div className="p-4 flex-1 flex flex-col justify-between">
+                <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between">
                   <h3 className="text-sm font-bold text-[#f5f3f0] font-display line-clamp-1 mb-1">
                     {vid.title}
                   </h3>
@@ -143,7 +155,7 @@ export const TikTokFeed: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-xl mx-auto mb-12"
+            className="text-center max-w-xl mx-auto mb-8 md:mb-12"
           >
             <div className="text-xs uppercase tracking-widest text-[#fda4af] font-semibold mb-2">
               Avis & Témoignages
@@ -153,7 +165,7 @@ export const TikTokFeed: React.FC = () => {
             </h3>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {REVIEWS.map((rev, idx) => (
               <motion.div
                 key={rev.id}
@@ -161,7 +173,7 @@ export const TikTokFeed: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                className="p-6 rounded-2xl bg-[#161413] border border-[#2b2725] flex flex-col justify-between"
+                className="p-5 sm:p-6 rounded-2xl bg-[#161413] border border-[#2b2725] flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-1 text-[#fda4af] mb-4">
@@ -196,98 +208,114 @@ export const TikTokFeed: React.FC = () => {
       </div>
 
       {/* Video Modal Player */}
-      {selectedVideo && (
-        <div
-          data-lenis-prevent
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={() => setSelectedVideo(null)}
-        >
-          <div
-            className="relative w-full max-w-sm bg-[#161413] rounded-3xl overflow-hidden border border-[#3b3633] shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            key="tiktok-video"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            data-lenis-prevent
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={closeVideo}
           >
-            {/* Reel Header */}
-            <div className="p-4 border-b border-[#292625] flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-[#e11d48] text-white flex items-center justify-center font-bold text-xs">
-                  EZ
+            <motion.div
+              ref={videoPanelRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedVideo.title}
+              tabIndex={-1}
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-sm max-h-[calc(100svh-2rem)] bg-[#161413] rounded-3xl overflow-hidden border border-[#3b3633] shadow-2xl flex flex-col outline-none"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Reel Header */}
+              <div className="shrink-0 p-4 border-b border-[#292625] flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-[#e11d48] text-white flex items-center justify-center font-bold text-xs">
+                    EZ
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-[#f5f3f0]">Mr Adanlete · Eza Zozo</div>
+                    <div className="text-[10px] text-[#8f8883]">{selectedVideo.tag}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs font-bold text-[#f5f3f0]">Mr Adanlete · Eza Zozo</div>
-                  <div className="text-[10px] text-[#8f8883]">{selectedVideo.tag}</div>
+                <button
+                  onClick={closeVideo}
+                  className="-my-2.5 -mr-2.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#a8a19b] hover:text-white cursor-pointer"
+                  aria-label="Fermer la vidéo"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Video Player Visual: shrinks to fit short screens */}
+              <div className="relative min-h-0 aspect-[9/14] bg-black overflow-hidden flex items-center justify-center">
+                <img
+                  src={selectedVideo.coverImage}
+                  alt={selectedVideo.title}
+                  className="absolute inset-0 w-full h-full object-cover filter brightness-95"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-black/70" />
+
+                {/* Center Play Indicator */}
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="relative w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:scale-105 transition-transform cursor-pointer"
+                  aria-label={isPlaying ? 'Pause' : 'Lecture'}
+                >
+                  {isPlaying ? <span className="text-xs uppercase tracking-wider font-bold">Pause</span> : <Play className="w-6 h-6 fill-current" />}
+                </button>
+
+                {/* Sound Toggle */}
+                <button
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="absolute top-3 right-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm cursor-pointer"
+                  aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+                >
+                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                </button>
+
+                {/* Bottom Caption Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <div className="font-bold text-sm mb-1">{selectedVideo.title}</div>
+                  <div className="text-xs text-zinc-300 leading-relaxed">{selectedVideo.caption}</div>
+                  <div className="mt-3 flex items-center gap-4 text-xs font-mono">
+                    <span className="flex items-center gap-1 text-[#fda4af]">
+                      <Eye className="w-3.5 h-3.5" /> {selectedVideo.views}
+                    </span>
+                    <span className="flex items-center gap-1 text-[#e11d48]">
+                      <Heart className="w-3.5 h-3.5" /> {selectedVideo.likes}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <button
-                onClick={() => setSelectedVideo(null)}
-                className="text-[#a8a19b] hover:text-white p-1 text-sm font-bold"
-                aria-label="Fermer la vidéo"
-              >
-                ✕
-              </button>
-            </div>
 
-            {/* Video Player Visual */}
-            <div className="relative aspect-[9/14] bg-black overflow-hidden flex items-center justify-center">
-              <img
-                src={selectedVideo.coverImage}
-                alt={selectedVideo.title}
-                className="w-full h-full object-cover filter brightness-95"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-28 bg-black/70" />
-
-              {/* Center Play Indicator */}
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:scale-105 transition-transform"
-                aria-label={isPlaying ? 'Pause' : 'Lecture'}
-              >
-                {isPlaying ? <span className="text-xs uppercase tracking-wider font-bold">Pause</span> : <Play className="w-6 h-6 fill-current" />}
-              </button>
-
-              {/* Sound Toggle */}
-              <button
-                onClick={() => setIsMuted(!isMuted)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white backdrop-blur-sm"
-                aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
-              >
-                {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-              </button>
-
-              {/* Bottom Caption Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <div className="font-bold text-sm mb-1">{selectedVideo.title}</div>
-                <div className="text-xs text-zinc-300 leading-relaxed">{selectedVideo.caption}</div>
-                <div className="mt-3 flex items-center gap-4 text-xs font-mono">
-                  <span className="flex items-center gap-1 text-[#fda4af]">
-                    <Eye className="w-3.5 h-3.5" /> {selectedVideo.views}
-                  </span>
-                  <span className="flex items-center gap-1 text-[#e11d48]">
-                    <Heart className="w-3.5 h-3.5" /> {selectedVideo.likes}
-                  </span>
-                </div>
+              {/* Modal Footer CTA */}
+              <div className="shrink-0 p-3 bg-[#121111] flex items-center gap-2">
+                <a
+                  href={RESTAURANT_INFO.tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 inline-flex min-h-11 items-center justify-center py-2.5 bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-bold rounded-xl text-center transition-colors"
+                >
+                  Voir sur TikTok
+                </a>
+                <button
+                  onClick={closeVideo}
+                  className="min-h-11 py-2.5 px-4 bg-[#262321] hover:bg-[#332f2c] text-[#c4bfb9] text-xs font-medium rounded-xl transition-colors cursor-pointer"
+                >
+                  Fermer
+                </button>
               </div>
-            </div>
-
-            {/* Modal Footer CTA */}
-            <div className="p-3 bg-[#121111] flex items-center gap-2">
-              <a
-                href={RESTAURANT_INFO.tiktokUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-2.5 bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-bold rounded-xl text-center transition-colors"
-              >
-                Voir sur TikTok
-              </a>
-              <button
-                onClick={() => setSelectedVideo(null)}
-                className="py-2.5 px-4 bg-[#262321] hover:bg-[#332f2c] text-[#c4bfb9] text-xs font-medium rounded-xl transition-colors"
-              >
-                Fermer
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

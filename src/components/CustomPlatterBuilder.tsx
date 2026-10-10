@@ -114,7 +114,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-10 md:mb-14"
         >
           <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2">
             Tarification Dynamique & Transparente
@@ -134,7 +134,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-8 space-y-8 bg-[#181615] p-6 sm:p-8 rounded-2xl border border-[#2b2725]"
+            className="lg:col-span-8 space-y-8 bg-[#181615] p-4 sm:p-6 lg:p-8 rounded-2xl border border-[#2b2725]"
           >
             {/* Step 1: Fish Selection */}
             <div>
@@ -154,9 +154,9 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#c4bfb9] hover:border-[#47413d]'
                       }`}
                     >
-                      <div className="flex justify-between items-center mb-1">
+                      <div className="flex justify-between items-baseline gap-2 mb-1">
                         <span className="font-semibold text-sm text-[#f5f3f0] font-display">{fish.name}</span>
-                        <span className="text-xs font-mono font-bold text-[#e11d48]">{formatPrice(fish.basePrice)}</span>
+                        <span className="shrink-0 whitespace-nowrap text-xs font-mono font-bold text-[#e11d48]">{formatPrice(fish.basePrice)}</span>
                       </div>
                       <p className="text-xs text-[#8f8883] leading-relaxed">{fish.desc}</p>
                     </button>
@@ -177,7 +177,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                     <button
                       key={size.id}
                       onClick={() => setSelectedSize(size)}
-                      className={`p-3.5 rounded-xl text-center border text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+                      className={`min-h-11 p-3.5 rounded-xl text-center border text-sm font-medium transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#a8a19b] hover:border-[#47413d]'
@@ -202,7 +202,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                     <button
                       key={side.id}
                       onClick={() => toggleSide(side.id)}
-                      className={`p-3 rounded-xl text-left border text-xs font-medium transition-all flex items-center justify-between cursor-pointer ${
+                      className={`min-h-11 p-3 rounded-xl text-left border text-xs font-medium transition-all flex items-center justify-between gap-2 cursor-pointer ${
                         isSelected
                           ? 'bg-[#29221f] border-[#e11d48] text-[#f5f3f0]'
                           : 'bg-[#1e1b1a] border-[#2e2a28] text-[#8f8883] hover:border-[#47413d]'
@@ -212,7 +212,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                       {isSelected ? (
                         <Check className="w-3.5 h-3.5 text-[#e11d48] shrink-0" />
                       ) : side.price > 0 ? (
-                        <span className="text-[10px] text-[#fda4af]">+{side.price} F</span>
+                        <span className="shrink-0 whitespace-nowrap text-[10px] text-[#fda4af]">+{side.price} F</span>
                       ) : null}
                     </button>
                   );
@@ -296,29 +296,29 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
 
               {/* Itemized breakdown */}
               <div className="space-y-3 text-xs text-[#c4bfb9] mb-6">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-3">
                   <span>Poisson : {selectedFish.name}</span>
-                  <span className="font-mono text-[#f5f3f0]">{formatPrice(selectedFish.basePrice)}</span>
+                  <span className="shrink-0 font-mono text-[#f5f3f0]">{formatPrice(selectedFish.basePrice)}</span>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-3">
                   <span>Calibre : {selectedSize.name.split(' (')[0]}</span>
-                  <span className="font-mono text-[#f5f3f0]">+{formatPrice(selectedSize.extra)}</span>
+                  <span className="shrink-0 font-mono text-[#f5f3f0]">+{formatPrice(selectedSize.extra)}</span>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-3">
                   <span>Garnitures ({selectedSides.length})</span>
-                  <span className="font-mono text-[#f5f3f0]">+{formatPrice(sidesExtra)}</span>
+                  <span className="shrink-0 font-mono text-[#f5f3f0]">+{formatPrice(sidesExtra)}</span>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-3">
                   <span>Piment : {selectedSpice.name.split(' (')[0]}</span>
-                  <span className="text-[#a8a19b]">Inclus</span>
+                  <span className="shrink-0 text-[#a8a19b]">Inclus</span>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-3">
                   <span>Boisson : {selectedDrink.name.split(' (')[0]}</span>
-                  <span className="font-mono text-[#f5f3f0]">+{formatPrice(selectedDrink.price)}</span>
+                  <span className="shrink-0 font-mono text-[#f5f3f0]">+{formatPrice(selectedDrink.price)}</span>
                 </div>
               </div>
 
@@ -337,7 +337,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
               <div className="space-y-3">
                 <button
                   onClick={handleAddToCart}
-                  className={`w-full py-3 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                  className={`w-full min-h-12 py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     addedSuccess
                       ? 'bg-emerald-600 text-white'
                       : 'bg-[#e11d48] hover:bg-[#be123c] text-white shadow-md shadow-[#e11d48]/20'
@@ -360,7 +360,7 @@ export const CustomPlatterBuilder: React.FC<CustomPlatterBuilderProps> = ({ onAd
                   href={getWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-[#25d366]/10 hover:bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30 font-semibold text-xs flex items-center justify-center gap-2 transition-colors"
+                  className="w-full min-h-12 py-3 px-4 rounded-xl bg-[#25d366]/10 hover:bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30 font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Commander Direct via WhatsApp</span>

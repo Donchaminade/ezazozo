@@ -3,6 +3,7 @@ import { Flame, Phone, MapPin, Clock, Heart, Share2 } from 'lucide-react';
 import { RESTAURANT_INFO } from '../data/restaurantData';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/scroll';
 import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
+import { MotionSwitch } from './MotionPreference';
 
 interface FooterProps {
   onOpenShare?: () => void;
@@ -38,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
   );
 
   return (
-    <footer className="bg-[#0b0a0a] text-[#a8a19b] border-t border-[#211e1c] pt-16 pb-6 overflow-hidden">
+    <footer className="bg-[#0b0a0a] text-[#a8a19b] border-t border-[#211e1c] pt-16 pb-16 md:pb-8 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#211e1c]">
           {/* Col 1: Brand Info */}
@@ -60,34 +61,34 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
             <h4 className="text-xs font-semibold uppercase tracking-wider text-[#f5f3f0]">
               Navigation
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="text-xs pointer-fine:space-y-1">
               <li>
-                <a href="#concept" className="hover:text-[#e11d48] transition-colors">
+                <a href="#concept" className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors">
                   Le Concept & Les 3 Piliers
                 </a>
               </li>
               <li>
-                <a href="#menu" className="hover:text-[#e11d48] transition-colors">
+                <a href="#menu" className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors">
                   La Carte & Les Poissons Braisés
                 </a>
               </li>
               <li>
-                <a href="#simulateur" className="hover:text-[#e11d48] transition-colors">
+                <a href="#simulateur" className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors">
                   Simulateur de Plateau
                 </a>
               </li>
               <li>
-                <a href="#tiktok" className="hover:text-[#e11d48] transition-colors">
+                <a href="#tiktok" className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors">
                   L'Esprit TikTok & Avis
                 </a>
               </li>
               <li>
-                <a href="#communaute" className="hover:text-[#e11d48] transition-colors">
+                <a href="#communaute" className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors">
                   Le Mur des Gourmands
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#e11d48] transition-colors">
+                <a href="#contact" className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors">
                   Réservation & Localisation
                 </a>
               </li>
@@ -95,7 +96,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
                 <li>
                   <button
                     onClick={onOpenShare}
-                    className="hover:text-[#fda4af] text-[#e11d48] transition-colors flex items-center gap-1.5 cursor-pointer"
+                    className="inline-flex min-h-11 items-center gap-1.5 pointer-fine:min-h-7 hover:text-[#fda4af] text-[#e11d48] transition-colors cursor-pointer"
                   >
                     <Share2 className="w-3 h-3" />
                     <span>Partager le site (Affiche)</span>
@@ -127,12 +128,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
             <h4 className="text-xs font-semibold uppercase tracking-wider text-[#f5f3f0]">
               Nous Rejoindre
             </h4>
-            <div className="space-y-2 text-xs text-[#8f8883]">
-              <p className="text-[#c4bfb9]">{RESTAURANT_INFO.address}</p>
+            <div className="space-y-1 text-xs text-[#8f8883]">
+              <p className="pb-1 text-[#c4bfb9]">{RESTAURANT_INFO.address}</p>
               <p>
                 <a
                   href={`tel:${RESTAURANT_INFO.whatsappNumber}`}
-                  className="hover:text-[#25d366] transition-colors font-mono"
+                  className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#25d366] transition-colors font-mono"
                 >
                   WhatsApp : {RESTAURANT_INFO.whatsappDisplay}
                 </a>
@@ -140,19 +141,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
               <p>
                 <a
                   href={`tel:${RESTAURANT_INFO.phoneSecondary}`}
-                  className="hover:text-[#e11d48] transition-colors font-mono"
+                  className="inline-flex min-h-11 items-center pointer-fine:min-h-7 hover:text-[#e11d48] transition-colors font-mono"
                 >
                   Appel direct : {RESTAURANT_INFO.phoneSecondary}
                 </a>
               </p>
             </div>
 
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <a
                 href={RESTAURANT_INFO.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#181615] border border-[#2b2725] text-xs text-[#f5f3f0] hover:text-[#e11d48] hover:border-[#e11d48] transition-colors"
+                className="inline-flex min-h-11 items-center px-3 pointer-fine:min-h-8 rounded-lg bg-[#181615] border border-[#2b2725] text-xs text-[#f5f3f0] hover:text-[#e11d48] hover:border-[#e11d48] transition-colors"
               >
                 TikTok ({RESTAURANT_INFO.tiktokHandle})
               </a>
@@ -160,7 +161,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
                 href={`https://wa.me/22890123456`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[#25d366]/10 border border-[#25d366]/30 text-xs text-[#25d366] hover:bg-[#25d366]/20 transition-colors"
+                className="inline-flex min-h-11 items-center px-3 pointer-fine:min-h-8 rounded-lg bg-[#25d366]/10 border border-[#25d366]/30 text-xs text-[#25d366] hover:bg-[#25d366]/20 transition-colors"
               >
                 WhatsApp Direct
               </a>
@@ -169,9 +170,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
         </div>
 
         {/* Quiet copyright strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8f8883] gap-4">
+        <div className="pt-8 flex flex-col lg:flex-row items-center justify-between text-center text-xs text-[#8f8883] gap-4">
           <p>© {new Date().getFullYear()} Eza Zozo Poissonnerie & Grillade. Tous droits réservés.</p>
-          <p className="flex items-center gap-1.5 text-[#a8a19b]">
+          <MotionSwitch />
+          <p className="flex flex-wrap items-center justify-center gap-1.5 text-[#a8a19b]">
             <span>Fait avec passion à Lomé, Togo</span>
             <Heart className="w-3.5 h-3.5 text-[#e11d48] fill-current" />
             <span>par Mr Adanlete & son équipe</span>

@@ -43,7 +43,7 @@ export const ContactAndMap: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-10 md:mb-16"
         >
           <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2">
             Nous Trouver & Réserver
@@ -56,7 +56,7 @@ export const ContactAndMap: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Contact Details & Info Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -66,7 +66,7 @@ export const ContactAndMap: React.FC = () => {
             className="lg:col-span-5 space-y-6"
           >
             {/* Practical info cards */}
-            <div className="p-6 rounded-2xl bg-[#161413] border border-[#2b2725] space-y-5">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#161413] border border-[#2b2725] space-y-5">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-xl bg-[#e11d48]/15 text-[#e11d48] shrink-0">
                   <MapPin className="w-5 h-5" />
@@ -103,16 +103,16 @@ export const ContactAndMap: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-[#f5f3f0] font-display">Téléphone & WhatsApp Direct</h3>
-                  <div className="flex flex-col gap-1 mt-1 text-xs sm:text-sm">
+                  <div className="flex flex-col mt-1 text-xs sm:text-sm pointer-fine:gap-1">
                     <a
                       href={`tel:${RESTAURANT_INFO.whatsappNumber}`}
-                      className="text-[#f5f3f0] hover:text-[#e11d48] font-mono transition-colors"
+                      className="inline-flex min-h-11 items-center text-[#f5f3f0] hover:text-[#e11d48] font-mono transition-colors pointer-fine:min-h-0"
                     >
                       {RESTAURANT_INFO.whatsappDisplay} (Commandes & WhatsApp)
                     </a>
                     <a
                       href={`tel:${RESTAURANT_INFO.phoneSecondary}`}
-                      className="text-[#a8a19b] hover:text-[#e11d48] font-mono transition-colors"
+                      className="inline-flex min-h-11 items-center text-[#a8a19b] hover:text-[#e11d48] font-mono transition-colors pointer-fine:min-h-0"
                     >
                       {RESTAURANT_INFO.phoneSecondary} (Service & Banquets)
                     </a>
@@ -123,7 +123,7 @@ export const ContactAndMap: React.FC = () => {
 
             {/* Embedded Stylized Map Card */}
             <div className="rounded-2xl overflow-hidden bg-[#161413] border border-[#2b2725] p-5">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#fda4af]">
                   Plan d'Accès Lomé
                 </span>
@@ -131,7 +131,7 @@ export const ContactAndMap: React.FC = () => {
                   href="https://maps.google.com/?q=Lome+Togo+Boulevard+Circulaire"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-[#e11d48] hover:underline flex items-center gap-1 font-medium"
+                  className="inline-flex min-h-11 items-center gap-1 text-xs text-[#e11d48] hover:underline font-medium pointer-fine:min-h-0"
                 >
                   <Navigation className="w-3.5 h-3.5" />
                   <span>Itinéraire Google Maps</span>
@@ -157,7 +157,7 @@ export const ContactAndMap: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 bg-[#161413] rounded-2xl border border-[#2b2725] p-6 sm:p-8"
+            className="lg:col-span-7 bg-[#161413] rounded-2xl border border-[#2b2725] p-5 sm:p-8"
           >
             <div className="mb-6">
               <h3 className="text-xl font-bold text-[#f5f3f0] font-display">
@@ -182,14 +182,14 @@ export const ContactAndMap: React.FC = () => {
                 <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
                   <button
                     onClick={handleSendToWhatsApp}
-                    className="py-2.5 px-5 rounded-xl bg-[#25d366] hover:bg-[#20ba5a] text-white font-semibold text-xs flex items-center justify-center gap-2"
+                    className="min-h-11 py-2.5 px-5 rounded-xl bg-[#25d366] hover:bg-[#20ba5a] text-white font-semibold text-xs flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Transmettre sur WhatsApp Direct</span>
                   </button>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="py-2.5 px-4 rounded-xl bg-[#2b2725] text-[#c4bfb9] text-xs font-medium"
+                    className="min-h-11 py-2.5 px-4 rounded-xl bg-[#2b2725] text-[#c4bfb9] text-xs font-medium cursor-pointer"
                   >
                     Envoyer une autre demande
                   </button>
@@ -208,7 +208,7 @@ export const ContactAndMap: React.FC = () => {
                       placeholder="Ex: Koffi Mensah"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-base pointer-fine:text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -222,7 +222,7 @@ export const ContactAndMap: React.FC = () => {
                       placeholder="+228 90 00 00 00"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-base pointer-fine:text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -235,7 +235,7 @@ export const ContactAndMap: React.FC = () => {
                     <select
                       value={formData.type}
                       onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-base pointer-fine:text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     >
                       <option>Réservation de Table</option>
                       <option>Commande à Emporter</option>
@@ -251,7 +251,7 @@ export const ContactAndMap: React.FC = () => {
                     <select
                       value={formData.guests}
                       onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-base pointer-fine:text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     >
                       <option>1 Personne</option>
                       <option>2 Personnes</option>
@@ -269,7 +269,7 @@ export const ContactAndMap: React.FC = () => {
                       type="time"
                       value={formData.time}
                       onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-base pointer-fine:text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -283,14 +283,14 @@ export const ContactAndMap: React.FC = () => {
                     placeholder="Ex: Nous souhaitons 2 dorades bien pimentées avec double alloco et une table en terrasse..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1f1d1b] border border-[#2e2a28] text-base pointer-fine:text-sm text-[#f5f3f0] focus:border-[#e11d48] focus:outline-none transition-colors resize-none"
                   />
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                   <button
                     type="submit"
-                    className="w-full sm:flex-1 py-3 px-5 bg-[#e11d48] hover:bg-[#be123c] text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                    className="w-full sm:flex-1 min-h-12 py-3 px-5 bg-[#e11d48] hover:bg-[#be123c] text-white font-semibold text-sm rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
                   >
                     <Send className="w-4 h-4" />
                     <span>Envoyer la Demande</span>
@@ -299,7 +299,7 @@ export const ContactAndMap: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleSendToWhatsApp}
-                    className="w-full sm:w-auto py-3 px-5 bg-[#25d366]/10 hover:bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto min-h-12 py-3 px-5 bg-[#25d366]/10 hover:bg-[#25d366]/20 text-[#25d366] border border-[#25d366]/30 font-semibold text-sm rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>WhatsApp Direct</span>

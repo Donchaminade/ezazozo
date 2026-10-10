@@ -1,10 +1,10 @@
 import {createRoot} from 'react-dom/client';
-import {MotionConfig} from 'motion/react';
 import App from './App.tsx';
+import {MotionPreferenceProvider} from './components/MotionPreference';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
-  <MotionConfig reducedMotion="user">
+  <MotionPreferenceProvider>
     <App />
-  </MotionConfig>
+  </MotionPreferenceProvider>
 );

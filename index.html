@@ -1,8 +1,22 @@
 <!doctype html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Dark-only page: keeps Chrome/Brave "auto dark" / night mode from re-colouring it -->
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0f0e0e" />
+    <!-- Same rule as src/lib/motion.ts, applied before first paint so CSS animations never flash -->
+    <script>
+      (function () {
+        var choice = null;
+        try {
+          choice = localStorage.getItem('eza-motion');
+        } catch (e) {}
+        var reduce = choice === 'reduce' || (choice !== 'full' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        document.documentElement.setAttribute('data-motion', reduce ? 'reduce' : 'full');
+      })();
+    </script>
     <title>Eza Zozo - Poissonnerie & Grillade | Lomé, Togo</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />

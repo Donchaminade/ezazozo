@@ -1,5 +1,5 @@
 import { useCallback, useSyncExternalStore } from 'react';
-import { REDUCED_MOTION_QUERY } from '../lib/scroll';
+import { prefersReducedMotion, REDUCED_MOTION_QUERY, subscribeToMotion } from '../lib/motion';
 
 export const useMediaQuery = (query: string): boolean => {
   const subscribe = useCallback(
@@ -17,4 +17,8 @@ export const useMediaQuery = (query: string): boolean => {
   );
 };
 
-export const usePrefersReducedMotion = () => useMediaQuery(REDUCED_MOTION_QUERY);
+/** The effective preference: the visitor's choice, else the OS `prefers-reduced-motion` setting. */
+export const usePrefersReducedMotion = () => useSyncExternalStore(subscribeToMotion, prefersReducedMotion, () => false);
+
+/** The OS setting alone, to explain why the site starts still. */
+export const useSystemPrefersReducedMotion = () => useMediaQuery(REDUCED_MOTION_QUERY);
