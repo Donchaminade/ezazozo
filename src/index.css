@@ -100,6 +100,16 @@ html.lenis {
   pointer-events: none;
 }
 
+/* An overlay is open (lockScroll in src/lib/scroll.ts). The stable gutter keeps desktop scrollbars
+   from shifting the page sideways when it locks. */
+html {
+  scrollbar-gutter: stable;
+}
+
+html.scroll-locked {
+  overflow: hidden;
+}
+
 /* Reduced motion: decorative CSS loops and transitions settle on their end state at once. */
 [data-motion="reduce"] *,
 [data-motion="reduce"] *::before,

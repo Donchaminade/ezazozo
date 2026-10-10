@@ -75,7 +75,7 @@ export default function App() {
       <a
         href="#main-content"
         data-skip-link
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-[#e11d48] text-white px-4 py-2 rounded-lg font-bold"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[60] bg-[#e11d48] text-white px-4 py-2 rounded-lg font-bold"
       >
         Aller au contenu principal
       </a>
