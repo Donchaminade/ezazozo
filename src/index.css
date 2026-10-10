@@ -98,6 +98,64 @@ html.lenis {
   }
 }
 
+/* Braise hero */
+.braise-coals {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 34%);
+}
+
+.braise-title-glow {
+  text-shadow: 0 0 60px rgba(255, 96, 20, 0.28), 0 10px 40px rgba(0, 0, 0, 0.55);
+}
+
+.braise-ticket {
+  -webkit-mask:
+    radial-gradient(circle at 50% 0, #0000 5px, #000 5.5px) top / 14px 51% repeat-x,
+    radial-gradient(circle at 50% 100%, #0000 5px, #000 5.5px) bottom / 14px 51% repeat-x;
+  mask:
+    radial-gradient(circle at 50% 0, #0000 5px, #000 5.5px) top / 14px 51% repeat-x,
+    radial-gradient(circle at 50% 100%, #0000 5px, #000 5.5px) bottom / 14px 51% repeat-x;
+}
+
+.braise-ui {
+  --ui-ink: #f5f3f0;
+}
+
+.braise-ui-muted {
+  color: color-mix(in srgb, var(--ui-ink) 45%, transparent);
+}
+
+.braise-rail-label {
+  color: color-mix(in srgb, var(--ui-ink) 34%, transparent);
+}
+
+.braise-rail-dot {
+  background: color-mix(in srgb, var(--ui-ink) 28%, transparent);
+  transition: background-color 0.4s ease, transform 0.4s ease;
+}
+
+.braise-rail li[data-active] .braise-rail-label {
+  color: var(--ui-ink);
+}
+
+.braise-rail li[data-active] .braise-rail-dot {
+  background: #e11d48;
+  transform: scale(1.8);
+}
+
+@keyframes braiseScrollCue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+.braise-scroll-cue {
+  animation: braiseScrollCue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

@@ -14,6 +14,7 @@ import { AmbientSoundPlayer } from './components/AmbientSoundPlayer';
 import { ShareModal } from './components/ShareModal';
 import { SmoothScroll } from './components/SmoothScroll';
 import { CartItem, MenuItem } from './types';
+import { MENU_ITEMS } from './data/restaurantData';
 import { scrollToTarget } from './lib/scroll';
 import { ShoppingBag, Phone } from 'lucide-react';
 
@@ -63,6 +64,12 @@ export default function App() {
     scrollToTarget(sectionId);
   };
 
+  const handleOrderSignature = () => {
+    const signature = MENU_ITEMS.find((item) => item.id === 'dorade-royale');
+    if (signature) handleAddToCart(signature);
+    setIsCartOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#0f0e0e] text-[#f5f3f0] selection:bg-[#e11d48] selection:text-white flex flex-col font-sans">
       {/* Lenis inertial scrolling, synced with GSAP ScrollTrigger */}
@@ -90,6 +97,7 @@ export default function App() {
         <Hero
           onExploreMenu={() => scrollToSection('menu')}
           onOpenLocation={() => scrollToSection('contact')}
+          onOrderSignature={handleOrderSignature}
         />
 
         {/* Section 2: Le Concept & 3 Piliers */}
