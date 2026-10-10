@@ -10,6 +10,24 @@ import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 export const SmoothScroll = () => {
   const reducedMotion = usePrefersReducedMotion();
 
+  // Sections change height after load (menu view switch, new community posts): keep trigger positions true.
+  useEffect(() => {
+    let timeoutId: number | undefined;
+    let lastHeight = document.body.offsetHeight;
+    const ro = new ResizeObserver(() => {
+      const height = document.body.offsetHeight;
+      if (height === lastHeight) return;
+      lastHeight = height;
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    ro.observe(document.body);
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
   useEffect(() => {
     if (reducedMotion) return;
 
