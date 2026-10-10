@@ -37,7 +37,7 @@ export const StoryPillars: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-10 md:mb-16"
         >
           <div className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold mb-2">
             L'Âme d'Eza Zozo
@@ -51,7 +51,7 @@ export const StoryPillars: React.FC = () => {
         </motion.div>
 
         {/* Story & Chef Spotlight */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center mb-10 md:mb-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -59,7 +59,7 @@ export const StoryPillars: React.FC = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
           >
-            <div data-parallax-frame className="relative h-[400px] rounded-2xl overflow-hidden border border-[#2b2725] shadow-2xl bg-[#181615]">
+            <div data-parallax-frame className="relative h-[340px] sm:h-[400px] rounded-2xl overflow-hidden border border-[#2b2725] shadow-2xl bg-[#181615]">
               <div data-parallax-img className="absolute inset-x-0 top-[-8%] bottom-[-8%]">
                 <img
                   src="/images/chef.jpg"
@@ -87,7 +87,7 @@ export const StoryPillars: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col justify-center space-y-6"
           >
-            <h3 className="text-2xl font-bold text-[#f5f3f0] font-display">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#f5f3f0] font-display">
               Du Port de Pêche à Votre Table : La Rigueur de l'Excellence
             </h3>
             <p className="text-sm sm:text-base text-[#c4bfb9] leading-relaxed">
@@ -97,28 +97,28 @@ export const StoryPillars: React.FC = () => {
               Chaque pièce est ensuite minutieusement écaillée, vidée et massée avec notre marinade signature — une alchimie secrète d’aromates locaux, ail pilé, gingembre du plateau de Dayes et poivres torréfiés — avant de rencontrer les braises frémissantes.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#292625]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-[#292625]">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-5 h-5 text-[#e11d48] shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-[#f5f3f0]">Hygiène irréprochable & chaîne du froid</span>
+                <span className="text-sm font-medium text-[#f5f3f0]">Hygiène irréprochable & chaîne du froid</span>
               </div>
               <div className="flex items-center gap-3">
                 <HeartHandshake className="w-5 h-5 text-[#fda4af] shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-[#f5f3f0]">Soutien direct aux pêcheurs togolais</span>
+                <span className="text-sm font-medium text-[#f5f3f0]">Soutien direct aux pêcheurs togolais</span>
               </div>
             </div>
           </motion.div>
         </div>
 
         {/* 3 Pillars Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {/* Pillar 1 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
+            className="p-5 lg:p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
           >
             <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 flex items-center justify-center text-[#e11d48] mb-5 group-hover:scale-110 transition-transform">
               <Waves className="w-6 h-6" />
@@ -137,7 +137,7 @@ export const StoryPillars: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
+            className="p-5 lg:p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
           >
             <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 flex items-center justify-center text-[#e11d48] mb-5 group-hover:scale-110 transition-transform">
               <Flame className="w-6 h-6" />
@@ -156,7 +156,7 @@ export const StoryPillars: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
+            className="p-5 lg:p-6 rounded-2xl bg-[#181615] border border-[#2b2725] hover:border-[#e11d48]/50 transition-colors group"
           >
             <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 flex items-center justify-center text-[#e11d48] mb-5 group-hover:scale-110 transition-transform">
               <UtensilsCrossed className="w-6 h-6" />

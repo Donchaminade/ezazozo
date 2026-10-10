@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, MessageCircle, MapPin, Sparkles, Camera, Check, ExternalLink, X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 interface CommunityPost {
   id: string;
@@ -123,6 +124,7 @@ export const CommunityGallery: React.FC = () => {
   const [posts, setPosts] = useState<CommunityPost[]>(INITIAL_POSTS);
   const [activeStoryIndex, setActiveStoryIndex] = useState<number | null>(null);
   const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
+  const multiColumn = useMediaQuery('(min-width: 40rem)');
 
   const handleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -158,7 +160,7 @@ export const CommunityGallery: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-6"
         >
           <div>
             <div className="text-xs uppercase tracking-widest text-[#fda4af] font-semibold mb-2 flex items-center gap-1.5">
@@ -175,7 +177,7 @@ export const CommunityGallery: React.FC = () => {
 
           <button
             onClick={sharePhotoViaWhatsApp}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold shadow-lg shadow-[#e11d48]/20 transition-all cursor-pointer self-start md:self-end"
+            className="inline-flex min-h-11 items-center gap-2 px-5 py-3 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold shadow-lg shadow-[#e11d48]/20 transition-all cursor-pointer self-start md:self-end"
           >
             <Camera className="w-4 h-4" />
             <span>Envoyer Ma Photo de Plateau</span>
@@ -188,55 +190,57 @@ export const CommunityGallery: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6 }}
-          className="mb-14"
+          className="mb-10 md:mb-14"
         >
           <div className="text-xs font-semibold uppercase tracking-wider text-[#8f8883] mb-4 flex items-center gap-2">
             <span>Stories du Jour en Direct</span>
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
-          <div data-lenis-prevent-horizontal className="flex items-center gap-5 overflow-x-auto pb-4 no-scrollbar">
+          <div data-lenis-prevent-horizontal className="-mx-4 px-4 sm:mx-0 sm:px-0 flex items-start gap-4 sm:gap-5 overflow-x-auto pt-1 pb-4 no-scrollbar">
             {STORIES.map((story, index) => (
-              <div
+              <button
                 key={story.id}
+                type="button"
                 onClick={() => setActiveStoryIndex(index)}
-                className="flex flex-col items-center gap-2 shrink-0 cursor-pointer group"
+                aria-label={`Voir la story : ${story.title} (${story.duration})`}
+                className="flex flex-col items-center gap-2 shrink-0 rounded-xl cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e11d48]"
               >
-                <div className="p-0.5 rounded-full border-2 border-[#e11d48] group-hover:scale-105 transition-transform duration-300">
-                  <div className="p-0.5 rounded-full bg-[#121111]">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden relative">
+                <span className="block p-0.5 rounded-full border-2 border-[#e11d48] group-hover:scale-105 transition-transform duration-300">
+                  <span className="block p-0.5 rounded-full bg-[#121111]">
+                    <span className="block w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden relative">
                       <img
                         src={story.image}
-                        alt={story.title}
+                        alt=""
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                         loading="lazy"
                       />
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-semibold text-[#f5f3f0] group-hover:text-[#e11d48] transition-colors line-clamp-1 max-w-[85px]">
+                    </span>
+                  </span>
+                </span>
+                <span className="block text-center">
+                  <span className="text-xs font-semibold text-[#f5f3f0] group-hover:text-[#e11d48] transition-colors line-clamp-1 max-w-[85px]">
                     {story.title}
-                  </div>
-                  <div className="text-[10px] text-[#8f8883] line-clamp-1">
+                  </span>
+                  <span className="text-[10px] text-[#8f8883] line-clamp-1">
                     {story.duration}
-                  </div>
-                </div>
-              </div>
+                  </span>
+                </span>
+              </button>
             ))}
           </div>
         </motion.div>
 
         {/* Community Wall Grid with Staggered Slide In */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {posts.map((post, idx) => {
-            const isLeft = idx % 2 === 0;
+            const fromX = multiColumn ? (idx % 2 === 0 ? -45 : 45) : 0;
 
             return (
               <motion.div
                 key={post.id}
-                initial={{ opacity: 0, x: isLeft ? -45 : 45, y: 20 }}
+                initial={{ opacity: 0, x: fromX, y: 20 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -264,14 +268,19 @@ export const CommunityGallery: React.FC = () => {
                     {/* Like button on top right */}
                     <button
                       onClick={(e) => handleLike(post.id, e)}
-                      className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${
-                        post.userLiked
-                          ? 'bg-[#e11d48] text-white'
-                          : 'bg-[#121111]/80 text-[#f5f3f0] hover:text-[#e11d48]'
-                      }`}
+                      className="group/like absolute top-1.5 right-1.5 inline-flex h-11 w-11 items-center justify-center rounded-full cursor-pointer"
                       aria-label="Aimer cette publication"
+                      aria-pressed={!!post.userLiked}
                     >
-                      <Heart className={`w-3.5 h-3.5 ${post.userLiked ? 'fill-current' : ''}`} />
+                      <span
+                        className={`inline-flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-md transition-all ${
+                          post.userLiked
+                            ? 'bg-[#e11d48] text-white'
+                            : 'bg-[#121111]/80 text-[#f5f3f0] group-hover/like:text-[#e11d48]'
+                        }`}
+                      >
+                        <Heart className={`w-3.5 h-3.5 ${post.userLiked ? 'fill-current' : ''}`} />
+                      </span>
                     </button>
                   </div>
 

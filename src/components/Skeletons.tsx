@@ -18,7 +18,7 @@ export const MenuCardSkeleton: React.FC = () => {
       </div>
 
       {/* Body Content Skeleton */}
-      <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
         <div>
           {/* Metadata kicker placeholder */}
           <div className="flex items-center gap-2 mb-2.5">
@@ -39,8 +39,9 @@ export const MenuCardSkeleton: React.FC = () => {
 
         {/* Action button row placeholder */}
         <div className="pt-4 border-t border-[#262220] flex items-center gap-2">
-          <div className="flex-1 h-9 rounded-xl bg-[#2a2624] skeleton-shimmer" />
-          <div className="w-9 h-9 rounded-xl bg-[#221f1d] skeleton-shimmer shrink-0" />
+          <div className="flex-1 h-11 rounded-xl bg-[#2a2624] skeleton-shimmer" />
+          <div className="w-11 h-11 rounded-xl bg-[#221f1d] skeleton-shimmer shrink-0" />
+          <div className="w-11 h-11 rounded-xl bg-[#221f1d] skeleton-shimmer shrink-0" />
         </div>
       </div>
     </div>
@@ -57,24 +58,24 @@ export const TikTokCardSkeleton: React.FC = () => {
       {/* Video Thumbnail Skeleton */}
       <div className="relative aspect-[3/4] bg-[#1e1b19] skeleton-shimmer overflow-hidden">
         {/* Top tag */}
-        <div className="absolute top-3 left-3 w-20 h-5 rounded bg-[#2d2927]/70" />
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 w-16 sm:w-20 h-5 rounded bg-[#2d2927]/70" />
         {/* Duration badge */}
-        <div className="absolute top-3 right-3 w-10 h-4 rounded bg-[#2d2927]/70" />
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 w-10 h-4 rounded bg-[#2d2927]/70" />
 
         {/* Center play icon ring */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full bg-[#2a2624]/80 flex items-center justify-center" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2a2624]/80 flex items-center justify-center" />
         </div>
 
         {/* Bottom metrics placeholder */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-          <div className="w-16 h-4 rounded bg-[#2d2927]/80" />
-          <div className="w-14 h-4 rounded bg-[#2d2927]/80" />
+        <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between gap-2">
+          <div className="w-12 sm:w-16 h-4 rounded bg-[#2d2927]/80" />
+          <div className="w-10 sm:w-14 h-4 rounded bg-[#2d2927]/80" />
         </div>
       </div>
 
       {/* Caption skeleton */}
-      <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
+      <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-2">
         <div className="h-4 w-4/5 rounded bg-[#2e2a28] skeleton-shimmer" />
         <div className="space-y-1">
           <div className="h-3 w-full rounded bg-[#24201e] skeleton-shimmer" />

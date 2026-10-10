@@ -12,7 +12,7 @@ export const OrderProcess: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-10 md:mb-16"
         >
           <div className="text-xs uppercase tracking-widest text-[#fda4af] font-semibold mb-2">
             Simplicité & Rapidité
@@ -26,16 +26,16 @@ export const OrderProcess: React.FC = () => {
         </motion.div>
 
         {/* 3 Step Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-8 relative">
           {/* Step 1 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
+            className="p-6 lg:p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#e11d48] font-bold text-lg font-mono flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#e11d48] font-bold text-lg font-mono flex items-center justify-center mb-5 lg:mb-6">
               01
             </div>
             <h3 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -52,9 +52,9 @@ export const OrderProcess: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
+            className="p-6 lg:p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#fda4af] font-bold text-lg font-mono flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#fda4af] font-bold text-lg font-mono flex items-center justify-center mb-5 lg:mb-6">
               02
             </div>
             <h3 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -71,9 +71,9 @@ export const OrderProcess: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
+            className="p-6 lg:p-8 rounded-2xl bg-[#161413] border border-[#2b2725] relative group"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#e11d48] font-bold text-lg font-mono flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-xl bg-[#e11d48]/10 border border-[#e11d48]/30 text-[#e11d48] font-bold text-lg font-mono flex items-center justify-center mb-5 lg:mb-6">
               03
             </div>
             <h3 className="text-lg font-bold text-[#f5f3f0] mb-2 font-display">
@@ -91,7 +91,7 @@ export const OrderProcess: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-14 p-6 sm:p-8 rounded-2xl bg-[#1a1716] border border-[#332e2b] flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+          className="mt-10 md:mt-14 p-5 sm:p-8 rounded-2xl bg-[#1a1716] border border-[#332e2b] flex flex-col lg:flex-row lg:items-center justify-between gap-6"
         >
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-xl bg-[#e11d48]/15 text-[#e11d48] shrink-0">
@@ -107,13 +107,13 @@ export const OrderProcess: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 lg:shrink-0">
             <span className="text-xs text-[#c4bfb9] font-mono">Délai moyen : 35-50 min</span>
             <a
               href="https://wa.me/22890123456?text=Bonjour%2C%20quel%20est%20le%20d%C3%A9lai%20de%20livraison%20actuel%20pour%20mon%20quartier%20%3F"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
+              className="inline-flex min-h-11 w-full sm:w-auto items-center justify-center px-4 py-2 bg-[#e11d48] hover:bg-[#be123c] text-white text-sm sm:text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
             >
               Vérifier mon Quartier
             </a>

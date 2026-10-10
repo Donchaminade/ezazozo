@@ -8,6 +8,7 @@ import { MenuCarousel } from './MenuCarousel';
 import { DishDetailModal } from './DishDetailModal';
 import { motion } from 'motion/react';
 import { prefersReducedMotion } from '../lib/motion';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 interface MenuSectionProps {
   onAddToCart: (item: MenuItem) => void;
@@ -35,6 +36,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedDetailItem, setSelectedDetailItem] = useState<MenuItem | null>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
+  const multiColumn = useMediaQuery('(min-width: 40rem)');
 
   const handleCategoryChange = (catId: CategoryType, tab: HTMLButtonElement) => {
     if (catId === activeCategory) return;
@@ -93,7 +95,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
               <span>Carte & Spécialités</span>
               <button
                 onClick={handleRefresh}
-                className="text-[#8f8883] hover:text-[#e11d48] transition-colors p-1 rounded inline-flex items-center gap-1 text-[11px] font-normal"
+                className="relative -my-3.5 inline-flex min-h-11 items-center gap-1 rounded px-1 text-[#8f8883] hover:text-[#e11d48] transition-colors text-[11px] font-normal cursor-pointer"
                 title="Actualiser les stocks et arrivages"
                 aria-label="Actualiser la carte"
               >
@@ -124,7 +126,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                     key={cat.id}
                     onClick={(event) => handleCategoryChange(cat.id, event.currentTarget)}
                     aria-pressed={isActive}
-                    className={`relative px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
+                    className={`relative inline-flex min-h-11 items-center px-4 text-sm font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer pointer-fine:min-h-9 ${
                       isActive ? 'text-white' : 'text-[#a8a19b] hover:text-[#f5f3f0]'
                     }`}
                   >
@@ -153,7 +155,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
                   onClick={() => setView(id)}
                   aria-pressed={view === id}
                   title={`Affichage ${label.toLowerCase()}`}
-                  className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors cursor-pointer pointer-fine:h-8 pointer-fine:w-8 ${
                     view === id ? 'bg-[#2b2725] text-[#f5f3f0]' : 'text-[#8f8883] hover:text-[#f5f3f0]'
                   }`}
                 >
@@ -181,15 +183,15 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart }) => {
           />
         ) : (
           /* Food Gallery Grid with Skeletons and Scroll Reveal */
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {isLoading
               ? Array.from({ length: 6 }).map((_, index) => <MenuCardSkeleton key={`skeleton-${index}`} />)
               : filteredItems.map((item, idx) => {
-                  const isFromLeft = idx % 2 === 0;
+                  const fromX = multiColumn ? (idx % 2 === 0 ? -55 : 55) : 0;
                   return (
                     <motion.div
                       key={`${activeCategory}-${item.id}`}
-                      initial={{ opacity: 0, x: isFromLeft ? -55 : 55, y: 20 }}
+                      initial={{ opacity: 0, x: fromX, y: 20 }}
                       whileInView={{ opacity: 1, x: 0, y: 0 }}
                       viewport={{ once: true, margin: '-40px' }}
                       transition={{ duration: 0.65, delay: (idx % 6) * 0.09, ease: [0.16, 1, 0.3, 1] }}

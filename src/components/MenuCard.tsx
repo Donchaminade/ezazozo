@@ -76,7 +76,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, isAdded, onAdd, onOpen
     </div>
 
     {/* Content */}
-    <div className="p-6 flex-1 flex flex-col justify-between">
+    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
       <div>
         {/* Portion metadata & Star rating */}
         <div className="flex items-center justify-between text-xs text-[#8f8883] mb-2">
@@ -93,7 +93,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, isAdded, onAdd, onOpen
           {item.rating && (
             <button
               onClick={() => onOpenDetails(item)}
-              className="flex items-center gap-1 text-[#fda4af] font-mono font-bold text-[11px] hover:text-[#e11d48] transition-colors cursor-pointer"
+              className="-my-3.5 -mr-2 inline-flex min-h-11 items-center gap-1 px-2 text-[#fda4af] font-mono font-bold text-[11px] hover:text-[#e11d48] transition-colors cursor-pointer"
               title="Voir les avis clients"
             >
               <Star className="w-3 h-3 fill-[#e11d48] text-[#e11d48]" />
@@ -117,7 +117,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, isAdded, onAdd, onOpen
       <div className="mt-6 pt-4 border-t border-[#262220] flex items-center gap-2">
         <button
           onClick={() => onAdd(item)}
-          className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 min-h-11 py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
             isAdded ? 'bg-emerald-600 text-white' : 'bg-[#e11d48] hover:bg-[#be123c] text-white shadow-sm'
           }`}
           aria-label={`Ajouter ${item.name} au panier`}
@@ -137,7 +137,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, isAdded, onAdd, onOpen
 
         <button
           onClick={() => onOpenDetails(item)}
-          className="p-2.5 rounded-xl bg-[#211e1c] hover:bg-[#2b2725] text-[#c4bfb9] hover:text-white border border-[#36312f] transition-colors cursor-pointer"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#211e1c] hover:bg-[#2b2725] text-[#c4bfb9] hover:text-white border border-[#36312f] transition-colors cursor-pointer"
           title="Voir détails, photos d'angles et avis"
           aria-label={`Détails et photos de ${item.name}`}
         >
@@ -149,7 +149,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, isAdded, onAdd, onOpen
           target="_blank"
           rel="noopener noreferrer"
           draggable={false}
-          className="p-2.5 rounded-xl bg-[#211e1c] hover:bg-[#2b2725] text-[#25d366] border border-[#36312f] transition-colors"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#211e1c] hover:bg-[#2b2725] text-[#25d366] border border-[#36312f] transition-colors"
           title="Commander directement sur WhatsApp"
           aria-label={`Commander ${item.name} directement sur WhatsApp`}
         >
