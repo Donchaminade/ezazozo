@@ -58,30 +58,40 @@ void main() {
   vec2 p = frag - base;
   float nx = p.x / uBase.z;
   float ny = p.y / uBase.w;
-  if (abs(nx) > 1.3 || ny < -0.35 || ny > 1.7) {
+  if (abs(nx) > 1.25 || ny < -0.8 || ny > 2.2) {
     gl_FragColor = vec4(0.0);
     return;
   }
 
   float t = uTime;
-  float edge = 1.0 - smoothstep(0.55, 1.2, abs(nx));
-  float tongues = fbm(vec2(p.x * 3.2, t * 0.45));
-  float warp = fbm(vec2(p.x * 6.5, p.y * 4.5 - t * 2.1));
-  float detail = fbm(vec2(p.x * 15.0 + warp * 2.5, p.y * 10.0 - t * 3.9));
+  float bed = 1.0 - smoothstep(0.35, 1.15, abs(nx));
+  float rise = smoothstep(-0.8, 0.1, ny);
 
-  float top = (0.25 + 1.05 * tongues * tongues * 1.6) * edge;
-  float f = (top - ny) / max(top, 0.08);
-  f += (warp - 0.5) * 0.95 + (detail - 0.5) * 0.55;
-  f = clamp(f * uIntensity, 0.0, 1.25);
+  // Flame columns: their height wanders across the bed and over time.
+  float columns = fbm(vec2(p.x * 5.5 + 7.0, t * 0.4));
+  float h = (0.3 + 2.4 * columns * columns * columns * 2.2) * bed;
 
-  float a = smoothstep(0.12, 0.55, f);
-  vec3 col = mix(vec3(0.45, 0.03, 0.0), vec3(1.0, 0.33, 0.03), smoothstep(0.15, 0.6, f));
-  col = mix(col, vec3(1.0, 0.78, 0.38), smoothstep(0.72, 1.1, f));
+  // Upward-scrolling turbulence, domain-warped and stretched so it reads as licking tongues.
+  vec2 q = vec2(p.x * 11.0, p.y * 3.6 - t * 1.9);
+  float warp = fbm(q * 0.55 + vec2(3.1, -t * 0.5));
+  float n = fbm(q + vec2(warp * 2.2, 0.0));
+  float fine = noise(vec2(p.x * 34.0 + warp * 5.0, p.y * 11.0 - t * 5.0));
 
-  float glow = exp(-max(ny + 0.1, 0.0) * 2.6) * edge * 0.32 * min(uIntensity, 1.2);
-  col = col * a + vec3(1.0, 0.27, 0.04) * glow * (1.0 - a);
-  a = max(a, glow * 0.75);
-  gl_FragColor = vec4(col, a);
+  float d = 1.0 - max(ny, 0.0) / max(h, 0.06);
+  d += (n - 0.5) * 1.5 + (fine - 0.5) * 0.45;
+  d *= bed * rise * uIntensity;
+
+  // Emissive colour ramp (the canvas is screen-blended, so black means no light).
+  float a = smoothstep(0.12, 0.6, d);
+  vec3 col = vec3(0.62, 0.07, 0.0) * smoothstep(0.12, 0.45, d);
+  col = mix(col, vec3(1.0, 0.4, 0.05), smoothstep(0.35, 0.85, d));
+  col = mix(col, vec3(1.0, 0.8, 0.42), smoothstep(0.95, 1.45, d) * smoothstep(-0.15, 0.35, ny));
+
+  // Warm haze hugging the bed, so the coals glow even between the tongues.
+  vec3 haze = vec3(0.55, 0.14, 0.02) * exp(-abs(ny - 0.1) * 2.6) * bed * rise * 0.45 * min(uIntensity, 1.3);
+  col = col * a + haze * (1.0 - a);
+  // Premultiplied with alpha = brightest channel: equals screen(backdrop, col) once blended.
+  gl_FragColor = vec4(col, col.r);
 }
 `;
 

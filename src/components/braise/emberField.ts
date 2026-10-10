@@ -29,9 +29,11 @@ interface Particle {
   life: number;
   size: number;
   phase: number;
+  alpha: number;
 }
 
 const SPRITE_SIZE = 64;
+const RING_TILT = -0.18;
 
 const makeSprite = () => {
   const sprite = document.createElement('canvas');
@@ -39,9 +41,9 @@ const makeSprite = () => {
   const ctx = sprite.getContext('2d');
   if (ctx) {
     const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, 'rgba(255,244,214,1)');
-    g.addColorStop(0.18, 'rgba(255,190,90,0.95)');
-    g.addColorStop(0.42, 'rgba(255,96,20,0.45)');
+    g.addColorStop(0, 'rgba(255,248,226,1)');
+    g.addColorStop(0.26, 'rgba(255,200,110,0.95)');
+    g.addColorStop(0.5, 'rgba(255,108,28,0.42)');
     g.addColorStop(1, 'rgba(200,30,0,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
@@ -96,8 +98,9 @@ export class EmberField {
         vy: Math.sin(angle) * speed,
         age: 0,
         life: 0.8 + Math.random() * 1.4,
-        size: 1.2 + Math.random() * 2.6,
+        size: 0.7 + Math.random() * 1.6,
         phase: Math.random() * Math.PI * 2,
+        alpha: 1,
       });
     }
   }
@@ -108,62 +111,64 @@ export class EmberField {
     while (this.spawnDebt >= 1) {
       this.spawnDebt -= 1;
       if (this.particles.length >= this.maxParticles) continue;
+      // Mostly crisp sparks, with the odd large out-of-focus ember drifting by.
+      const bokeh = Math.random() < 0.07;
       this.particles.push({
         x: (state.x + (Math.random() - 0.5) * state.spread) * this.width,
         y: state.y * this.height + (Math.random() - 0.5) * 30,
-        vx: (Math.random() - 0.5) * 30,
-        vy: -(50 + Math.random() * 110),
+        vx: (Math.random() - 0.5) * 40,
+        vy: -(70 + Math.random() * 150),
         age: 0,
-        life: 1.6 + Math.random() * 2.4,
-        size: 0.8 + Math.random() * 2.2,
+        life: 1.4 + Math.random() * 2.2,
+        size: bokeh ? 3.2 + Math.random() * 2.8 : 0.6 + Math.random() * 1.2,
         phase: Math.random() * Math.PI * 2,
+        alpha: bokeh ? 0.3 : 1,
       });
     }
   }
 
+  private ellipsePoint(g: RingGeometry, angle: number) {
+    const cos = Math.cos(RING_TILT);
+    const sin = Math.sin(RING_TILT);
+    const ex = g.rx * Math.cos(angle);
+    const ey = g.ry * Math.sin(angle);
+    return { x: g.cx + ex * cos - ey * sin, y: g.cy + ex * sin + ey * cos };
+  }
+
+  /** A comet of fire sweeping around the fish, stamped with the ember sprite. */
   private drawRing(time: number) {
-    const { state, ringGeometry: g, ctx } = this;
+    const { state, ringGeometry: g, ctx, sprite } = this;
     if (!g || state.ring <= 0.001 || state.ringAlpha <= 0.01) return;
 
-    const segments = 48;
     const sweep = Math.PI * 2.15 * state.ring;
     const start = -Math.PI * 0.85;
-    const tail = Math.min(sweep, Math.PI * 1.35);
-    for (let i = 0; i < segments; i++) {
-      const t0 = i / segments;
-      const t1 = (i + 1) / segments;
-      const a0 = start + sweep - tail * (1 - t0);
-      const a1 = start + sweep - tail * (1 - t1);
-      const strength = t1 * t1 * state.ringAlpha;
-      ctx.beginPath();
-      ctx.ellipse(g.cx, g.cy, g.rx, g.ry, -0.18, a0, a1);
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = `rgba(255, ${Math.round(110 + 110 * t1)}, ${Math.round(30 + 60 * t1)}, ${0.18 * strength})`;
-      ctx.lineWidth = 18 * t1 + 4;
-      ctx.stroke();
-      ctx.strokeStyle = `rgba(255, ${Math.round(150 + 90 * t1)}, ${Math.round(60 + 120 * t1)}, ${0.85 * strength})`;
-      ctx.lineWidth = 4 * t1 + 1;
-      ctx.stroke();
+    const tail = Math.min(sweep, Math.PI * 1.4);
+    const steps = 96;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const point = this.ellipsePoint(g, start + sweep - tail * (1 - t));
+      const flicker = 0.75 + 0.25 * Math.sin(time * 21 + i * 1.7);
+      const radius = (6 + 38 * t * t) * flicker;
+      const wobble = Math.sin(time * 7 + i * 0.45) * 6 * t;
+      ctx.globalAlpha = state.ringAlpha * Math.pow(t, 1.6) * 0.55;
+      ctx.drawImage(sprite, point.x - radius, point.y - radius + wobble, radius * 2, radius * 2);
     }
+    ctx.globalAlpha = 1;
 
-    if (state.ring < 1 && Math.random() < 0.9) {
-      const head = start + sweep;
-      const cos = Math.cos(-0.18);
-      const sin = Math.sin(-0.18);
-      const ex = g.rx * Math.cos(head);
-      const ey = g.ry * Math.sin(head);
-      const hx = g.cx + ex * cos - ey * sin;
-      const hy = g.cy + ex * sin + ey * cos;
-      if (this.particles.length < this.maxParticles * 1.6) {
+    if (state.ring < 1) {
+      for (let k = 0; k < 3 && this.particles.length < this.maxParticles * 1.6; k++) {
+        const along = k === 0 ? 1 : 0.55 + Math.random() * 0.45;
+        const point = this.ellipsePoint(g, start + sweep - tail * (1 - along));
         this.particles.push({
-          x: hx,
-          y: hy,
-          vx: (Math.random() - 0.5) * 120,
-          vy: -(40 + Math.random() * 120),
+          x: point.x,
+          y: point.y,
+          vx: (Math.random() - 0.5) * 160,
+          vy: -(40 + Math.random() * 160),
           age: 0,
-          life: 0.6 + Math.random() * 0.9,
-          size: 1 + Math.random() * 2,
-          phase: time,
+          life: 0.5 + Math.random() * 1,
+          size: 0.6 + Math.random() * 1.4,
+          phase: time + k,
+          alpha: 1,
         });
       }
     }
@@ -202,7 +207,7 @@ export class EmberField {
       const fade = k < 0.12 ? k / 0.12 : 1 - (k - 0.12) / 0.88;
       const flicker = 0.75 + 0.25 * Math.sin(timeSeconds * 18 + p.phase * 7);
       const radius = p.size * (1 - k * 0.55) * 3.2;
-      ctx.globalAlpha = Math.max(0, fade * flicker);
+      ctx.globalAlpha = Math.max(0, fade * flicker * p.alpha);
       ctx.drawImage(this.sprite, p.x - radius, p.y - radius, radius * 2, radius * 2);
     }
     ctx.globalAlpha = 1;

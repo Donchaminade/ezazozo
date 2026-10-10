@@ -71,7 +71,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0e0e] text-[#f5f3f0] selection:bg-[#e11d48] selection:text-white flex flex-col font-sans">
+    <div className="min-h-screen overflow-x-clip bg-[#0f0e0e] text-[#f5f3f0] selection:bg-[#e11d48] selection:text-white flex flex-col font-sans">
       {/* Lenis inertial scrolling, synced with GSAP ScrollTrigger */}
       <SmoothScroll />
 

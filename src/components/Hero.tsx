@@ -138,17 +138,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation, onOrd
 
   return (
     <BraiseHero signature={SIGNATURE_DISH} onOrderSignature={onOrderSignature}>
-      <div className="relative flex min-h-[100svh] items-center pt-24 pb-16">
+      <div className="flex min-h-[100svh] items-center pt-24 pb-16">
         <HeroCopy onExploreMenu={onExploreMenu} onOpenLocation={onOpenLocation} />
-        <div
-          aria-hidden="true"
-          className="hidden md:flex absolute bottom-7 left-1/2 -translate-x-1/2 flex-col items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-[#8f8883]"
-        >
-          <span>Défilez, la braise s'éveille</span>
-          <span className="relative h-10 w-px overflow-hidden bg-white/10">
-            <span className="absolute inset-x-0 top-0 h-1/2 bg-[#e11d48] braise-scroll-cue" />
-          </span>
-        </div>
       </div>
     </BraiseHero>
   );
