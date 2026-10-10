@@ -226,7 +226,7 @@ export const AmbientSoundPlayer: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-32 inset-x-4 z-50 p-4 rounded-2xl bg-[#1a1817] border border-[#e11d48]/50 shadow-2xl backdrop-blur-md text-left sm:left-auto sm:max-w-xs md:bottom-24 md:right-6"
+            className="fixed bottom-32 inset-x-4 z-40 p-4 rounded-2xl bg-[#1a1817] border border-[#e11d48]/50 shadow-2xl backdrop-blur-md text-left sm:left-auto sm:max-w-xs md:bottom-24 md:right-6"
           >
             <div className="flex items-start gap-3">
               <div className="p-2 rounded-xl bg-[#e11d48]/20 text-[#e11d48] shrink-0 mt-0.5">
