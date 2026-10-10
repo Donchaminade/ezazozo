@@ -15,14 +15,16 @@ interface DishDetailModalProps {
   onAddToCart: (item: MenuItem, quantity?: number) => void;
 }
 
-export const DishDetailModal: React.FC<DishDetailModalProps> = ({
+// Hooks live in the content component so they never run conditionally.
+export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, ...props }) =>
+  item ? <DishDetailModalContent item={item} {...props} /> : null;
+
+const DishDetailModalContent: React.FC<DishDetailModalProps & { item: MenuItem }> = ({
   item,
   isOpen,
   onClose,
   onAddToCart
 }) => {
-  if (!item) return null;
-
   // Gallery state
   const images = item.galleryImages && item.galleryImages.length > 0 
     ? item.galleryImages 
