@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { X, Share2, Copy, Check, ExternalLink, MessageCircle, Facebook, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useOverlay } from '../hooks/useOverlay';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -9,6 +11,10 @@ interface ShareModalProps {
 
 export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  useOverlay(isOpen, onClose, panelRef);
+  // Phones get a bottom sheet, larger screens a centered card.
+  const sheet = !useMediaQuery('(min-width: 40rem)');
 
   // Fallback to shared URL or current origin
   const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://ais-pre-bbqj7qf3vitajk7urcxcet-535572357294.europe-west2.run.app';
@@ -56,32 +62,37 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div key="share-modal" data-lenis-prevent className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
           />
 
           {/* Modal Content */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            transition={{ duration: 0.25 }}
-            className="relative w-full max-w-lg bg-[#161413] border border-[#2e2a28] rounded-2xl shadow-2xl p-6 overflow-hidden z-10"
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="share-title"
+            tabIndex={-1}
+            initial={sheet ? { y: '100%' } : { opacity: 0, scale: 0.95, y: 15 }}
+            animate={sheet ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
+            exit={sheet ? { y: '100%' } : { opacity: 0, scale: 0.95, y: 15 }}
+            transition={sheet ? { duration: 0.4, ease: [0.16, 1, 0.3, 1] } : { duration: 0.25 }}
+            className="relative w-full max-w-lg max-h-[92svh] overflow-y-auto overscroll-contain bg-[#161413] border border-b-0 sm:border-b border-[#2e2a28] rounded-t-2xl sm:rounded-2xl shadow-2xl p-5 sm:p-6 z-10 outline-none"
           >
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#262220]">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#e11d48]/15 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48]">
+            <div className="flex items-center justify-between gap-3 pb-4 border-b border-[#262220]">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="w-9 h-9 shrink-0 rounded-xl bg-[#e11d48]/15 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48]">
                   <Share2 className="w-4 h-4" />
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-[#f5f3f0] font-display">
+                <div className="min-w-0">
+                  <h3 id="share-title" className="text-base font-bold text-[#f5f3f0] font-display">
                     Partager Eza Zozo
                   </h3>
                   <p className="text-xs text-[#8f8883]">
@@ -91,7 +102,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-[#8f8883] hover:text-[#f5f3f0] hover:bg-[#211e1c] transition-colors"
+                className="-mr-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#8f8883] hover:text-[#f5f3f0] hover:bg-[#211e1c] transition-colors cursor-pointer"
                 aria-label="Fermer"
               >
                 <X className="w-5 h-5" />
@@ -100,7 +111,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
 
             {/* Social Share Preview Card (How it looks on WhatsApp / Facebook / Messages) */}
             <div className="mt-5">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#fda4af] mb-2 flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#fda4af] mb-2 flex flex-wrap items-center justify-between gap-x-3">
                 <span>Aperçu de la carte partagée (Preview)</span>
                 <span className="text-[10px] text-[#8f8883] lowercase font-normal">WhatsApp · Facebook · iMessage</span>
               </div>
@@ -141,7 +152,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   href={whatsappShareUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-4 rounded-xl bg-[#25d366] hover:bg-[#20ba5a] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors"
+                  className="min-h-11 py-2.5 px-4 rounded-xl bg-[#25d366] hover:bg-[#20ba5a] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Partager sur WhatsApp</span>
@@ -150,7 +161,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                 {typeof navigator !== 'undefined' && 'share' in navigator ? (
                   <button
                     onClick={handleNativeShare}
-                    className="py-2.5 px-4 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors cursor-pointer"
+                    className="min-h-11 py-2.5 px-4 rounded-xl bg-[#e11d48] hover:bg-[#be123c] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
                     <span>Options de partage</span>
@@ -160,7 +171,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                     href={facebookShareUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 px-4 rounded-xl bg-[#1877f2] hover:bg-[#166fe5] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors"
+                    className="min-h-11 py-2.5 px-4 rounded-xl bg-[#1877f2] hover:bg-[#166fe5] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors"
                   >
                     <Facebook className="w-4 h-4" />
                     <span>Partager sur Facebook</span>
@@ -174,11 +185,12 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   type="text"
                   readOnly
                   value={shareUrl}
-                  className="flex-1 bg-transparent px-3 text-xs text-[#c4bfb9] font-mono outline-none truncate"
+                  aria-label="Lien du site"
+                  className="min-w-0 flex-1 bg-transparent px-2 sm:px-3 text-base text-[#c4bfb9] font-mono outline-none truncate pointer-fine:text-xs"
                 />
                 <button
                   onClick={handleCopy}
-                  className={`py-2 px-3.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`shrink-0 min-h-11 py-2 px-3.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer pointer-fine:min-h-0 ${
                     copied
                       ? 'bg-emerald-600 text-white'
                       : 'bg-[#292625] hover:bg-[#383330] text-[#f5f3f0]'

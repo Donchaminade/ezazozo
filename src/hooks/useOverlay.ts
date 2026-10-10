@@ -10,8 +10,9 @@ const onKeyDown = (event: KeyboardEvent) => {
 };
 
 /**
- * While `open`: the page behind stays put, Escape closes the overlay (topmost first when they stack) and
- * hands focus back to whatever opened it. `panelRef`, when given, receives focus on open.
+ * While `open`: the page behind stays put and Escape closes the overlay (topmost first when they stack).
+ * `panelRef`, when given, receives focus on open. On close, focus left inside the panel (or dropped to the
+ * body with the removed overlay) goes back to whatever opened it.
  */
 export const useOverlay = (open: boolean, onClose: () => void, panelRef?: RefObject<HTMLElement | null>) => {
   const onCloseRef = useRef(onClose);
@@ -23,12 +24,10 @@ export const useOverlay = (open: boolean, onClose: () => void, panelRef?: RefObj
     if (!open) return;
     const opener = document.activeElement instanceof HTMLElement && document.activeElement !== document.body ? document.activeElement : null;
     const release = lockScroll();
-    panelRef?.current?.focus({ preventScroll: true });
+    const panel = panelRef?.current;
+    panel?.focus({ preventScroll: true });
 
-    const onEscape = () => {
-      onCloseRef.current();
-      opener?.focus({ preventScroll: true });
-    };
+    const onEscape = () => onCloseRef.current();
     escapeHandlers.push(onEscape);
     if (escapeHandlers.length === 1) document.addEventListener('keydown', onKeyDown);
 
@@ -36,6 +35,10 @@ export const useOverlay = (open: boolean, onClose: () => void, panelRef?: RefObj
       release();
       escapeHandlers.splice(escapeHandlers.indexOf(onEscape), 1);
       if (escapeHandlers.length === 0) document.removeEventListener('keydown', onKeyDown);
+      const active = document.activeElement;
+      if (opener?.isConnected && (!active || active === document.body || panel?.contains(active))) {
+        opener.focus({ preventScroll: true });
+      }
     };
   }, [open]);
 };
