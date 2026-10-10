@@ -1,21 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Phone, ShoppingBag } from 'lucide-react';
 import { gsap, ScrollTrigger, useGSAP } from '../../lib/scroll';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
-import { formatPrice } from '../../data/restaurantData';
 import type { MenuItem } from '../../types';
 import { FireRenderer, type FireState } from './fireRenderer';
 import { EmberField, type EmberState } from './emberField';
-import { braiseImage, CHAPTERS, GARNISH, TIMELINE_LENGTH, type GarnishPiece } from './braiseConfig';
+import { braiseImage, GARNISH, TIMELINE_LENGTH, type GarnishPiece } from './braiseConfig';
+import { HeroOrderButton, HeroTitle } from './HeroCopy';
 
 interface BraiseHeroProps {
-  children: React.ReactNode;
   signature: MenuItem;
   onOrderSignature: () => void;
 }
 
 const DESKTOP_QUERY = '(min-width: 768px)';
 const FINE_POINTER_QUERY = '(hover: hover) and (pointer: fine)';
+const FINAL_PLATE_RATIO = 607 / 918;
+/** The fixed navbar (h-20) plus a little air. */
+const HEADER_CLEARANCE = 88;
+/** On phones the floating sound widget (bottom-24, 52px tall) sits right where the order button would land. */
+const PHONE_WIDGET_CLEARANCE = 164;
 
 /** Loads the images needed after the first screen once the page is idle (or on first scroll). */
 const useDeferredAssets = () => {
@@ -41,7 +44,7 @@ const useDeferredAssets = () => {
   return ready;
 };
 
-export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onOrderSignature }) => {
+export const BraiseHero: React.FC<BraiseHeroProps> = ({ signature, onOrderSignature }) => {
   const isDesktop = useMediaQuery(DESKTOP_QUERY);
   const finePointer = useMediaQuery(FINE_POINTER_QUERY);
   const deferredReady = useDeferredAssets();
@@ -53,8 +56,7 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
   const emberCanvasRef = useRef<HTMLCanvasElement>(null);
   const fishRef = useRef<HTMLDivElement>(null);
   const fishTiltRef = useRef<HTMLDivElement>(null);
-  const railRef = useRef<HTMLOListElement>(null);
-  const chapterLabelRef = useRef<HTMLSpanElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const emberFieldRef = useRef<EmberField | null>(null);
   const [fireFallback, setFireFallback] = useState(false);
 
@@ -71,9 +73,6 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
 
   const fishStates = isDesktop ? ['raw', 'seared', 'grilled', 'charred'] : ['raw', 'grilled', 'charred'];
   const garnish = GARNISH.filter((piece) => isDesktop || piece.mobile);
-  const signatureWhatsApp = `https://wa.me/22890123456?text=${encodeURIComponent(
-    `Bonjour Eza Zozo, je veux commander le feu : *${signature.name}* (${formatPrice(signature.price)}). C'est disponible ?`
-  )}`;
 
   // Canvas layers: one GSAP ticker callback renders flames and embers while the hero is on screen.
   useEffect(() => {
@@ -202,39 +201,50 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
 
       const L = isDesktop
         ? {
-            fish0: { x: 18, y: 8, s: 0.72, r: -6 },
-            fish1: { x: 0, y: 0, s: 1, r: -3 },
+            fish0: { y: 13, s: 0.82, r: -6 },
+            fish1: { y: 0, s: 1, r: -3 },
             sear: { y: 8, s: 1.04 },
             lift: { y: -13, s: 1.06 },
             land: { y: 5 },
             cream: { y: -11, s: 0.84 },
             plateY: 8,
             onPlate: 0.78,
-            dishFinal: { x: -17, y: 4, s: 0.94 },
-            fireA: { x0: 0.62, hw0: 0.34, x1: 0.5, hw1: 0.47, y: 0.2 },
-            fireC: { x: 0.33, hw: 0.25, h: 0.6, y: 0.18 },
+            dishFinal: { y: -5, s: 0.9 },
+            fireA: { hw0: 0.38, hw1: 0.47, y: 0.2 },
+            fireC: { hw: 0.27, h: 0.5, y: 0.16 },
             emberSpread: 0.8,
           }
         : {
-            fish0: { x: 0, y: 64, s: 0.92, r: -4 },
-            fish1: { x: 0, y: 7, s: 1, r: -3 },
+            fish0: { y: 15, s: 0.86, r: -4 },
+            fish1: { y: 7, s: 1, r: -3 },
             sear: { y: 11, s: 1.02 },
             lift: { y: -1, s: 1.04 },
             land: { y: 10 },
             cream: { y: -11, s: 0.86 },
             plateY: 4,
             onPlate: 0.78,
-            dishFinal: { x: 0, y: -16, s: 0.78 },
-            fireA: { x0: 0.5, hw0: 0.5, x1: 0.5, hw1: 0.52, y: 0.14 },
-            fireC: { x: 0.5, hw: 0.46, h: 0.42, y: 0.12 },
+            dishFinal: { y: -5, s: 0.9 },
+            fireA: { hw0: 0.5, hw1: 0.52, y: 0.14 },
+            fireC: { hw: 0.46, h: 0.42, y: 0.12 },
             emberSpread: 1,
           };
+
+      // Final frame: the plate with the order button just under it. Short screens pull both up (and shrink
+      // the plate if needed) so the button never lands under the floating widgets.
+      const finalFrame = () => {
+        const height = stage.clientHeight;
+        const plate = dish() * FINAL_PLATE_RATIO;
+        const gap = vh(2.5);
+        const floor = height - (ctaRef.current?.offsetHeight ?? 0) - (isDesktop ? vh(9) : PHONE_WIDGET_CLEARANCE);
+        const scale = Math.min(L.dishFinal.s, (floor - gap - HEADER_CLEARANCE) / plate);
+        const center = Math.min(height / 2 + vh(L.plateY + L.dishFinal.y), floor - gap - (plate * scale) / 2);
+        return { y: center - height / 2 - vh(L.plateY), scale, cta: center + (plate * scale) / 2 + gap };
+      };
 
       const state = (name: string) => `[data-b="fish-state"][data-state="${name}"]`;
       const [, second, third, fourth] = isDesktop
         ? ['raw', 'seared', 'grilled', 'charred']
         : ['raw', 'grilled', 'charred', 'charred'];
-      const setProgress = gsap.quickSetter(section.querySelector('[data-b="progress"]'), 'scaleX');
 
       gsap.set('[data-b="fish-pos"]', { xPercent: -50, yPercent: -50 });
       gsap.set('[data-b="fish-flip"]', { transformPerspective: 1300 });
@@ -245,32 +255,22 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
       gsap.set('[data-b="title-a"]', { transformOrigin: '50% 0%' });
       gsap.set(['[data-b="dish"]', '[data-b="dish-assembly"]'], { transformOrigin: `50% ${50 + L.plateY}%` });
 
-      Object.assign(fireState, { intensity: 0.5, x: L.fireA.x0, y: L.fireA.y, halfWidth: L.fireA.hw0, height: 0.28 });
-      Object.assign(emberState, { rate: isDesktop ? 26 : 12, x: L.fireA.x0, y: 0.87, spread: L.emberSpread, ring: 0, ringAlpha: 0 });
+      Object.assign(fireState, { intensity: 0.6, x: 0.5, y: L.fireA.y, halfWidth: L.fireA.hw0, height: 0.3 });
+      Object.assign(emberState, { rate: isDesktop ? 30 : 14, x: 0.5, y: 0.87, spread: L.emberSpread, ring: 0, ringAlpha: 0 });
 
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
       tl.set({}, {}, TIMELINE_LENGTH);
 
-      // 1 — La braise: the copy leaves, the fish glides over the coals, the headline rises.
-      tl.to('[data-b="copy"]', { y: () => -vh(14), autoAlpha: 0, duration: 32, ease: 'power1.in' }, 0)
-        .to('[data-b="scrim"]', { autoAlpha: 0, duration: 45 }, 0)
-        .to('[data-b="scroll-cue"]', { autoAlpha: 0, duration: 16 }, 0)
-        .fromTo(['[data-b="side-label"]', '[data-b="mobile-progress"]'], { autoAlpha: 0 }, { autoAlpha: 1, duration: 20 }, 26)
+      // 1 — La braise: the fish rises over the coals into the headline while the fire builds.
+      tl.to('[data-b="scroll-cue"]', { autoAlpha: 0, duration: 16 }, 0)
         .fromTo(
           '[data-b="fish-pos"]',
-          { x: () => vw(L.fish0.x), y: () => vh(L.fish0.y), scale: L.fish0.s, rotation: L.fish0.r },
-          { x: () => vw(L.fish1.x), y: () => vh(L.fish1.y), scale: L.fish1.s, rotation: L.fish1.r, duration: 55, ease: 'power1.inOut' },
+          { y: () => vh(L.fish0.y), scale: L.fish0.s, rotation: L.fish0.r },
+          { y: () => vh(L.fish1.y), scale: L.fish1.s, rotation: L.fish1.r, duration: 55, ease: 'power1.inOut' },
           0
         )
-        .fromTo(
-          '[data-b="title-a"]',
-          { y: () => vh(34), autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 42, ease: 'power2.out' },
-          20
-        )
-        .fromTo('[data-b="kicker-a"]', { y: () => vh(10), autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 28 }, 32)
-        .to(fireState, { intensity: 0.85, x: L.fireA.x1, halfWidth: L.fireA.hw1, height: 0.34, duration: 55 }, 0)
-        .to(emberState, { rate: isDesktop ? 75 : 26, x: L.fireA.x1, duration: 55 }, 0);
+        .to(fireState, { intensity: 0.85, halfWidth: L.fireA.hw1, height: 0.34, duration: 55 }, 0)
+        .to(emberState, { rate: isDesktop ? 75 : 26, duration: 55 }, 0);
 
       // Saisie: closer to the coals, the flames burst, a ring of fire wraps the fish.
       tl.to('[data-b="fish-pos"]', { y: () => vh(L.sear.y), scale: L.sear.s, rotation: 0, duration: 45, ease: 'power1.inOut' }, 55)
@@ -305,19 +305,15 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
           158
         );
 
-      // Charred finish, then the first headline burns off upward.
+      // Charred finish, then the headline burns off upward (opacity only, so it stays in the accessibility tree).
       tl.to(state(fourth), { autoAlpha: 1, duration: 35 }, 165)
-        .to('[data-b="title-a"]', { y: () => -vh(42), autoAlpha: 0, duration: 33, ease: 'power1.in' }, 172)
-        .to('[data-b="kicker-a"]', { autoAlpha: 0, duration: 20 }, 172)
+        .to('[data-b="title-a"]', { y: () => -vh(42), opacity: 0, duration: 33, ease: 'power1.in' }, 172)
         .to(emberState, { rate: 0, duration: 25 }, 190)
         .to(fireState, { intensity: 0, duration: 35 }, 205);
 
       // 3 — Le dressage: the cream panel rises, the plate arrives, sauce, landing, garnish rain.
       tl.fromTo('[data-b="panel-b"]', { yPercent: 100, autoAlpha: 1 }, { yPercent: 0, duration: 50, ease: 'power1.inOut' }, 195)
         .to('[data-b="embers"]', { autoAlpha: 0, duration: 14 }, 200)
-        .to('[data-b="ui"]', { '--ui-ink': '#1a1210', duration: 14 }, 226)
-        .fromTo('[data-b="title-b"]', { y: () => vh(26) }, { y: 0, duration: 55, ease: 'power1.out' }, 195)
-        .to('[data-b="title-b"]', { y: () => -vh(isDesktop ? 3.5 : 7), duration: 45 }, 250)
         .to('[data-b="fish-pos"]', { y: () => vh(L.cream.y), scale: L.cream.s, rotation: 0, duration: 45, ease: 'power1.inOut' }, 195)
         .fromTo(
           '[data-b="plate"]',
@@ -360,46 +356,27 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
         );
       });
 
-      // 4 — À votre table: the cream panel leaves upward over the reset dark stage.
-      tl.set('[data-b="title-c"]', { autoAlpha: 1 }, 282)
-        .set(fireState, { x: L.fireC.x, y: L.fireC.y, halfWidth: L.fireC.hw, height: L.fireC.h }, 282)
-        .set(emberState, { x: L.fireC.x, spread: L.emberSpread * 0.55 }, 282)
+      // 4 — À votre table: the cream panel leaves, the plate settles over the fire, then the order button.
+      tl.set(fireState, { y: L.fireC.y, halfWidth: L.fireC.hw, height: L.fireC.h }, 282)
+        .set(emberState, { spread: L.emberSpread * 0.55 }, 282)
         .to('[data-b="panel-b"]', { yPercent: -100, duration: 45, ease: 'power1.inOut' }, 292)
         .to('[data-b="embers"]', { autoAlpha: 1, duration: 12 }, 300)
-        .to('[data-b="ui"]', { '--ui-ink': '#f5f3f0', duration: 14 }, 306)
-        .fromTo('[data-b="title-c-inner"]', { y: () => vh(40) }, { y: 0, duration: 50, ease: 'power2.out' }, 292)
         .to(
           '[data-b="dish"]',
-          { x: () => vw(L.dishFinal.x), y: () => vh(L.dishFinal.y), scale: L.dishFinal.s, duration: 42, ease: 'power1.inOut' },
+          { y: () => finalFrame().y, scale: () => finalFrame().scale, duration: 42, ease: 'power1.inOut' },
           298
         )
         .to(fireState, { intensity: 1.05, duration: 45 }, 300)
         .to(emberState, { rate: isDesktop ? 55 : 22, duration: 40 }, 300)
         .fromTo('[data-b="final-plate"]', { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 18 }, 330)
         .to('[data-b="dish-assembly"]', { autoAlpha: 0, scaleY: 0.9, duration: 14 }, 336)
-        .to('[data-b="rail"]', { autoAlpha: 0, duration: 12 }, 330)
-        .fromTo('[data-b="outro-fade"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 14 }, 344)
         .fromTo(
-          '[data-b="ticket"]',
-          { autoAlpha: 0, x: () => (isDesktop ? vw(6) : 0), y: () => (isDesktop ? 0 : vh(8)), rotation: isDesktop ? 6 : 0 },
-          { autoAlpha: 1, x: 0, y: 0, rotation: isDesktop ? 2 : 0, duration: 20, ease: 'power2.out' },
-          334
-        );
-
-      let chapter = -1;
-      const updateChapter = () => {
-        const time = tl.time();
-        let next = 0;
-        CHAPTERS.forEach((c, i) => {
-          if (time >= c.start) next = i;
-        });
-        if (next === chapter) return;
-        chapter = next;
-        railRef.current?.querySelectorAll('li').forEach((li, i) => li.toggleAttribute('data-active', i === next));
-        if (chapterLabelRef.current) {
-          chapterLabelRef.current.textContent = `0${next + 1} · ${CHAPTERS[next].label}`;
-        }
-      };
+          '[data-b="cta"]',
+          { y: () => finalFrame().cta + vh(3), autoAlpha: 0 },
+          { y: () => finalFrame().cta, autoAlpha: 1, duration: 18, ease: 'power2.out' },
+          332
+        )
+        .fromTo('[data-b="outro-fade"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 14 }, 344);
 
       ScrollTrigger.create({
         trigger: section,
@@ -410,12 +387,8 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           emberState.wind = Math.max(emberState.wind, Math.min(2.2, Math.abs(self.getVelocity()) / 2600));
-          setProgress(self.progress);
-          updateChapter();
         },
-        onRefresh: updateChapter,
       });
-      updateChapter();
 
       gsap.to('[data-b="fish-bob"]', {
         y: isDesktop ? 9 : 6,
@@ -433,28 +406,19 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
     <section
       ref={sectionRef}
       id="accueil"
-      className="relative h-[380svh] md:h-[460svh] [--dish:90vw] md:[--dish:min(46vw,640px)] [--plate-y:4svh] md:[--plate-y:8svh]"
+      className="relative h-[380svh] md:h-[460svh] [--dish:90vw] md:[--dish:min(640px,max(46vw,min(72vw,48svh)))] [--plate-y:4svh] md:[--plate-y:8svh]"
     >
       <div ref={stageRef} className="sticky top-0 h-[100svh] overflow-hidden bg-[#0b0807] isolate">
-        {/* Base: dark stage, giant headline, coal bed, flames and embers */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_100%,rgba(225,29,72,0.20),transparent_60%),radial-gradient(60%_50%_at_50%_85%,rgba(255,110,30,0.22),transparent_70%)]"
+        />
+
+        <HeroTitle className="absolute inset-x-0 top-[21%] md:top-[max(10%,6.5rem)] px-4" />
+
+        {/* Coal bed and flames, drawn over the headline */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_100%,rgba(225,29,72,0.20),transparent_60%),radial-gradient(60%_50%_at_50%_85%,rgba(255,110,30,0.22),transparent_70%)]" />
-
-          <div data-b="title-a" className="invisible absolute inset-x-0 top-[15%] md:top-[max(10%,6.5rem)] text-center">
-            <div data-b="kicker-a" className="mb-3 md:mb-4 text-[10px] md:text-xs font-semibold uppercase tracking-[0.35em] text-[#fda4af]">
-              Braise d'acacia · Lomé
-            </div>
-            <div
-              data-b="title-a-inner"
-              className="font-display font-extrabold uppercase leading-[0.86] tracking-[-0.045em] text-[#f3eadb] text-[12.5vw] md:text-[min(10vw,16svh)] braise-title-glow"
-            >
-              <span className="block">Né dans</span>
-              <span className="block">le feu</span>
-            </div>
-            <p className="mt-4 text-sm font-medium text-[#c4bfb9] md:hidden">Vraie braise. Saveur sauvage.</p>
-          </div>
-
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-[-4%] md:bottom-[-14%] w-[230vw] md:w-[112vw]">
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-[-4%] md:bottom-[-14%] w-[230vw] md:w-[max(112vw,150svh)]">
             <img
               data-b="coals"
               src={braiseImage('coals', small)}
@@ -471,27 +435,6 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
             className={`absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(70%_60%_at_50%_100%,rgba(255,120,30,0.45),transparent_70%)] animate-glow ${fireFallback ? '' : 'hidden'}`}
           />
           <canvas ref={fireCanvasRef} data-b="fire" className="absolute inset-0 h-full w-full mix-blend-screen" />
-
-          <div data-b="title-c" className="invisible absolute inset-x-0 top-[13%] md:top-[15%] px-5 md:px-[6vw]">
-            <div data-b="title-c-inner" className="text-center md:text-left">
-              <div className="mb-3 text-[10px] md:text-xs font-semibold uppercase tracking-[0.35em] text-[#fda4af]">
-                Servi brûlant · Rien que pour vous
-              </div>
-              <div className="font-display font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-[#f3eadb] text-[7vw] md:text-[min(4.6vw,9svh)]">
-                Tout le feu.
-                <br />
-                <span className="text-[#e11d48]">À votre table.</span>
-              </div>
-              <p className="hidden md:block mt-4 max-w-sm text-sm text-[#c4bfb9] leading-relaxed">
-                Pêché le matin au port de Lomé, braisé le soir au feu d'acacia. Livré encore fumant.
-              </p>
-            </div>
-          </div>
-
-          <div
-            data-b="scrim"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,8,7,0.92)_0%,rgba(11,8,7,0.78)_55%,rgba(11,8,7,0)_88%)] md:bg-[linear-gradient(90deg,rgba(11,8,7,0.94)_0%,rgba(11,8,7,0.72)_42%,rgba(11,8,7,0)_68%)]"
-          />
         </div>
 
         {/* Cream "dressage" panel slides over the dark stage */}
@@ -501,16 +444,6 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
           className="invisible absolute inset-0 bg-[#f3eadb] pointer-events-none"
         >
           <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_45%,rgba(255,255,255,0.65),transparent_70%)]" />
-          <div data-b="title-b" className="absolute inset-x-0 top-[17%] md:top-[max(12%,7.5rem)] text-center">
-            <div className="mb-3 text-[10px] md:text-xs font-semibold uppercase tracking-[0.35em] text-[#be123c]">
-              Libérez les saveurs
-            </div>
-            <div className="font-display font-extrabold uppercase leading-[0.84] tracking-[-0.05em] text-[#1a1210] text-[11vw] md:text-[min(9.6vw,15svh)]">
-              Laissez
-              <br />
-              pleuvoir
-            </div>
-          </div>
         </div>
 
         {/* The dish: plate, sauce, garnish and the fish travel together */}
@@ -596,86 +529,19 @@ export const BraiseHero: React.FC<BraiseHeroProps> = ({ children, signature, onO
           className="invisible pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-[linear-gradient(to_bottom,transparent,#0b0807)]"
         />
 
-        {/* Chapter rail, side label and progress */}
-        <div aria-hidden="true" data-b="ui" className="braise-ui pointer-events-none absolute inset-0">
-          <div
-            data-b="side-label"
-            className="braise-ui-muted invisible hidden md:block absolute left-6 top-1/2 -translate-y-1/2 -rotate-180 [writing-mode:vertical-rl] text-[10px] font-semibold uppercase tracking-[0.4em]"
-          >
-            Lomé · Bè-Plage · Feu de bois d'acacia
-          </div>
-          <div data-b="rail" className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 flex-col items-end gap-8">
-            <ol ref={railRef} className="flex flex-col gap-4 text-right braise-rail">
-              {CHAPTERS.map((chapter, i) => (
-                <li key={chapter.label} className="flex items-center justify-end gap-3">
-                  <span className="braise-rail-label text-[10px] font-semibold uppercase tracking-[0.25em]">
-                    0{i + 1} · {chapter.label}
-                  </span>
-                  <span className="braise-rail-dot h-1.5 w-1.5 rounded-full" />
-                </li>
-              ))}
-            </ol>
-            <div data-b="scroll-cue" className="flex items-center gap-3 pr-[2.5px]">
-              <span className="braise-ui-muted text-[10px] font-semibold uppercase tracking-[0.25em]">Défilez</span>
-              <span className="relative h-10 w-px overflow-hidden bg-[color-mix(in_srgb,var(--ui-ink)_14%,transparent)]">
-                <span className="braise-scroll-cue absolute inset-x-0 top-0 h-1/2 bg-[#e11d48]" />
-              </span>
-            </div>
-          </div>
-          <div data-b="mobile-progress" className="invisible md:hidden absolute left-4 right-28 bottom-6 flex items-center gap-3">
-            <span ref={chapterLabelRef} className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--ui-ink)]">
-              01 · La braise
-            </span>
-            <span className="relative h-px flex-1 bg-[color-mix(in_srgb,var(--ui-ink)_18%,transparent)] overflow-hidden">
-              <span data-b="progress" className="absolute inset-0 origin-left scale-x-0 bg-[#e11d48]" />
-            </span>
-          </div>
+        <div
+          aria-hidden="true"
+          data-b="scroll-cue"
+          className="pointer-events-none absolute bottom-7 left-1/2 h-12 w-px -translate-x-1/2 overflow-hidden bg-[#f3eadb]/20"
+        >
+          <span className="braise-scroll-cue absolute inset-x-0 top-0 h-1/2 bg-[linear-gradient(to_bottom,transparent,#f3eadb)]" />
         </div>
 
-        {/* Final call to action ticket */}
-        <div className="pointer-events-none absolute z-20 left-1/2 -translate-x-1/2 bottom-[21%] w-[min(88vw,22rem)] md:left-auto md:translate-x-0 md:right-[7vw] md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:w-[19rem]">
-          <div data-b="ticket" className="invisible pointer-events-auto braise-ticket bg-[#f3eadb] text-[#1a1210] px-5 py-5 md:px-6 md:py-7">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#be123c]">Signature Eza Zozo</div>
-            <p className="mt-2 font-display text-lg md:text-[1.5rem] font-extrabold uppercase leading-[0.95] tracking-[-0.02em]">
-              Votre prochaine obsession
-            </p>
-            <p className="mt-3 hidden md:block text-xs leading-relaxed text-[#5c4f47]">
-              {signature.name} : marinade 12 h, braise d'acacia, alloco doré, oignons et piment frais.
-            </p>
-            <div className="mt-3 md:mt-4 border-t border-dashed border-[#1a1210]/25 pt-3">
-              <div className="text-[10px] uppercase tracking-widest text-[#7a6b62]">
-                Dorade royale · {signature.portion}
-              </div>
-              <div className="mt-0.5 whitespace-nowrap font-display text-xl md:text-2xl font-extrabold tabular-nums">
-                {formatPrice(signature.price)}
-              </div>
-            </div>
-            <div className="mt-3 md:mt-4 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={onOrderSignature}
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#e11d48] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#e11d48]/30 transition-colors hover:bg-[#be123c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1210] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f3eadb] cursor-pointer"
-              >
-                <ShoppingBag className="h-4 w-4" aria-hidden="true" />
-                <span>Commandez le feu</span>
-              </button>
-              <a
-                href={signatureWhatsApp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#1a1210]/20 text-[#128c4a] transition-colors hover:bg-[#1a1210]/5"
-                aria-label={`Commander ${signature.name} sur WhatsApp`}
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-center">
+          <div ref={ctaRef} data-b="cta" className="invisible pointer-events-auto">
+            <HeroOrderButton dishName={signature.name} onClick={onOrderSignature} />
           </div>
         </div>
-      </div>
-
-      {/* First screen: the original hero copy, scrolling over the stage */}
-      <div data-b="copy" className="absolute inset-x-0 top-0 z-10">
-        {children}
       </div>
     </section>
   );

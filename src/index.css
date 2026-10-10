@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant short-phone (@media (width < 48rem) and (height < 40rem));
+
 @layer base {
   :root {
     --font-display: 'Syne', sans-serif;
@@ -108,39 +110,17 @@ html.lenis {
   text-shadow: 0 0 60px rgba(255, 96, 20, 0.28), 0 10px 40px rgba(0, 0, 0, 0.55);
 }
 
-.braise-ticket {
-  -webkit-mask:
-    radial-gradient(circle at 50% 0, #0000 5px, #000 5.5px) top / 14px 51% repeat-x,
-    radial-gradient(circle at 50% 100%, #0000 5px, #000 5.5px) bottom / 14px 51% repeat-x;
-  mask:
-    radial-gradient(circle at 50% 0, #0000 5px, #000 5.5px) top / 14px 51% repeat-x,
-    radial-gradient(circle at 50% 100%, #0000 5px, #000 5.5px) bottom / 14px 51% repeat-x;
+/* Load-in of the hero headline. CSS rather than GSAP: compositor-driven, so start-up jank (shader
+   compile, image decode) cannot make it skip ahead under the ticker's disabled lag smoothing. */
+@keyframes braiseRise {
+  from {
+    opacity: 0;
+    transform: translateY(32%);
+  }
 }
 
-.braise-ui {
-  --ui-ink: #f5f3f0;
-}
-
-.braise-ui-muted {
-  color: color-mix(in srgb, var(--ui-ink) 45%, transparent);
-}
-
-.braise-rail-label {
-  color: color-mix(in srgb, var(--ui-ink) 34%, transparent);
-}
-
-.braise-rail-dot {
-  background: color-mix(in srgb, var(--ui-ink) 28%, transparent);
-  transition: background-color 0.4s ease, transform 0.4s ease;
-}
-
-.braise-rail li[data-active] .braise-rail-label {
-  color: var(--ui-ink);
-}
-
-.braise-rail li[data-active] .braise-rail-dot {
-  background: #e11d48;
-  transform: scale(1.8);
+@utility braise-rise {
+  animation: braiseRise 1.2s cubic-bezier(0.22, 1, 0.36, 1) var(--rise-delay, 0s) both;
 }
 
 @keyframes braiseScrollCue {

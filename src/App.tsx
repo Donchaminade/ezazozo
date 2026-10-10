@@ -16,7 +16,6 @@ import { ShareModal } from './components/ShareModal';
 import { SmoothScroll } from './components/SmoothScroll';
 import { CartItem, MenuItem } from './types';
 import { MENU_ITEMS } from './data/restaurantData';
-import { scrollToTarget } from './lib/scroll';
 import { ShoppingBag, Phone } from 'lucide-react';
 
 export default function App() {
@@ -61,10 +60,6 @@ export default function App() {
 
   const totalCartCount = cartItems.reduce((acc, it) => acc + it.quantity, 0);
 
-  const scrollToSection = (sectionId: string) => {
-    scrollToTarget(sectionId);
-  };
-
   const handleOrderSignature = () => {
     const signature = MENU_ITEMS.find((item) => item.id === 'dorade-royale');
     if (signature) handleAddToCart(signature);
@@ -95,11 +90,7 @@ export default function App() {
       {/* Main Content */}
       <main id="main-content" className="flex-1">
         {/* Section 1: Hero */}
-        <Hero
-          onExploreMenu={() => scrollToSection('menu')}
-          onOpenLocation={() => scrollToSection('contact')}
-          onOrderSignature={handleOrderSignature}
-        />
+        <Hero onOrderSignature={handleOrderSignature} />
 
         {/* Parallax typography interlude */}
         <FireInterlude />

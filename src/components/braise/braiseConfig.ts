@@ -31,17 +31,4 @@ export const GARNISH: GarnishPiece[] = [
   { name: 'parsley-2', x: 0.36, y: 0.1, size: 0.13, rotate: 20, front: true, mobile: false },
 ];
 
-export interface Chapter {
-  label: string;
-  /** Timeline position (in scroll units) where the chapter starts. */
-  start: number;
-}
-
 export const TIMELINE_LENGTH = 360;
-
-export const CHAPTERS: Chapter[] = [
-  { label: 'La braise', start: 0 },
-  { label: 'Le retournement', start: 110 },
-  { label: 'Le dressage', start: 195 },
-  { label: 'À votre table', start: 292 },
-];
