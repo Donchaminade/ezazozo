@@ -64,6 +64,40 @@
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Lenis smooth scrolling (only active when motion is allowed) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior-x: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

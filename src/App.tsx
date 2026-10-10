@@ -12,7 +12,9 @@ import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { AmbientSoundPlayer } from './components/AmbientSoundPlayer';
 import { ShareModal } from './components/ShareModal';
+import { SmoothScroll } from './components/SmoothScroll';
 import { CartItem, MenuItem } from './types';
+import { scrollToTarget } from './lib/scroll';
 import { ShoppingBag, Phone } from 'lucide-react';
 
 export default function App() {
@@ -58,17 +60,18 @@ export default function App() {
   const totalCartCount = cartItems.reduce((acc, it) => acc + it.quantity, 0);
 
   const scrollToSection = (sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToTarget(sectionId);
   };
 
   return (
     <div className="min-h-screen bg-[#0f0e0e] text-[#f5f3f0] selection:bg-[#e11d48] selection:text-white flex flex-col font-sans">
+      {/* Lenis inertial scrolling, synced with GSAP ScrollTrigger */}
+      <SmoothScroll />
+
       {/* Accessibility Skip Link */}
       <a
         href="#main-content"
+        data-skip-link
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-[#e11d48] text-white px-4 py-2 rounded-lg font-bold"
       >
         Aller au contenu principal
