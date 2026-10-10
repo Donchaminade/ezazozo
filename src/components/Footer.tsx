@@ -1,14 +1,44 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Flame, Phone, MapPin, Clock, Heart, Share2 } from 'lucide-react';
 import { RESTAURANT_INFO } from '../data/restaurantData';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/scroll';
+import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 interface FooterProps {
   onOpenShare?: () => void;
 }
 
+const WORDMARK = Array.from('Eza Zozo');
+
 export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
+  const wordmarkRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+
+  // The wordmark rises out of the coals when the end of the page comes into view.
+  useGSAP(
+    () => {
+      if (reducedMotion) return;
+      const rise = gsap
+        .timeline({ paused: true })
+        .fromTo(
+          '[data-letter]',
+          { yPercent: 115, rotation: (i: number) => (i % 2 ? 7 : -7) },
+          { yPercent: 0, rotation: 0, duration: 1.2, ease: 'expo.out', stagger: 0.06 }
+        )
+        .fromTo('[data-wordmark-glow]', { autoAlpha: 0, scaleX: 0.5 }, { autoAlpha: 1, scaleX: 1, duration: 1.6, ease: 'power2.out' }, 0);
+
+      ScrollTrigger.create({
+        trigger: wordmarkRef.current,
+        start: 'top 96%',
+        onEnter: () => rise.play(),
+        onLeaveBack: () => rise.reverse(),
+      });
+    },
+    { scope: wordmarkRef, dependencies: [reducedMotion], revertOnUpdate: true }
+  );
+
   return (
-    <footer className="bg-[#0b0a0a] text-[#a8a19b] border-t border-[#211e1c] pt-16 pb-12">
+    <footer className="bg-[#0b0a0a] text-[#a8a19b] border-t border-[#211e1c] pt-16 pb-6 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#211e1c]">
           {/* Col 1: Brand Info */}
@@ -146,6 +176,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
             <Heart className="w-3.5 h-3.5 text-[#e11d48] fill-current" />
             <span>par Mr Adanlete & son équipe</span>
           </p>
+        </div>
+      </div>
+
+      <div ref={wordmarkRef} aria-hidden="true" className="relative mt-12 select-none pointer-events-none">
+        <div
+          data-wordmark-glow
+          className="absolute inset-x-[10%] bottom-0 h-2/3 rounded-[50%] bg-[radial-gradient(closest-side,rgba(225,29,72,0.32),rgba(255,110,30,0.10)_60%,transparent)] blur-2xl"
+        />
+        <div className="relative flex justify-center overflow-hidden px-4 font-display font-extrabold uppercase leading-[0.8] tracking-[-0.05em] text-[10.4vw]">
+          {WORDMARK.map((letter, i) => (
+            <span key={i} data-letter className="footer-wordmark-letter inline-block pb-[0.04em]">
+              {letter === ' ' ? '\u00a0' : letter}
+            </span>
+          ))}
         </div>
       </div>
     </footer>

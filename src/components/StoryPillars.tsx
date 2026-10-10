@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Waves, Flame, UtensilsCrossed, ShieldCheck, HeartHandshake } from 'lucide-react';
 import { motion } from 'motion/react';
+import { gsap, scrubAmount, useGSAP } from '../lib/scroll';
+import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 export const StoryPillars: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+
+  // The chef photo moves slower than the page inside its frame.
+  useGSAP(
+    () => {
+      if (reducedMotion) return;
+      gsap.fromTo(
+        '[data-parallax-img]',
+        { yPercent: -6 },
+        {
+          yPercent: 6,
+          ease: 'none',
+          scrollTrigger: { trigger: '[data-parallax-frame]', start: 'top bottom', end: 'bottom top', scrub: scrubAmount() },
+        }
+      );
+    },
+    { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true }
+  );
+
   return (
-    <section id="concept" className="py-20 bg-[#121111] relative overflow-hidden border-t border-[#242120]">
+    <section ref={sectionRef} id="concept" className="py-20 bg-[#121111] relative overflow-hidden border-t border-[#242120]">
       {/* Background glow */}
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#e11d48]/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -37,13 +59,15 @@ export const StoryPillars: React.FC = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-2xl overflow-hidden border border-[#2b2725] shadow-2xl bg-[#181615]">
-              <img
-                src="/images/chef.jpg"
-                alt="Mr Adanlete au barbecue grillant du poisson avec passion à Lomé"
-                className="w-full h-[400px] object-cover object-top hover:scale-105 transition-transform duration-500"
-                referrerPolicy="no-referrer"
-              />
+            <div data-parallax-frame className="relative h-[400px] rounded-2xl overflow-hidden border border-[#2b2725] shadow-2xl bg-[#181615]">
+              <div data-parallax-img className="absolute inset-x-0 top-[-8%] bottom-[-8%]">
+                <img
+                  src="/images/chef.jpg"
+                  alt="Mr Adanlete au barbecue grillant du poisson avec passion à Lomé"
+                  className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
               <div className="absolute inset-0 bg-[#0f0e0e]/40" />
               <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#121111]/90 backdrop-blur-md border border-[#2e2a28]">
                 <div className="text-sm font-semibold text-[#f5f3f0] font-display">

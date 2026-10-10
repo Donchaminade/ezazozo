@@ -13,6 +13,10 @@ export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 export const prefersReducedMotion = (): boolean =>
   typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches;
 
+/** Lenis already smooths wheel scrolling; native touch scrolling gets a little scrub lag instead. */
+export const scrubAmount = (): true | number =>
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches ? true : 0.5;
+
 let activeLenis: Lenis | null = null;
 
 export const setActiveLenis = (lenis: Lenis | null) => {

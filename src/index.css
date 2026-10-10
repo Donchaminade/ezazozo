@@ -216,6 +216,25 @@ html.lenis {
   pointer-events: none;
 }
 
+/* Scroll typography */
+.text-outline-ember {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #e11d48;
+}
+
+@media (min-width: 768px) {
+  .text-outline-ember {
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+.footer-wordmark-letter {
+  background: linear-gradient(180deg, #f3eadb 8%, #fdba74 44%, #e11d48 72%, #4c0519 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

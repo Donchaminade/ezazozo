@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { FireInterlude } from './components/FireInterlude';
 import { StoryPillars } from './components/StoryPillars';
 import { MenuSection } from './components/MenuSection';
 import { CustomPlatterBuilder } from './components/CustomPlatterBuilder';
@@ -99,6 +100,9 @@ export default function App() {
           onOpenLocation={() => scrollToSection('contact')}
           onOrderSignature={handleOrderSignature}
         />
+
+        {/* Parallax typography interlude */}
+        <FireInterlude />
 
         {/* Section 2: Le Concept & 3 Piliers */}
         <StoryPillars />
