@@ -136,11 +136,5 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenLocation, onOrd
     );
   }
 
-  return (
-    <BraiseHero signature={SIGNATURE_DISH} onOrderSignature={onOrderSignature}>
-      <div className="flex min-h-[100svh] items-center pt-24 pb-16">
-        <HeroCopy onExploreMenu={onExploreMenu} onOpenLocation={onOpenLocation} />
-      </div>
-    </BraiseHero>
-  );
+  return <BraiseHero signature={SIGNATURE_DISH} onOrderSignature={onOrderSignature} />;
 };
