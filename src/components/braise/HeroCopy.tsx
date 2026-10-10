@@ -35,7 +35,7 @@ export const HeroOrderButton: React.FC<HeroOrderButtonProps> = ({ dishName, onCl
   <button
     type="button"
     onClick={onClick}
-    className="group inline-flex items-center gap-2.5 rounded-full border border-[#f3eadb]/25 bg-[#0b0807]/60 py-3 pl-4 pr-5 text-xs font-semibold uppercase tracking-[0.22em] text-[#f3eadb] backdrop-blur-md transition-colors duration-300 hover:border-[#e11d48] hover:bg-[#e11d48] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fda4af] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0807] cursor-pointer"
+    className="group inline-flex min-h-11 items-center gap-2.5 rounded-full border border-[#f3eadb]/25 bg-[#0b0807]/60 py-3 pl-4 pr-5 text-xs font-semibold uppercase tracking-[0.22em] text-[#f3eadb] backdrop-blur-md transition-colors duration-300 hover:border-[#e11d48] hover:bg-[#e11d48] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fda4af] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0807] cursor-pointer"
   >
     <ShoppingBag className="h-4 w-4 text-[#fda4af] transition-colors duration-300 group-hover:text-white" aria-hidden="true" />
     <span>Commandez</span>

@@ -7,7 +7,7 @@ import { MenuCard } from './MenuCard';
 import { MenuCarousel } from './MenuCarousel';
 import { DishDetailModal } from './DishDetailModal';
 import { motion } from 'motion/react';
-import { prefersReducedMotion } from '../lib/scroll';
+import { prefersReducedMotion } from '../lib/motion';
 
 interface MenuSectionProps {
   onAddToCart: (item: MenuItem) => void;

@@ -5,7 +5,7 @@ import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 /**
  * Inertial wheel scrolling (Lenis) driven by the GSAP ticker so ScrollTrigger scrubs stay in sync.
- * Touch keeps native momentum scrolling; nothing is mounted when reduced motion is requested.
+ * Touch keeps native momentum scrolling; nothing is mounted when motion is reduced (OS setting or visitor choice).
  */
 export const SmoothScroll = () => {
   const reducedMotion = usePrefersReducedMotion();
@@ -31,7 +31,8 @@ export const SmoothScroll = () => {
   useEffect(() => {
     if (reducedMotion) return;
 
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: false });
+    // Lenis would otherwise re-read the OS setting and ignore a visitor who opted in to animations.
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: false, respectReducedMotion: false });
     setActiveLenis(lenis);
     lenis.on('scroll', ScrollTrigger.update);
 

@@ -3,6 +3,7 @@ import { Flame, Phone, MapPin, Clock, Heart, Share2 } from 'lucide-react';
 import { RESTAURANT_INFO } from '../data/restaurantData';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/scroll';
 import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
+import { MotionSwitch } from './MotionPreference';
 
 interface FooterProps {
   onOpenShare?: () => void;
@@ -169,9 +170,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenShare }) => {
         </div>
 
         {/* Quiet copyright strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8f8883] gap-4">
+        <div className="pt-8 flex flex-col lg:flex-row items-center justify-between text-center text-xs text-[#8f8883] gap-4">
           <p>© {new Date().getFullYear()} Eza Zozo Poissonnerie & Grillade. Tous droits réservés.</p>
-          <p className="flex items-center gap-1.5 text-[#a8a19b]">
+          <MotionSwitch />
+          <p className="flex flex-wrap items-center justify-center gap-1.5 text-[#a8a19b]">
             <span>Fait avec passion à Lomé, Togo</span>
             <Heart className="w-3.5 h-3.5 text-[#e11d48] fill-current" />
             <span>par Mr Adanlete & son équipe</span>

@@ -2,10 +2,16 @@
 
 @custom-variant short-phone (@media (width < 48rem) and (height < 40rem));
 
+/* Driven by <html data-motion> (OS setting or the visitor's explicit choice, see src/lib/motion.ts)
+   instead of the raw prefers-reduced-motion media query. */
+@custom-variant motion-safe (&:where([data-motion="full"], [data-motion="full"] *));
+@custom-variant motion-reduce (&:where([data-motion="reduce"], [data-motion="reduce"] *));
+
 @layer base {
   :root {
     --font-display: 'Syne', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
+    color-scheme: dark;
   }
 
   body {
@@ -94,9 +100,23 @@ html.lenis {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+/* Reduced motion: decorative CSS loops and transitions settle on their end state at once. */
+[data-motion="reduce"] *,
+[data-motion="reduce"] *::before,
+[data-motion="reduce"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Story viewer timer bar */
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 

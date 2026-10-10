@@ -2,16 +2,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import type Lenis from 'lenis';
+import { prefersReducedMotion } from './motion';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 export { gsap, ScrollTrigger, useGSAP };
-
-export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-
-export const prefersReducedMotion = (): boolean =>
-  typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches;
 
 /** Lenis already smooths wheel scrolling; native touch scrolling gets a little scrub lag instead. */
 export const scrubAmount = (): true | number =>
